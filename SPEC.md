@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.25 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.26 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.26 (2026-10-21): the hook-only question of 6.5 is answered by launch 4: an `evm_contracts` launch deploys at a fixed, launch-salted address and does not mine the hook's permission bits, so the hook's constructor would revert; the manifest step stopped with that question (evidence/launch-4-job-blocked.json). From now on type B and C requests ask for a deployer contract that creates the hook with CREATE2 at an address carrying its permission bits, and the site reads the hook's address from the deployer (6.5, decision 20). Job 8 carries the composer change; launches 1 and 3 were sent before this and may block the same way.
 
 Changes in 1.25 (2026-10-21): launch safety (6.7, owner's decision 19). A request the swarm has to stop on after payment spends the fee and IMD refunds nothing, so the store must guarantee the request before anyone pays: a consistency check that locks Launch on any sentence a builder would have to guess, a comparison of the free check's fixed facts against the request, the builder's question shown on the hook page with a Fix in Builder button, a known-questions list that turns every past question into a rule, and plain copy about the spent fee. Job 7 becomes "Launch safety" and carries every open finding; the ads move to jobs 8a and 8.
 
@@ -389,9 +391,9 @@ A featured #ad slot is 0.1 IMD for 24 hours, optional, phase 2; anyone can boost
 
 After a type C hook is live, the hook page shows OPEN THE POOL: the site builds `PoolManager.initialize(poolKey, sqrtPriceX96)` for currencies (ETH, token) sorted, the fee tier the Pool rules block chose (else 0.3%), the matching tick spacing, the hook address, and a starting price the user types as "1 token = x ETH". The wallet sends it. Then a link to add liquidity on a v4 interface for the chain. Until phase 2b the hook page shows the same panel with the values and a copy button but tells the user to send it from a v4 interface.
 
-### 6.5 Hook-only address bits (to confirm in phase 1)
+### 6.5 Hook-only address bits (answered by launch 4)
 
-A v4 hook's address must encode its permissions. The `univ4_hook` launch mines the address. For `evm_contracts` the docs do not say whether the factory mines a salt, and IMD's check accepted the request without a blocker. The first type B launch is the test: if the deployed address has the wrong bits, the site switches types B and C to a fallback where the swarm job delivers audited source and bytecode (`job.open`, no `onchain`) and the site deploys it through a minimal public CREATE2 deployer with a salt mined in the browser,.
+A v4 hook's address must encode its permissions. The `univ4_hook` launch mines the address. An `evm_contracts` launch does not: it deploys each listed contract at a fixed address salted with the launch number, where a hook's constructor reverts (launch 4, 2026-10-21, blocked at the manifest step with exactly that question). So every type B and type C request asks for two contracts in one: a deployer, listed in the launch, whose constructor creates the hook with CREATE2 at an address that carries the hook's permission bits, using a salt mined off-chain against the deployer's own address when that address can be computed in advance, or mined inside the constructor otherwise; the deployer exposes `hook()` as a view returning the hook's address, and the request says all of this in its first sentence. The site treats the launch's verified contract as the deployer and reads `hook()` to find the hook for the hook page, My hooks, the pool-opening call (6.4) and the tested marks (4.14). The browser-side CREATE2 fallback that this section used to describe is dropped.
 
 ### 6.6 Featured placements, version 2 (phase 2)
 
@@ -519,6 +521,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 17. Treasury (2026-10-21, before the first launch, revised the same day): wherever a block offers a treasury (Swap fee and Different buy and sell fees "send to", Buyback jar "then"), the treasury is IMD's fee recipient 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 on Ethereum and Robinhood Chain, the wallet IMD's docs list for the network's share of pool fees. The option reads "IMD's treasury" and shows the address; the composed sentence says "send it to 0x3f252e859a277a86A3967c11D4E054B2f07a1F22"; there is no address field. A creator who wants their own second wallet uses "my wallet" from that wallet, or the words mode. Until job 7 lands, creators choose "my wallet", because the delivered site still writes "treasury address" with no address.
 18. Fee currency (2026-10-21, after launch 2 blocked): in every block sentence the fee side and the settlement currency are the pair currency (ETH for ETH pairs and for types B and C, IMD for IMD pairs), IMD-paired requests say "do not convert the fee to ETH and do not use any other pool", and "my wallet" is written as the paying wallet's address. The composer, the fixtures and the mockup follow 5.1.
 19. Launch safety (2026-10-21, after launch 2 blocked): the owner asked that a user never pays twice for the same mistake. 6.7 defines the checks; job 7 builds them before the store is advertised; the owner's test launches absorb such failures first.
+20. Hook-only deployment (2026-10-21, after launch 4 blocked): type B and C launches deploy a deployer contract that CREATE2-deploys the hook at a permission-bit address; the site reads hook() from the deployer. The composer says so in every B and C request. No type B or C launch is paid until job 8 ships the wording, unless its words carry the deployer sentence by hand.
 
 ## 15. From mockup to live
 
