@@ -95,7 +95,7 @@ details > div { padding: 0 14px 14px; }
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--pine); color: var(--on-pine); border-bottom: 3px solid var(--ink); }
 .top-in { display: flex; align-items: center; gap: 14px; min-height: 64px; padding-block: 8px; flex-wrap: nowrap; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--on-pine); text-decoration: none; font: 400 12px/1 var(--display); flex: 0 0 auto; }
-.brand .hook { font-family: var(--mono); font-size: 30px; line-height: 1; }
+.brand .hook { display: block; width: 24px; height: 32px; flex: 0 0 auto; }
 .nav { display: flex; gap: 2px; flex: 0 0 auto; }
 .nav a { color: var(--on-pine); text-decoration: none; font: 400 9px/1 var(--display); padding: 12px 10px; border: 2px solid transparent; white-space: nowrap; }
 .nav a:hover { border-color: var(--on-pine); color: var(--on-pine); }
@@ -243,7 +243,7 @@ section.view { padding-block: 8px 24px; }
 
 <header class="top">
   <div class="wrap top-in">
-    <a class="brand" href="#store" aria-label="The Hooks Store, home"><span class="hook" aria-hidden="true">&#x0283;</span><span>THE HOOKS STORE</span></a>
+    <a class="brand" href="#store" aria-label="The Hooks Store, home"><svg class="hook" viewBox="0 0 12 16" width="24" height="32" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M7 0h4v1h-4zM6 1h6v1h-6zM6 2h2v1h-2zM10 2h2v1h-2zM6 3h2v1h-2zM10 3h2v1h-2zM6 4h6v1h-6zM7 5h4v1h-4zM7 6h2v1h-2zM7 7h2v1h-2zM7 8h2v1h-2zM3 9h1v1h-1zM7 9h2v1h-2zM2 10h2v1h-2zM7 10h2v1h-2zM2 11h3v1h-3zM7 11h2v1h-2zM2 12h2v1h-2zM7 12h2v1h-2zM2 13h2v1h-2zM7 13h2v1h-2zM3 14h2v1h-2zM6 14h3v1h-3zM4 15h4v1h-4z"/></svg><span>THE HOOKS STORE</span></a>
     <nav class="nav" aria-label="Main">
       <a href="#store" data-nav="store">STORE</a>
       <a href="#builder" data-nav="builder">BUILDER</a>

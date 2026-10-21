@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.11 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.12 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.12 (2026-10-21): the brand mark is a drawn pixel fishing hook (inline SVG in the mockup's top bar) instead of the ʃ character, because VT323 has no glyph for ʃ and the character fell back to a different system font on every machine (owner's decision 11 in section 14); job 3 carries the swap.
 
 Changes in 1.11 (2026-10-21): the catalog lists only hooks launched through this site (owner's decision 9 in section 14); IMD's other launches are no longer snapshotted or shown, the featured strip and the pond ticker follow the same rule, and the catalog gets an empty pond panel; 7.2 reads only this site's launches from chain; job 2 removes the snapshot catalog and keeps the top bar exactly as the mockup; job 3 follows.
 
@@ -63,7 +65,7 @@ All pages are hash routes on one static page: `#store` (home), `#catalog` (scrol
 
 ### 3.0 Top bar
 
-Logo, Store, Builder, My hooks, Learn, the search box, the active chain pill, Connect. On desktop (above 820 px) nothing wraps: the nav links and the chain pill have fixed widths, the search box shrinks first (minimum 120 px), and the Connect button keeps one width (168 px) whether it shows "CONNECT" or the shortened address `0x5a7e…f00d`; disconnect is a tooltip and click on that same button. Below 820 px the bar intentionally stacks into three rows (brand and connect, nav, search).
+Logo, Store, Builder, My hooks, Learn, the search box, the active chain pill, Connect. The logo is the drawn pixel fishing hook from the mockup's top bar (an inline SVG with class `hook`: a 12 by 16 cell grid drawn at 2 px per cell, 24 by 32 px, `fill="currentColor"`, `shape-rendering="crispEdges"`), followed by the wordmark THE HOOKS STORE in Press Start 2P at 12 px with a 10 px gap. The mark is not a font character: VT323 has no glyph for ʃ, so a character mark depends on each visitor's system fonts. On desktop (above 820 px) nothing wraps: the nav links and the chain pill have fixed widths, the search box shrinks first (minimum 120 px), and the Connect button keeps one width (168 px) whether it shows "CONNECT" or the shortened address `0x5a7e…f00d`; disconnect is a tooltip and click on that same button. Below 820 px the bar intentionally stacks into three rows (brand and connect, nav, search).
 
 ### 3.1 Store (home)
 
@@ -465,7 +467,8 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 7. Ads: 0.1 IMD base per 24 hours with boosts. Kept.
 8. GitHub: not the owner's personal account. A new GitHub account is created for the project (IMD only imports from public GitHub repositories and delivers to GitHub, so a project account is the practical home); the push happens from it.
 9. Catalog scope (2026-10-21, after job 1): the store lists only hooks launched through this site, recognized on chain by the fixed last sentence of the description (5.1). Other IMD launches are not shown anywhere, not in the grid, the search results, the featured strip or the pond ticker; the pond casts for this site's launches and the practice cast. The top bar stays exactly as the mockup draws it.
-9. Site name: the live site is `the-hooks-store.sites.imd.fun` (`the-hooks-store.site.identitymd.eth`). The label was free on 2026-10-21 and is claimed by job 1, so every delivery publishes there; while the site is unfinished the page says so in its banner.
+10. Site name: the live site is `the-hooks-store.sites.imd.fun` (`the-hooks-store.site.identitymd.eth`). The label was free on 2026-10-21 and is claimed by job 1, so every delivery publishes there; while the site is unfinished the page says so in its banner.
+11. Brand mark (2026-10-21, after job 2): the drawn pixel fishing hook of 3.0 replaces the ʃ character, which VT323 cannot draw; the owner asked for the mockup's mark or anything but the fallback glyph the live site showed.
 
 ## 15. From mockup to live
 
