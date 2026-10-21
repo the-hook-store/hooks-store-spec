@@ -102,7 +102,6 @@ details > div { padding: 0 14px 14px; }
 .nav a.on { background: var(--paper); color: var(--ink); border-color: var(--ink); }
 .search { display: flex; flex: 1 1 120px; min-width: 0; margin-left: auto; }
 .search input { min-height: 40px; font-size: 15px; }
-.chainpill { font: 400 8px/1 var(--display); border: 2px solid var(--on-pine); padding: 8px 10px; white-space: nowrap; flex: 0 0 auto; }
 .connect { flex: 0 0 auto; width: 168px; background: var(--paper); overflow: hidden; }
 
 /* landing: full bleed, a live ASCII pond on a canvas behind centered copy */
@@ -231,7 +230,7 @@ section.view { padding-block: 8px 24px; }
   .types { grid-template-columns: 1fr; }
   .timeline { grid-template-columns: 1fr 1fr; }
   .kv > div { grid-template-columns: 1fr; gap: 2px; }
-  .top-in { flex-wrap: wrap; gap: 8px 12px; } .brand { flex: 1 1 auto; } .chainpill { display: none; } .nav { order: 3; flex-basis: 100%; justify-content: space-between; gap: 0; } .nav a { padding: 10px 6px; font-size: 8px; } .search { order: 4; flex-basis: 100%; margin-left: 0; } .connect { width: auto; min-width: 110px; }
+  .top-in { flex-wrap: wrap; gap: 8px 12px; } .brand { flex: 1 1 auto; } .nav { order: 3; flex-basis: 100%; justify-content: space-between; gap: 0; } .nav a { padding: 10px 6px; font-size: 8px; } .search { order: 4; flex-basis: 100%; margin-left: 0; } .connect { width: auto; min-width: 110px; }
   .landing { min-height: 600px; } .landing-copy { padding: 150px 16px 80px; } .landing-copy::before { inset: 120px -16px 60px; background: rgba(233,223,195,.92); } .landing-copy h1 { font-size: 20px; }
   .prompt { flex-direction: column; } .prompt .btn { width: 100%; }
   }
@@ -251,7 +250,6 @@ section.view { padding-block: 8px 24px; }
       <a href="#learn" data-nav="learn">LEARN</a>
     </nav>
     <form class="search" role="search" id="searchform"><label class="sr" for="q">Search hooks by name, token, block or address</label><input id="q" type="search" placeholder="Search name, token, block or 0x address" autocomplete="off"></form>
-    <span class="chainpill" id="chainpill">ETHEREUM &middot; ROBINHOOD</span>
     <button class="btn tiny connect" id="connect" type="button" title="Connect a wallet">CONNECT</button>
   </div>
 </header>
@@ -482,7 +480,6 @@ section.view { padding-block: 8px 24px; }
   var $ = function (id) { return document.getElementById(id); };
   var CHAINS = { 1: 'Ethereum', 4663: 'Robinhood Chain' };
   function chainLabel(s) { return s.chain ? chainLabel(s) : '(choose a chain)'; }
-  function renderPill() { $('chainpill').textContent = state.settings.chain ? CHAINS[state.settings.chain].toUpperCase() : 'ETHEREUM \u00b7 ROBINHOOD'; }
   var PM = { 1: '0x000000000004444c5dc75cB358380D2e3dE08A90', 4663: '0x8366a39CC670B4001A1121B8F6A443A643e40951' };
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
 
@@ -800,7 +797,6 @@ section.view { padding-block: 8px 24px; }
     $('facts').innerHTML = [['FEE RULE', rateTotal() > 0 || /fee|%/.test(state.prompt) ? 'stated' : 'none'], ['FEE DESTINATION', /wallet|treasury|burn|pot|jar|LP/i.test(text) ? 'stated' : 'unknown'], ['ADMIN', powers.length ? 'stated' : 'none'], ['TOKEN NAME AND SYMBOL', state.type === 'A' ? 'stated' : 'not applicable'], ['CALLBACKS', 'fixed by the launch'], ['DEPENDENCIES', has('yield') ? 'unknown: lending protocol' : 'none']].map(function (f) { return '<li><b>' + f[0] + '</b>' + f[1] + '</li>'; }).join('');
   }
   function renderSummary() {
-    renderPill();
     var c = ctx(), s = state.settings, rows = [];
     rows.push(['LAUNCH TYPE', state.type === 'A' ? 'Hook + new token + pool' : state.type === 'B' ? 'Hook only' : 'Hook for existing token']);
     rows.push([state.type === 'A' ? 'TOKEN' : 'HOOK', esc(c.name) + (state.type === 'A' ? ' ($' + esc(c.symbol) + ')' : '')]);
@@ -832,7 +828,7 @@ section.view { padding-block: 8px 24px; }
 
   ['chain', 'pair', 'pool', 'rem', 'owner', 'token', 'tsym', 'hname', 'repo', 'commit'].forEach(function (k) {
     var el = $('s-' + k); el.value = state.settings[k] === null || state.settings[k] === undefined ? '' : state.settings[k];
-    el.addEventListener('input', function () { state.settings[k] = k === 'chain' ? (el.value === '' ? null : Number(el.value)) : k === 'pool' ? (el.value === '' ? null : Number(el.value)) : el.value; renderCanvas(); renderPreview(); renderSummary(); renderPill(); save(); });
+    el.addEventListener('input', function () { state.settings[k] = k === 'chain' ? (el.value === '' ? null : Number(el.value)) : k === 'pool' ? (el.value === '' ? null : Number(el.value)) : el.value; renderCanvas(); renderPreview(); renderSummary(); save(); });
   });
   $('p-text').value = state.prompt;
   $('p-text').addEventListener('input', function () { state.prompt = $('p-text').value; renderPreview(); renderSummary(); save(); });
