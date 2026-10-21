@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.10 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.11 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.11 (2026-10-21): the catalog lists only hooks launched through this site (owner's decision 9 in section 14); IMD's other launches are no longer snapshotted or shown, the featured strip and the pond ticker follow the same rule, and the catalog gets an empty pond panel; 7.2 reads only this site's launches from chain; job 2 removes the snapshot catalog and keeps the top bar exactly as the mockup; job 3 follows.
 
 Changes in 1.10 (2026-10-21): job 1 is delivered and live at the-hooks-store.sites.imd.fun (jobs/log.md); the mockup's Learn cost answer says 24 hours for a featured slot (the delivery's critic caught the stale 7 days); the two cosmetic deviations found in the delivery are carried at the top of job 2's objective.
 
@@ -69,11 +71,11 @@ Logo, Store, Builder, My hooks, Learn, the search box, the active chain pill, Co
 
 **Featured strip (#ad).** Directly under the landing, inside the content column: a heading "FEATURED #AD", the sentence "Paid placements, 0.1 IMD for 24 hours, ranked by total paid. Managed from My hooks. Not a review or endorsement.", and a strip that scrolls by itself (a seamless marquee, about 42 s per loop, paused on hover or keyboard focus, a plain scrollable row under reduced motion). Each card is one compact line: the #AD pill, the hook name, the symbol, "by {creator}" (the launch payer as an ENS name when reverse lookup on Ethereum mainnet finds one, else the shortened address) and the hours left. No chain, no description, no block labels, no buttons; the card links to the hook page. Cards are sorted by total paid (base price plus boosts), ties by the earlier purchase, and the strip ends with an open-slot card ("OPEN SLOT · 0.1 IMD / 24h · promote from My hooks"). Buying, boosting and cancelling happen only in My hooks (3.5). Cards come from `FeaturedPlacementsV2` (6.6) once it is deployed in phase 2; until then only the open-slot card shows.
 
-**Catalog.** Below the carousel, Steam layout: a left rail of filters and a card grid.
+**Catalog.** Below the carousel, Steam layout: a left rail of filters and a card grid. The grid lists only hooks launched through this site: launch requests whose description ends with the fixed last sentence of 5.1. Hooks launched elsewhere on IMD never appear in the grid, in the search results or in the featured strip, and the site ships no snapshot of them; the address search below can still describe one when its address is typed. While the pond has no hooks the grid is replaced by one panel in the Learn style (paper-3, 3 px ink border, hard shadow): the heading NOTHING ON THE POND YET, the line "Hooks launched through this store appear here. Be the first to cast.", and a primary button DESCRIBE A HOOK that opens #builder; the count beside the heading reads 0 hooks.
 
 - Filters: block type (Fees, Protection, Treasury and rewards, Liquidity rules, Timing and access, Advanced, Own source), chain (Sepolia, Robinhood, Ethereum), status (All, Live only, In progress), sort (Newest, Oldest, Name). Every filter changes the grid immediately.
 - A card: name and symbol (or hook name for token-less hooks), chain pill, status pill (Requested, In progress, Live, Failed), the block labels parsed from the request, one sentence, launch number when live, View.
-- Empty state: "No hooks match. Clear search and filters or build the first one."
+- Empty state for a search or filter with no match: "No hooks match. Clear search and filters or build the first one." (The empty pond panel above is for a catalog with no hooks at all.)
 
 **Search.** The top-bar box searches as you type and shows results in the catalog grid under the heading "Results for …":
 
@@ -379,7 +381,7 @@ The foundation repo's `FeaturedPlacements` (0.1 IMD for 7 days, ordered by purch
 
 ### 7.2 Catalog from chain
 
-The Intake emits `Requested(bytes32 requestId, address payer, bytes32 action, bytes body, address callbackTarget, bytes4 selector, address asset, uint256 amount)` and `Completed(bytes32 requestId, uint8 status, bytes32 resultHashOrReason, string uri, bool delivered)`. The site reads `Requested` logs for the `launch.open@launch-1` action on Robinhood and Ethereum in 10,000-block ranges walking backwards (cached in memory and `localStorage`), decodes the body JSON, keeps `onchain` `univ4_hook` and `evm_contracts` bodies whose objective mentions "Uniswap v4 hook", then reads `Completed` for those ids: status 0 with an `ipfs://CID/result.json` uri → fetch it from `https://ipfs.imd.fun/ipfs/CID/result.json` for the launch id and addresses; status 1 or 2 → Failed with the reason decoded as ASCII. A build-time snapshot `public/launches.json` (from `GET /launches` and `/launches/:id`, run before each publish) supplies launch numbers and addresses for older history; chain data wins. The fixed last line in 5.1 marks cards Built here. Block labels on cards come from the numbered rules: the site matches each rule against the catalog's sentence templates and falls back to "Custom".
+The Intake emits `Requested(bytes32 requestId, address payer, bytes32 action, bytes body, address callbackTarget, bytes4 selector, address asset, uint256 amount)` and `Completed(bytes32 requestId, uint8 status, bytes32 resultHashOrReason, string uri, bool delivered)`. The site reads `Requested` logs for the `launch.open@launch-1` action on Robinhood and Ethereum in 10,000-block ranges walking backwards (cached in memory and `localStorage`), decodes the body JSON, keeps only the `onchain` `univ4_hook` and `evm_contracts` bodies whose objective ends with the fixed last sentence of 5.1 (a launch made through this site) and ignores every other launch, then reads `Completed` for those ids: status 0 with an `ipfs://CID/result.json` uri → fetch it from `https://ipfs.imd.fun/ipfs/CID/result.json` for the launch id and addresses; status 1 or 2 → Failed with the reason decoded as ASCII. There is no build-time snapshot of other launches: a hook launched outside this site is never listed. Launch numbers and addresses come from `result.json`. Block labels on cards come from the numbered rules: the site matches each rule against the catalog's sentence templates and falls back to "Custom".
 
 ### 7.3 Status for the user's own launches
 
@@ -462,6 +464,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 6. Prize pot stays in version 1, inside the Games and lotteries group; every block with a risk field carries the warning sign of 4.13.
 7. Ads: 0.1 IMD base per 24 hours with boosts. Kept.
 8. GitHub: not the owner's personal account. A new GitHub account is created for the project (IMD only imports from public GitHub repositories and delivers to GitHub, so a project account is the practical home); the push happens from it.
+9. Catalog scope (2026-10-21, after job 1): the store lists only hooks launched through this site, recognized on chain by the fixed last sentence of the description (5.1). Other IMD launches are not shown anywhere, not in the grid, the search results, the featured strip or the pond ticker; the pond casts for this site's launches and the practice cast. The top bar stays exactly as the mockup draws it.
 9. Site name: the live site is `the-hooks-store.sites.imd.fun` (`the-hooks-store.site.identitymd.eth`). The label was free on 2026-10-21 and is claimed by job 1, so every delivery publishes there; while the site is unfinished the page says so in its banner.
 
 ## 15. From mockup to live
