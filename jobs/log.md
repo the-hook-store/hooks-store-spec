@@ -117,3 +117,7 @@ The owner saw the pointed hat job 5 drew over Pepe ("why is his head triangular"
 ## Gap found before the first launch: "treasury address" has no address (2026-10-21 ~21:05 UTC)
 
 The owner asked whether the fee blocks' "treasury address" choice sends fees to IMD's fee recipient 0x3f252e859a277a86a3967c11d4e054b2f07a1f22 (listed in IMD's docs as the receiver of the network's pool-fee share on both chains). It does not, and it never asked for any address: the delivered catalog (src/blocks/catalog.json) renders the sentence "send it to treasury address" with no address, and IMD's free check accepts it while marking "Who receives fees and payouts: unknown, assumed the paying wallet" (scratch chk-treasury-noaddr-out.json). The spec itself lacked the field. SPEC 1.22 adds the required address field (decision 17); job 7 carries it; the owner uses "my wallet" for the test launches.
+
+## Treasury means IMD's fee recipient (2026-10-21 ~21:15 UTC)
+
+The owner decided that every "treasury" choice in the fee blocks routes to IMD's fee recipient 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 (checksum verified; IMD's docs list it as the receiver of the network's pool-fee share on both chains). SPEC 1.23 revises decision 17: the option reads "IMD's treasury", the sentence names the address, no field. Job 7 carries it. Test launches use "my wallet" until then.

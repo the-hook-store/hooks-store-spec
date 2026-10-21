@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.22 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.23 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.23 (2026-10-21): the owner decided what "treasury" means (decision 17, revised): every fee choice that routes to a treasury routes to IMD's fee recipient 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 on both chains, the wallet IMD's docs name for the network's pool-fee share. The option reads "IMD's treasury", the composed sentence names the address, and no address field is needed. Job 7 carries it; until then creators choose "my wallet".
 
 Changes in 1.22 (2026-10-21): the "treasury address" choice of the fee blocks never asked for an address, so a request read "send it to treasury address" and IMD's check assumed the paying wallet ("Who receives fees and payouts: unknown"). Now choosing it reveals a required address field in the block, the sentence carries the address, and the option is never IMD's own fee recipient (4, decision 17). Job 7 carries it.
 
@@ -167,9 +169,9 @@ The catalog covers every v4 hook capability: pool initialization rules, swap-tim
 
 | Block | Types | Parameters (defaults) | Sentence |
 |---|---|---|---|
-| Swap fee | ABC | rate % (1.0; 0.1–5), applies to (buy and sell / buy / sell), send to (my wallet / treasury address, which reveals a required address field / burn) | "Take {rate}% of the ETH side of every {applies} as a hook fee, settled in ETH inside the swap that paid it (mint a claim when the PoolManager cannot pay it directly), and send it to {to}." |
+| Swap fee | ABC | rate % (1.0; 0.1–5), applies to (buy and sell / buy / sell), send to (my wallet / IMD's treasury 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 / burn) | "Take {rate}% of the ETH side of every {applies} as a hook fee, settled in ETH inside the swap that paid it (mint a claim when the PoolManager cannot pay it directly), and send it to {to}." |
 | Fee that fades | ABC, needs Swap fee | start % (10), end % (1), minutes (30) | "The hook fee starts at {start}% of the ETH side of every swap when the pool opens and decreases linearly to {end}% over the first {minutes} minutes, then stays at {end}%." |
-| Different buy and sell fees | ABC, not with Swap fee | buy % (0.5), sell % (2.0), send to | "Take {buy}% of the ETH side of every buy and {sell}% of the ETH side of every sell as a hook fee, settled in ETH inside the swap that paid it (…), and send it to {to}." |
+| Different buy and sell fees | ABC, not with Swap fee | buy % (0.5), sell % (2.0), send to (my wallet / IMD's treasury) | "Take {buy}% of the ETH side of every buy and {sell}% of the ETH side of every sell as a hook fee, settled in ETH inside the swap that paid it (…), and send it to {to}." |
 | Whale fee | ABC | above ETH (1), extra % (1.0) | "Any swap whose ETH side is larger than {above} ETH pays an extra {extra}% of its ETH side as a hook fee, on top of any other hook fee, settled the same way." |
 | Volatility fee | ABC | move % (5), within blocks (20), fee % (3) | "When the pool price has moved more than {move}% within the last {blocks} blocks, the hook fee on the ETH side of every swap is {fee}% until the move settles below that; otherwise the normal hook fee applies." |
 | Split the fee | ABC, needs Swap fee | share to my wallet % (70), second address | "Split every hook fee: {a}% to my wallet and {100−a}% to {b}." |
@@ -190,7 +192,7 @@ The catalog covers every v4 hook capability: pool initialization rules, swap-tim
 
 | Block | Types | Parameters | Sentence |
 |---|---|---|---|
-| Buyback jar | ABC | jar rate % (1.0), trigger ETH (0.1), then (burn / send to treasury) | "Collect {rate}% of the ETH side of every swap into a jar held by the hook. Whenever the jar holds at least {trigger} ETH, anyone may trigger it to buy {symbol} from this pool with the whole jar and {action}. The swap that fills the jar does not revert if the buyback fails." |
+| Buyback jar | ABC | jar rate % (1.0), trigger ETH (0.1), then (burn / send to IMD's treasury) | "Collect {rate}% of the ETH side of every swap into a jar held by the hook. Whenever the jar holds at least {trigger} ETH, anyone may trigger it to buy {symbol} from this pool with the whole jar and {action}. The swap that fills the jar does not revert if the buyback fails." |
 | Prize pot (Games and lotteries group) | ABC | pot rate % of buys (2.0), draw every hours (1) | "Collect {rate}% of the ETH side of every buy into a prize pot. Every {hours} hour(s), anyone may trigger a draw that pays the whole pot to one buyer from that period chosen at random, weighted by how much ETH each buyer spent; randomness comes from recent block data, which is acceptable for small pots and must be stated in the README." |
 | Share fees with LPs | ABC, needs Swap fee | share % (50) | "Donate {pct}% of every hook fee back to the pool's liquidity providers in proportion to their liquidity (through the PoolManager's donate), and send the rest as the fee block says." |
 
@@ -499,7 +501,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 14. Pairing order (2026-10-21, after job 4): the Pair with select lists IMD first and starts on IMD, ETH second. IMD's launch policy offers ETH, IMD and, on Ethereum only, FWA as the pool pairing for a new token; the store does not offer FWA. Job 5 carries the order.
 15. Go live (2026-10-21, after job 5): the owner's agent read job 5's adversarial review and the critic's findings; all seven ride in job 6, which removes the banner. The owner deploys the relay worker on a free Cloudflare account before job 6 so the free check works live from the first real launch.
 16. No hat (2026-10-21, after job 5): the owner saw the pointed hat the swarm drew over Pepe and asked for it to go. Nothing is drawn over the sprite; job 7 removes the hat and keeps the far boat and the birds.
-17. Treasury address (2026-10-21, before the first launch): in every block that offers "treasury address" (Swap fee, Different buy and sell fees, Buyback jar), choosing it reveals a required address field inside the block; the composed sentence names that address ("send it to 0x…"); an empty field is a rule error that blocks Continue. The option is the creator's own treasury, never IMD's fee recipient, which receives the network's pool share by itself. Until job 7 lands, creators should choose "my wallet".
+17. Treasury (2026-10-21, before the first launch, revised the same day): wherever a block offers a treasury (Swap fee and Different buy and sell fees "send to", Buyback jar "then"), the treasury is IMD's fee recipient 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 on Ethereum and Robinhood Chain, the wallet IMD's docs list for the network's share of pool fees. The option reads "IMD's treasury" and shows the address; the composed sentence says "send it to 0x3f252e859a277a86A3967c11D4E054B2f07a1F22"; there is no address field. A creator who wants their own second wallet uses "my wallet" from that wallet, or the words mode. Until job 7 lands, creators choose "my wallet", because the delivered site still writes "treasury address" with no address.
 
 ## 15. From mockup to live
 
