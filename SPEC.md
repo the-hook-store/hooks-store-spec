@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.23 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.24 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.24 (2026-10-21): launch 2 (the test token, paired with IMD) was blocked by the builder with needs_input: the Swap fee block's sentence still says "of the ETH side … settled in ETH" while the footer says fees come from the IMD side, and IMD's own rule sells an IMD fee for ETH in the same swap unless told otherwise, so the builder asked for an IMD/ETH conversion pool the brief never named. Correction (5.1, decision 18): every fee sentence names the pair currency for both the side and the settlement ("of the IMD side … settled in IMD"), says "do not convert the fee to ETH and do not use any other pool" for IMD pairs, and names the recipient address instead of "my wallet". The free check accepts that wording (evidence/check-test-imdfee.*). Job 7 carries it; launch 2's 0.5 IMD is spent.
 
 Changes in 1.23 (2026-10-21): the owner decided what "treasury" means (decision 17, revised): every fee choice that routes to a treasury routes to IMD's fee recipient 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 on both chains, the wallet IMD's docs name for the network's pool-fee share. The option reads "IMD's treasury", the composed sentence names the address, and no address field is needed. Job 7 carries it; until then creators choose "my wallet".
 
@@ -502,6 +504,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 15. Go live (2026-10-21, after job 5): the owner's agent read job 5's adversarial review and the critic's findings; all seven ride in job 6, which removes the banner. The owner deploys the relay worker on a free Cloudflare account before job 6 so the free check works live from the first real launch.
 16. No hat (2026-10-21, after job 5): the owner saw the pointed hat the swarm drew over Pepe and asked for it to go. Nothing is drawn over the sprite; job 7 removes the hat and keeps the far boat and the birds.
 17. Treasury (2026-10-21, before the first launch, revised the same day): wherever a block offers a treasury (Swap fee and Different buy and sell fees "send to", Buyback jar "then"), the treasury is IMD's fee recipient 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 on Ethereum and Robinhood Chain, the wallet IMD's docs list for the network's share of pool fees. The option reads "IMD's treasury" and shows the address; the composed sentence says "send it to 0x3f252e859a277a86A3967c11D4E054B2f07a1F22"; there is no address field. A creator who wants their own second wallet uses "my wallet" from that wallet, or the words mode. Until job 7 lands, creators choose "my wallet", because the delivered site still writes "treasury address" with no address.
+18. Fee currency (2026-10-21, after launch 2 blocked): in every block sentence the fee side and the settlement currency are the pair currency (ETH for ETH pairs and for types B and C, IMD for IMD pairs), IMD-paired requests say "do not convert the fee to ETH and do not use any other pool", and "my wallet" is written as the paying wallet's address. The composer, the fixtures and the mockup follow 5.1.
 
 ## 15. From mockup to live
 
