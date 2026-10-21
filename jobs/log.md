@@ -7,3 +7,10 @@
 Job 1 body: `job-1-shell-and-store.json` at spec commit 3d4ef5bd (v1.9). Paid on-chain through the Intake (`job.open@job-1`, 0.5 IMD) from the owner's second wallet; IMD admitted it the same second. Status: `GET https://api.imd.fun/jobs/4cc83fbc-42d7-49fe-a9db-4310fb61a570`, result at `/result`, report at `/report.md` when done.
 
 Job 2 continues job 1: `parentJobId` 4cc83fbc-42d7-49fe-a9db-4310fb61a570 is filled in.
+
+## Job 1 delivered (2026-10-21 08:48 UTC)
+
+- Nodes: `site_content_check` accepted 07:30, `build_website` accepted 08:34 (structural verification, tree f6e354e8), `design_critic` accepted 08:47. The critic raised 9 findings; the worker reproduced all 9 and fixed them before acceptance (see `tests/results/audit-reproduction.json` in the delivery). One of them was ours: the mockup's Learn cost answer said 0.1 IMD for 7 days; the site says 24 hours and the mockup is corrected in this repo.
+- Delivery: https://github.com/identity-md-launches/launch-2369-build-hooks-store-phase at commit 19b00e34 (pull request 1, merged). Built from this repo at 3d4ef5bd. Vite + React + TypeScript under `web/`, the pond engine under `src/scene/`, export in `dist/`.
+- Site: https://the-hooks-store.sites.imd.fun, pinned CID bafybeihqdd2ubw6amcjxmhrn6far5ramzsnwwkmmojexena7jwcsgl2kke (1,067,311 bytes).
+- Owner's check: headless screenshots at 1440, 500 and 390 of Store, Learn and Builder against the mockup. The pond is a faithful port (same Pepe, boat, rod, fish; the cast sequence runs). Two cosmetic deviations go to the top of job 2's objective: the desktop top bar is smaller and more cramped than the mockup's, and the landing eyebrow and lede use different text and faces. Records: `evidence/job-1-job.json`, `evidence/job-1-result.json`.

@@ -1,0 +1,32 @@
+{
+    "jobId": "4cc83fbc-42d7-49fe-a9db-4310fb61a570",
+    "projectId": "4cc83fbc-42d7-49fe-a9db-4310fb61a570",
+    "state": "completed",
+    "complete": true,
+    "launch": {
+        "requested": false,
+        "kind": null,
+        "id": null,
+        "status": null,
+        "chainId": null
+    },
+    "source": [
+        {
+            "node": "build_website",
+            "submissionHash": "d81a6cb7d3a74320e1810d7a8e604fb7e82b90ef671dc34f11337a66c136e5e0",
+            "hash": "959dbf474df540aa6975ec9dd0b488cd801312b6a502d7b9bd218cfafb155fd0",
+            "url": "https://api.imd.fun/bundles/959dbf474df540aa6975ec9dd0b488cd801312b6a502d7b9bd218cfafb155fd0",
+            "evaluation": "structural",
+            "profile": "none"
+        }
+    ],
+    "files": [],
+    "delivery": {
+        "requested": true,
+        "mode": "repository",
+        "repoUrl": "https://github.com/identity-md-launches/launch-2369-build-hooks-store-phase",
+        "commit": "19b00e34cd62ceced303a7b687484f6c3d7c972c",
+        "deliveredAt": "2026-10-21T08:48:24.246Z",
+        "failure": null
+    }
+}
