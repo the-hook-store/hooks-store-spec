@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.29 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.30 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.30 (2026-10-21): a sweep of every block through IMD's free check under every launch kind and pairing (122 checks, evidence/check-sweep-2026-10-21.json) found one reproducible blocker: a request with no fee block still carries the fee footer of 5.1, which the checker reads as an unstated fee (open_rate). 4.16 item 18: a request without a fee block says instead that the hook takes no fee of its own. Item 19 reworks the Donation rules sentence per option. Job 8 ships both.
 
 Changes in 1.29 (2026-10-21): the audit panels of launches 3 and 4 (read on the explorer, evidence/launch-audit-notes.md) found design flaws in the block sentences themselves and rated them high: a fee computed on the amount requested instead of the amount traded, the Anti-sandwich rule that lets a dust first swap pick the capped direction, the cap's withheld difference going to the fee recipient, a window that starts at pool initialization which anyone can trigger early, and per-wallet limits keyed by tx.origin. One auditor wrote that the fix is an owner decision because the brief specifies the rule. 4.16 gains items 11 to 16 with the decided wording; job 8 ships them.
 
@@ -339,6 +341,8 @@ IMD's builders stop and ask when a request leaves them a guess, and a question a
 15. **Standalone hooks serve many pools.** For types B and C every pool-dependent view and limit is keyed by the pool: views take a PoolId argument (windowEndsAt(PoolId), haltedUntil(PoolId), …), the sentences say so, and the hook page passes the pool id it knows. A standalone hook never keeps one shared window or counter across pools.
 16. **Arithmetic.** Percent-of-supply and percent-of-amount rules use full-precision multiply-then-divide (mulDiv) so large supplies cannot overflow; the own-token supply is capped at 1,000,000,000,000.
 17. **Read every audit.** After each launch the owner reads the panel's findings on the explorer and turns any finding about a sentence into a rule here, the way items 11 to 16 were made.
+18. **No fee, say so.** When no block takes a fee, the fee footer of 5.1 is replaced by: "The hook takes no fee of its own; the pool's own trading fee is unchanged." With the footer present and no fee rule, IMD's checker blocks with open_rate ("charges a fee without saying how much"), reproducibly, and otherwise assumes a fee rule the builder would have to guess.
+19. **Donation rules, one sentence per option.** "Only the owner": only the owner may donate, no allowlist, no function. "Only allowlisted addresses": addresses on the owner's donor allowlist may donate; setDonor(address, bool) for the owner. "Nobody": every donation reverts, no function, no owner power. The current sentence grants setDonor in every case, which contradicts the first and third.
 
 ## 5. Composing the launch request
 
