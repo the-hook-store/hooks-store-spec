@@ -14,7 +14,7 @@
     "better-interface"
   ],
   "repoUrl": "https://github.com/the-hook-store/hooks-store-spec",
-  "baseCommit": "76254535510fb51581489aed5ffbc5aecb16d7da",
+  "baseCommit": "3d4ef5bdc0fe846931b8344a09d85a14c4926ef3",
   "github": true,
   "ipfs": "the-hooks-store"
 }
