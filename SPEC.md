@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.28 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.29 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.29 (2026-10-21): the audit panels of launches 3 and 4 (read on the explorer, evidence/launch-audit-notes.md) found design flaws in the block sentences themselves and rated them high: a fee computed on the amount requested instead of the amount traded, the Anti-sandwich rule that lets a dust first swap pick the capped direction, the cap's withheld difference going to the fee recipient, a window that starts at pool initialization which anyone can trigger early, and per-wallet limits keyed by tx.origin. One auditor wrote that the fix is an owner decision because the brief specifies the rule. 4.16 gains items 11 to 16 with the decided wording; job 8 ships them.
 
 Changes in 1.28 (2026-10-21): the words mode and the Custom rule block carry a warning (4.16 item 8): written rules are riskier than blocks, and a builder question after payment spends the fee. Job 8 becomes a two-step chain whose second step is a read-only adversarial review of the composer, the consistency check and the deployer wording, inside the same 0.5 IMD (13, decision 22); no standalone audit job is planned, because every hook launch and the ad contracts launch already carry IMD's audit panel.
 
@@ -330,6 +332,13 @@ IMD's builders stop and ask when a request leaves them a guess, and a question a
 8. **Words mode and Custom rule.** The description box and the Custom rule block show a warning above them: "Written rules are riskier than blocks. If the builder has to stop and ask a question after you pay, the 0.5 IMD is spent. Blocks are checked sentences; words are yours." Under it, a checklist: name every address, currency, amount and time; say who may call what, or say there are no owner functions; name no outside pool, token or service unless with its address on the deploy chain. The hidden-stack and owner-footer contradictions (jobs/log.md, 2026-10-21) are fixed: words mode composes no blocks unless the stack is shown, and the footer never denies owner functions the description grants.
 9. **Fewer rules, safer launch.** When a draft carries more than six blocks the summary says that every extra rule is more for the audit panel to refuse; the four full-catalog sets of 5.3 stay what they are, a coverage tool for the owner.
 10. **One launch per kind after a fix.** The owner proves each launch kind with one launch after the job that changes its wording, never three at once, and every builder question joins `src/blocks/known-questions.json` (6.7).
+11. **Fees on what traded, never on what was asked (every fee block).** Every fee sentence adds: "computed on the amount actually traded, settled after the swap; a swap that only partly fills pays the fee on the filled amount." Launch 4's panel rated the opposite high: a fee taken in beforeSwap from the requested amount overcharged partial fills by up to 500%.
+12. **Anti-sandwich, decided.** The sentence no longer keys the cap to the block's first swap, which a dust swap can choose. New wording: "Within one block, no swap executes at a better price than the block's opening price in its own direction; the difference the cap withholds is donated to the pool's liquidity providers through the PoolManager's donate, never to the fee recipient or the owner." Launch 3's panel rated both the choosable direction and the surplus routing high.
+13. **When a pool "opens".** Every window (Anti-sniper window, Allowlist opening, Fee that fades, Prize pot periods) starts at the pool's first swap, not at initialization, which anyone can trigger before liquidity exists. For a type A launch the two coincide; for B and C the sentence says "first swap".
+14. **What a "wallet" is.** Per-wallet limits (Anti-sniper window, Max buy per wallet, Cooldown) define the wallet as tx.origin and say in the sentence that several wallets or a shared relayer can defeat the limit, so the auditor records a stated limit, not a defect.
+15. **Standalone hooks serve many pools.** For types B and C every pool-dependent view and limit is keyed by the pool: views take a PoolId argument (windowEndsAt(PoolId), haltedUntil(PoolId), …), the sentences say so, and the hook page passes the pool id it knows. A standalone hook never keeps one shared window or counter across pools.
+16. **Arithmetic.** Percent-of-supply and percent-of-amount rules use full-precision multiply-then-divide (mulDiv) so large supplies cannot overflow; the own-token supply is capped at 1,000,000,000,000.
+17. **Read every audit.** After each launch the owner reads the panel's findings on the explorer and turns any finding about a sentence into a rule here, the way items 11 to 16 were made.
 
 ## 5. Composing the launch request
 
@@ -544,6 +553,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 20. Hook-only deployment (2026-10-21, after launch 4 blocked): type B and C launches deploy a deployer contract that CREATE2-deploys the hook at a permission-bit address; the site reads hook() from the deployer. The composer says so in every B and C request. No type B or C launch is paid until job 8 ships the wording, unless its words carry the deployer sentence by hand.
 21. Deep review before more spending (2026-10-21): the owner asked for every remaining way a launch could block to be found first. Section 4.16 is the result; job 8 ships it; the ads wait as jobs 9a and 9.
 22. Reviews, not audits (2026-10-21): no standalone audit job is planned. Website jobs that touch the money path or the composer carry a read-only adversarial review as their second step (jobs 5 and 8); every hook launch and the ad contracts launch carry IMD's audit panel by themselves.
+23. Audit-derived wording (2026-10-21): the Anti-sandwich rule caps every swap at the block's opening price in its own direction and donates the withheld difference to liquidity providers; fees are computed on the amount traded; windows start at the first swap; wallets are tx.origin with the limit stated; standalone hooks key everything by pool (4.16 items 11 to 16).
 
 ## 15. From mockup to live
 
