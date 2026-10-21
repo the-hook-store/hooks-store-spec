@@ -1,0 +1,157 @@
+{
+ "request": {
+  "action": "launch.open",
+  "input": {
+   "objective": "Deploy one contract: PondGuardHook, a standalone Uniswap v4 hook with no token and no pool of its own, on Sepolia. It must be usable by anyone initializing a new pool with it on the PoolManager passed as a constructor argument (Sepolia PoolManager 0xE03A1074c86CFeDd5C142C4F04F1a1536e203543).\nThe hook does exactly the following, and nothing else:\n1. The pool uses a dynamic LP fee that the hook sets per swap between 0.3% and 1% based on recent price volatility (the BaseDynamicFee pattern). Expose currentLpFee() as a view.\n2. Swaps are not filled immediately: the hook collects them and settles each batch at one clearing price every 60 seconds (the BaseAsyncSwap pattern). Expose settleBatch() that anyone may call once a batch period has ended.\n3. Replace the pool\u2019s pricing with a constant-sum curve suited to two assets of the same value (the BaseCustomCurve pattern).\n4. Only pools where one currency is native ETH and the fee tier is 0.3% may be initialized with this hook; any other pool initialization reverts.\n5. Take 1.0% of the ETH side of every buy and sell as a hook fee, settled in ETH inside the swap that paid it (mint a claim when the PoolManager cannot pay it directly), and send it to my wallet. Expose claimFees() that anyone may call to redeem claims to the recipient.\n6. For the first 10 minutes after the pool opens, each wallet may buy at most 1.0% of the total supply in total; larger buys revert. Expose windowEndsAt() as a view.\n7. Record a time-weighted average price of the pool that other contracts can read (the BaseOracleHook pattern, with a Uniswap v3 compatible observe interface). Expose twap(uint32 secondsAgo) as a view returning the average price as a Q64.96 sqrt price.\n8. Let users place limit orders in the hook that fill automatically when the pool price crosses the order price, and withdraw unfilled orders at any time (the LimitOrderHook pattern). Expose placeOrder(bool zeroForOne, int24 tick, uint256 amount) returning an id, cancelOrder(uint256 id) and claim(uint256 id).\nNo owner functions, no backend signer, no upgrade path.\nFees are always taken from the ETH (pair currency) side, never from the pool\u2019s token; a fee the PoolManager cannot pay directly is minted as a claim the recipient can redeem.\nTake the PoolManager as a constructor argument and enable only the callbacks the behavior above needs. The deployed address must carry the correct hook permission bits (mine a CREATE2 salt). Owner, if any, is $owner.\nKeep the function names exactly as written so the storefront can show them. Composed with The Hooks Store block builder.",
+   "onchain": "evm_contracts",
+   "chainId": 4663,
+   "github": true
+  }
+ },
+ "response": {
+  "action": "launch.open",
+  "kind": "contracts",
+  "plan": [
+   {
+    "title": "Build and test the contracts",
+    "short": "contracts",
+    "skill": "build-contract-project",
+    "stage": 0
+   },
+   {
+    "title": "Test them, as another agent",
+    "short": "tests",
+    "skill": "write-foundry-tests",
+    "stage": 1
+   },
+   {
+    "title": "Write what to deploy",
+    "short": "",
+    "stage": 1
+   },
+   {
+    "title": "Audit the math, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Audit the permissions, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Audit the economics, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Audit the control flow, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Judge the audit: reproduce, merge and rank what was found",
+    "short": "judge",
+    "skill": "audit-judge",
+    "stage": 2
+   },
+   {
+    "title": "Deploy on Robinhood Chain",
+    "short": "deploy"
+   }
+  ],
+  "facts": [
+   {
+    "id": "what",
+    "label": "What each contract does",
+    "state": "stated",
+    "required": false,
+    "example": "e.g. a vault: deposit ETH, withdraw after a lock"
+   },
+   {
+    "id": "access",
+    "label": "Who can call what",
+    "state": "stated",
+    "required": false,
+    "assumed": "Assumed: an owner who can change settings, and anyone for everything else.",
+    "example": "e.g. only the owner sets the fee; anyone deposits"
+   },
+   {
+    "id": "numbers",
+    "label": "Numbers the contracts enforce",
+    "state": "stated",
+    "required": false,
+    "assumed": "The builders will choose limits, ratios and durations and write them in the README. Fee rates and prices they will not choose: name them.",
+    "example": "e.g. 0.3% fee, 7-day lock, max 10 ETH per wallet"
+   },
+   {
+    "id": "upgrades",
+    "label": "Upgrades and pausing",
+    "state": "stated",
+    "required": false,
+    "assumed": "Assumed: not upgradeable and not pausable.",
+    "example": "e.g. not upgradeable; owner can pause"
+   },
+   {
+    "id": "dependencies",
+    "label": "Outside services and values",
+    "state": "unknown",
+    "required": false,
+    "assumed": "Assumed: none beyond standard libraries.",
+    "example": "e.g. Chainlink VRF subscription 1234, or: the owner sets the feed after launch"
+   },
+   {
+    "id": "recipient",
+    "label": "Who receives fees and payouts",
+    "state": "unknown",
+    "required": false,
+    "assumed": "Assumed: the launch's owner, the wallet that pays.",
+    "example": "e.g. 0x1f9a\u2026c3e2, or: the wallet that pays"
+   },
+   {
+    "id": "token_name",
+    "label": "Token name",
+    "state": "not_applicable",
+    "required": false,
+    "example": "e.g. Signal"
+   },
+   {
+    "id": "token_symbol",
+    "label": "Token symbol",
+    "state": "not_applicable",
+    "required": false,
+    "example": "e.g. SIG"
+   },
+   {
+    "id": "token_supply",
+    "label": "Total supply",
+    "state": "not_applicable",
+    "required": false,
+    "example": "e.g. 1,000,000"
+   },
+   {
+    "id": "token_minting",
+    "label": "Minting after launch",
+    "state": "not_applicable",
+    "required": false,
+    "assumed": "Assumed: a fixed supply that nobody can mint more of.",
+    "example": "e.g. fixed supply, nobody mints more"
+   },
+   {
+    "id": "token_rules",
+    "label": "Transfer rules",
+    "state": "not_applicable",
+    "required": false,
+    "assumed": "Assumed: plain transfers with no fee or limit.",
+    "example": "e.g. plain transfers, no fee"
+   }
+  ],
+  "judged": true,
+  "blockers": [],
+  "suggestions": []
+ }
+}
