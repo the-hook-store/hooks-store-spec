@@ -121,3 +121,9 @@ The owner asked whether the fee blocks' "treasury address" choice sends fees to 
 ## Treasury means IMD's fee recipient (2026-10-21 ~21:15 UTC)
 
 The owner decided that every "treasury" choice in the fee blocks routes to IMD's fee recipient 0x3f252e859a277a86A3967c11D4E054B2f07a1F22 (checksum verified; IMD's docs list it as the receiver of the network's pool-fee share on both chains). SPEC 1.23 revises decision 17: the option reads "IMD's treasury", the sentence names the address, no field. Job 7 carries it. Test launches use "my wallet" until then.
+
+## Launch 1 requested: PondsideGuard, hook only, Robinhood Chain (2026-10-21 21:21 UTC)
+
+- Staged by Claude in the owner's Chrome through the live site (Claude in Chrome extension): type B, hook name PondsideGuard, deploy on Robinhood Chain, blocks Swap fee 1% to my wallet, Anti-sniper window, Buyback jar, Pause switch; the free check through the relay returned no blockers ("Who receives fees and payouts: unknown, assumed the paying wallet", because the sentence says "my wallet"; job 7 should name the address). The owner pressed Approve and Launch and confirmed both in Rabby (the auto-mode guard rightly refuses to let Claude press money buttons).
+- Request: transaction 0x3ef03cc08308d18184b0823da5c1e1cb8cef30d6d13f214c8db01a484fc53a5d (Ethereum block 26243635, 21:21:23 UTC), `launch.open@launch-1`, 0.5 IMD, request id 0xdff53a4e42a1e30c059418e089c48fad9ff8ae3ce0522cb098d0c6c9859e5969; body `onchain: evm_contracts`, chainId 4663, 2,001-character objective (evidence/launch-1-body.json). The site jumped to #hook/1/0xdff5… showing REQUESTED and the timeline.
+- IMD admitted it as launch job a21b246a-6a18-4fb7-92e3-c7f81e8dadac: build_contract_project working; write_foundry_tests, audit_math, audit_permissions, audit_economics, audit_flow, audit_judge and manifest waiting; launch kind evm_contracts on chain 4663 (evidence/launch-1.intake.json, evidence/launch-1-job-at-admission.json).
