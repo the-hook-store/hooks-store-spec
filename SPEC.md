@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.19 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.20 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.20 (2026-10-21): no hat on Pepe (owner's decision 16): the pointed hat job 5 drew over the sprite makes his head look triangular; job 7 removes it and the sprite stays as the mockup draws it. The far boat and the birds stay (9).
 
 Changes in 1.19 (2026-10-21): job 5 is delivered and verified (jobs/log.md). Its adversarial review (three findings: timeline node states, the fee sentence for IMD pairs, relay error text) and its design critic (four reproducible bugs: a cancelled approval stuck pending, reorged Intake events kept, a full-storage import lost, a ticker timestamp that never ages) are recorded in evidence/job-5-reviews.md; none reopened the build, so all seven ride at the top of job 6, which also goes live: the relay URL set and the in-progress banner removed (13, 15, owner's decision 15). Phase 2 jobs are renumbered 7a and 7. 7.4 records the job states the API returns.
 
@@ -436,7 +438,7 @@ The landing background is a live ASCII scene in the manner of the open-source "a
 - **Triggers.** (a) a new `Requested` log with the launch action on Ethereum or Robinhood (polled every 20 s), (b) the user's own launch transaction confirming, (c) with the relay, a new live hook, (d) a click on the water, which also splashes where it lands. Each cast updates the ticker ("{name} was launched on {chain} · {relative time}" or "A new hook was requested on {chain}").
 - **Life on the left.** A fish jumps out of the water every 6–14 s somewhere in the left 60% (an arc of `><>` 5.5 rows high over 1.1 s, a splash where it leaves and where it lands); the big fish let out bubbles (`.` `:` `'` rising 11 px/s); three birds (`\v/` and `_v_` flapping three times a second) cross the top-left sky every 18–32 s; a frog sits on a lily pad at 6% from the left on the surface (`(o)(o)` over `.:SSSS:.`) and blinks every 3–7 s.
 - **Motion and cost.** A 30 fps timer loop (setInterval, not requestAnimationFrame, which stalls in some embeds and in headless capture), skipped while the landing is off-screen (IntersectionObserver) or the tab is hidden, resized with a ResizeObserver, device pixel ratio capped at 2; about two thousand cells drawn per frame. The first sample cast runs three seconds after load and then every eighteen seconds while the Store is open; real triggers replace the samples in job 3. Reduced motion: one still frame, no fish movement, no cast, and a `▶ animate the pond` button in the ticker that starts the loop for that visit; the ticker still updates. Phones: the same scene; the copy sits over it with its beige glow and Pepe keeps the right edge.
-- **Phase 2 polish.** A hat on Pepe, a second boat far off, a bird or two. Still monochrome.
+- **Phase 2 polish.** A second boat far off, a bird or two. Still monochrome. No hat on Pepe: the sprite is drawn as in the mockup, with nothing added over his head (decision 16).
 
 ## 10. Technical choices
 
@@ -492,6 +494,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 13. No chain pill (2026-10-21, after job 3): the owner asked to remove the ETHEREUM · ROBINHOOD pill from the top bar. The bar is the logo, the nav, the search box and Connect; the chosen deploy chain shows in the Builder's settings and summary, on the launch page and on each card. Job 4 carries the removal.
 14. Pairing order (2026-10-21, after job 4): the Pair with select lists IMD first and starts on IMD, ETH second. IMD's launch policy offers ETH, IMD and, on Ethereum only, FWA as the pool pairing for a new token; the store does not offer FWA. Job 5 carries the order.
 15. Go live (2026-10-21, after job 5): the owner's agent read job 5's adversarial review and the critic's findings; all seven ride in job 6, which removes the banner. The owner deploys the relay worker on a free Cloudflare account before job 6 so the free check works live from the first real launch.
+16. No hat (2026-10-21, after job 5): the owner saw the pointed hat the swarm drew over Pepe and asked for it to go. Nothing is drawn over the sprite; job 7 removes the hat and keeps the far boat and the birds.
 
 ## 15. From mockup to live
 

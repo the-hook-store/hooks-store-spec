@@ -101,3 +101,7 @@ The owner scrapped the pairing and IMD-fee idea. The switch, the fields, the sum
 ## Job 6 paid (2026-10-21 20:09 UTC)
 
 Job 6 body: `job-6-go-live.json` at spec commit ead49fc (the seven review fixes, relayUrl https://hooks-store-relay.hooks-store.workers.dev, inProgress false), `job.continue@job-1` on job 5 (0.5 IMD, one transaction). Transaction 0x310bc3dcaa70691d8f9438617cb55e4dbfdef376c8a402cbc3a2d583d9e602a2 (Ethereum block 26243280, 20:09:59 UTC), request id 0xfff610cd2138a7f65aa93e6c0edde73ed300697e9825e556de5f24d3bb9fff15 (equal to the dry run's); the body on chain equals the spec file byte for byte. The relay passed its outside tests minutes before (four read routes 200 with CORS * and 30 s cache, a real free check with no blockers, preflight 204, 404/405/415 refusals). IMD admitted the payment as job c2b72f7e-31f3-42e2-84b4-730165ce5310 (build_website ready, design_critic waiting). Evidence: evidence/job-6-paid.intake.json, evidence/job-6-job-at-admission.json. Note for verification: the API also reports a node state `ready` (assigned, not yet working), which the brief's list of states did not name; check how the delivered timeline treats it.
+
+## Hat removed from the plan (2026-10-21 ~20:20 UTC)
+
+The owner saw the pointed hat job 5 drew over Pepe ("why is his head triangular") and asked for it to go. SPEC 1.20: section 9 no longer lists a hat, decision 16 records it, and job 7's objective opens with the removal (src/scene/pond.ts drawHat). The far boat and the birds stay. No separate job is paid for this.
