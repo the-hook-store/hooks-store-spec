@@ -8,6 +8,6 @@ Before paying for job 1:
 2. Run IMD's free check on the body: `curl -s -X POST https://api.imd.fun/requests/check -H 'content-type: application/json' -d '{"action":"job.open","input":'"$(cat job-1-shell-and-store.json)"'}'` and read `blockers` and `plan`.
 3. Pay with `job.open` on-chain through the Intake contract (`job.open@job-1`, 0.5 IMD, approve then request). The explorer's Launch form cannot send a job that imports a repository and still builds a new site, so the owner uses the local payment page Claude prepared.
 
-Job 7a is a contracts launch (`launch.open`, not a website job) that deploys the ad contracts with IMD's audit panel, on Robinhood Chain first and then Ethereum; run it before job 7 and put the addresses it reports into `public/site-config.json` through job 7. Job 6 is the go-live job: it carries job 5's review findings, sets the relay URL and removes the in-progress banner.
+Job 7 is the launch-safety job (fee wording for every pairing, the consistency check, IMD's fixed facts, the builder's question on the hook page, known questions, spent-fee copy, plus the open carry-overs). Job 8a is a contracts launch (`launch.open`, not a website job) that deploys the ad contracts with IMD's audit panel, on Robinhood Chain first and then Ethereum; run it before job 8 and put the addresses it reports into `public/site-config.json` through job 8.
 
 The `ipfs` label `the-hooks-store` hosts each version at the-hooks-store.sites.imd.fun. That is the final name from job 1; going live is removing the in-progress banner.
