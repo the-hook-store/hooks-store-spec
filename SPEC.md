@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.26 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.27 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.27 (2026-10-21): a deep review of the catalog, the composer and IMD's launch rules, done after three blocked launches and before any more spending, is recorded as section 4.16 (builder-proof catalog): the deployer sentence for hook-only and existing-token launches (accepted by the free check, evidence/check-B-deployer.*), the pair currency in every threshold, the Yield block offered only where its protocol exists and named by address, the undefined "burn" fee destination removed, the Volatility fee tied to a Swap fee, "the pool's token" defined for hook-only hooks, the hooks reference attached to every launch kind, and a what-to-name checklist for the words mode. Job 8 becomes "Catalog hardening" and carries all of it; the ads move to jobs 9a and 9.
 
 Changes in 1.26 (2026-10-21): the hook-only question of 6.5 is answered by launch 4: an `evm_contracts` launch deploys at a fixed, launch-salted address and does not mine the hook's permission bits, so the hook's constructor would revert; the manifest step stopped with that question (evidence/launch-4-job-blocked.json). From now on type B and C requests ask for a deployer contract that creates the hook with CREATE2 at an address carrying its permission bits, and the site reads the hook's address from the deployer (6.5, decision 20). Job 8 carries the composer change; launches 1 and 3 were sent before this and may block the same way.
 
@@ -75,7 +77,7 @@ Goals, in priority order:
 Non-goals for version 1:
 
 - No store-operated review pipeline, requester or gated deployer. The `AutoHookJobRequester`, `HookRequestCodec` and `GatedHookDeployer` contracts from the foundation repo are **not used**.
-- No "buy this hook from its creator" marketplace. Free listings and paid #ad slots (`HookListingRegistry`, `FeaturedPlacements` from the foundation repo) are phase 2 (job 8); the carousel slot exists from day one.
+- No "buy this hook from its creator" marketplace. Free listings and paid #ad slots (`HookListingRegistry`, `FeaturedPlacements` from the foundation repo) are phase 2 (job 9); the carousel slot exists from day one.
 - No AI chat. "Describe it" is a text box whose contents become requirements in the launch request; IMD's free check reports what the swarm understood. The site does not interpret text itself.
 - No backend, database or accounts. A small optional relay (7.4) is the only server-side piece and the site works without it.
 
@@ -312,6 +314,21 @@ The catalog entry carries the text in a `risk` field; a block with a `risk` fiel
 
 The site does not hold hook code: every launch is written, tested and audited by the swarm for that request (section 6). So the proof that a block works is a real launch that used it. `evidence/blocks-verified.json` in the spec repository records that proof: an array of `{block, launchId, chainId, hook, passed, checkedAt, notes}`, one entry per block per real launch that Claude checked (15.4). The Builder fetches `https://raw.githubusercontent.com/the-hook-store/hooks-store-spec/main/evidence/blocks-verified.json` at load (that host allows browser reads) and falls back to the bundled copy `public/blocks-verified.json`. A block with an entry whose `passed` is true shows a small tick and the words "proven in a live launch" on its card; any other block shows "not yet proven in a live launch" in its tooltip and nothing else changes. The file ships empty and fills as real launches on Robinhood Chain or Ethereum are checked. Blocks are not pre-verified on a test network (decision 12): every launch is written, tested and audited by the swarm for that request, and a block that fails in a real launch has its sentence or its 4.11 functions rewritten, or leaves the catalog.
 
+### 4.16 Builder-proof catalog (deep review, 2026-10-21)
+
+IMD's builders stop and ask when a request leaves them a guess, and a question after payment spends the fee. Three blocked launches showed two causes; this review of every block sentence, the composer and IMD's launch rules found the rest. Every rule here binds the composer and the catalog, and job 8 ships them.
+
+1. **Deployer for hook-only and existing-token launches (6.5).** The first sentence of every type B and C request asks for `<HookName>Deployer`, whose constructor creates the hook with CREATE2 at an address whose low 14 bits equal the hook's permission flags, from a bytes32 salt passed as a constructor argument and mined off-chain against the deployer's address, looping over salts in the constructor if the salt cannot be mined in advance; the deployer exposes `hook()` and does nothing else. IMD's `evm_contracts` rules allow it: static constructor arguments, `$owner`, nothing called after deployment. The free check accepts the wording.
+2. **Pair currency everywhere (5.1).** Not only the fee side and settlement: every threshold and unit in a sentence follows the pool's pair currency (Whale fee "larger than X", Buyback jar trigger, Minimum position, Prize pot amounts, the 5% fee cap). For an IMD-paired type A launch the word is IMD; for ETH pairs and for types B and C it is ETH.
+3. **Yield on idle liquidity.** The sentence told the swarm to "report a blocker" when the protocol is missing on the chain: a guaranteed spent fee. The block is offered only on chains where the catalog lists the protocol's addresses (Aave v3 Pool and the market, or the Morpho Blue market id), names them in the sentence, and is dimmed elsewhere with "not on this chain". Until the addresses are verified per chain, the block is dimmed on every chain.
+4. **Fee destinations.** "Burn (buy and burn)" leaves the Swap fee and Different fees blocks: it never said what buys, when, or from where. Buying and burning is the Buyback jar, which defines the jar, the trigger and the caller. The remaining destinations are the paying wallet, written as its address, and IMD's treasury (decision 17).
+5. **Volatility fee** needs a Swap fee, like Fee that fades: its sentence refers to "the normal hook fee", which otherwise does not exist.
+6. **"The token" in a hook-only or existing-token hook.** Anti-sniper window, Max buy per wallet and Max swap size speak of the total supply; type B and C requests add one definition line: "In this hook, the token is the pool's non-ETH currency and its total supply is that token's totalSupply()."
+7. **References on every launch kind.** Type B and C bodies carry `references: ["uniswap-v4-hooks", "uniswap-v4-security"]` like type A, so the builder has the pattern names the sentences use (AntiSandwichHook, LimitOrderHook, BaseAsyncSwap, BaseCustomCurve, BaseOracleHook, ReHypothecationHook, LiquidityPenaltyHook, BaseDynamicFee).
+8. **Words mode and Custom rule.** The description box shows a checklist above it: name every address, currency, amount and time; say who may call what, or say there are no owner functions; name no outside pool, token or service unless with its address on the deploy chain. The hidden-stack and owner-footer contradictions (jobs/log.md, 2026-10-21) are fixed: words mode composes no blocks unless the stack is shown, and the footer never denies owner functions the description grants.
+9. **Fewer rules, safer launch.** When a draft carries more than six blocks the summary says that every extra rule is more for the audit panel to refuse; the four full-catalog sets of 5.3 stay what they are, a coverage tool for the owner.
+10. **One launch per kind after a fix.** The owner proves each launch kind with one launch after the job that changes its wording, never three at once, and every builder question joins `src/blocks/known-questions.json` (6.7).
+
 ## 5. Composing the launch request
 
 ### 5.1 The description text (at most 7,500 characters)
@@ -401,7 +418,7 @@ The foundation repo's `FeaturedPlacements` (0.1 IMD for 7 days, ordered by purch
 
 - Duration 24 hours; base price 0.1 IMD per placement; one live placement per listing; `#ad` on every placement and event; the same deposit, withdraw, cancel with pro-rata refund of the base price, settle, proceeds recipient and two-step owner as before. No proxy, no upgrade, no self-destruct.
 - `boost(placementId, amount)`: anyone may add IMD from their deposited balance to an open placement. Boosts are never refunded: on cancel they go to the pinned proceeds recipient, on settle both base and boosts do. `rankOf(id)` returns base plus boosts; `featured(cursor, scanLimit)` returns each placement's total so the site sorts by total paid, ties by the earlier purchase.
-- Deployed through an IMD contracts launch (`jobs/job-8a-ads-contract.json`, `evm_contracts`, one launch per chain: Robinhood Chain, then Ethereum), which includes the audit panel; the free check's answer is saved as `evidence/check-job-6a`. The listing registry deploys unchanged beside it.
+- Deployed through an IMD contracts launch (`jobs/job-9a-ads-contract.json`, `evm_contracts`, one launch per chain: Robinhood Chain, then Ethereum), which includes the audit panel; the free check's answer is saved as `evidence/check-job-6a`. The listing registry deploys unchanged beside it.
 
 ### 6.7 Request safety: never pay for a question
 
@@ -497,8 +514,9 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 | 5 | Relay, polish and the review | A two-step chain: `build-website` (pairing order IMD first, worker, live free check and facts panel, stage names, import of own code, scene polish with reeds, hat and birds, copy pass) then `adversarial-review` by a different seat, read-only, of the money path from jobs 4 and 5; IMD's free check accepts the shape with no blockers and adds the design critic as well, all inside one 0.5 IMD job |
 | 6 | Go live | The seven findings of job 5's reviews (timeline node states, the pair-currency fee sentence, relay error text, cancelled-approval retry, reorged events dropped, import kept on full storage, ticker timestamp), then `relayUrl` set to the owner's deployed worker and `inProgress` false: the banner goes and Approve and Launch work |
 | 7 | Launch safety | The fee wording of 5.1 for every block and pairing, the consistency check and the fixed-facts comparison of 6.7, the builder's question on the hook page with Fix in Builder, the known-questions list, the spent-fee copy, plus the carry-overs: no hat, cancelled launch transaction retry, reorged ticker |
-| 8a | Ad contracts (contracts launch, phase 2) | `HookListingRegistry` and `FeaturedPlacementsV2` per 6.6, audited and deployed by IMD on Robinhood Chain and Ethereum |
-| 8 | Listings and #ad (phase 2) | The Promotions panel in My hooks: promote a hook (free listing, deposit, 24-hour placement), boost, cancel, withdraw; the strip reading `featured()` with creator ENS names; the hook page's #ad state |
+| 8 | Catalog hardening | Everything in 4.16: the deployer for hook-only and existing-token launches, pair-currency thresholds, the Yield block by chain, the fee destinations, the Volatility fee dependency, the token definition, references on every kind, the words-mode checklist, the hidden-stack and owner-footer fixes |
+| 9a | Ad contracts (contracts launch, phase 2) | `HookListingRegistry` and `FeaturedPlacementsV2` per 6.6, audited and deployed by IMD on Robinhood Chain and Ethereum |
+| 9 | Listings and #ad (phase 2) | The Promotions panel in My hooks: promote a hook (free listing, deposit, 24-hour placement), boost, cancel, withdraw; the strip reading `featured()` with creator ENS names; the hook page's #ad state |
 
 ## 14. Decisions taken by the owner (2026-10-21)
 
@@ -522,6 +540,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 18. Fee currency (2026-10-21, after launch 2 blocked): in every block sentence the fee side and the settlement currency are the pair currency (ETH for ETH pairs and for types B and C, IMD for IMD pairs), IMD-paired requests say "do not convert the fee to ETH and do not use any other pool", and "my wallet" is written as the paying wallet's address. The composer, the fixtures and the mockup follow 5.1.
 19. Launch safety (2026-10-21, after launch 2 blocked): the owner asked that a user never pays twice for the same mistake. 6.7 defines the checks; job 7 builds them before the store is advertised; the owner's test launches absorb such failures first.
 20. Hook-only deployment (2026-10-21, after launch 4 blocked): type B and C launches deploy a deployer contract that CREATE2-deploys the hook at a permission-bit address; the site reads hook() from the deployer. The composer says so in every B and C request. No type B or C launch is paid until job 8 ships the wording, unless its words carry the deployer sentence by hand.
+21. Deep review before more spending (2026-10-21): the owner asked for every remaining way a launch could block to be found first. Section 4.16 is the result; job 8 ships it; the ads wait as jobs 9a and 9.
 
 ## 15. From mockup to live
 
@@ -538,6 +557,6 @@ The mockup is a drawing of the product, not the product. The swarm builds the re
    - *IMD hosting.* Every delivery already publishes to `the-hooks-store.sites.imd.fun` and its ENS name `the-hooks-store.site.identitymd.eth`. Done on 2026-10-21 by job 6: the banner is gone and `relayUrl` is set (7.4), the owner having deployed the worker from the delivered `relay/` folder with one wrangler command on a free Cloudflare account; Claude runs that command with the owner. The old `the-hooks-store-uniswap-v4-hooks` name stays on its offline page or is pointed at the new site later.
    - *The owner's own domain.* Cloudflare Pages (free) connected to a fork of the delivered repository under the owner's GitHub account, building `dist/` on every push, with a custom domain such as thehooksstore.xyz. Claude sets it up with the owner in about fifteen minutes. The relay worker (7.4) lives on the same Cloudflare account.
    Both serve the identical build. The IMD name is the canonical, audit-trailed copy; the custom domain is the one to advertise.
-6. **Phase 2.** The ad contracts are deployed by the job 8a launch (one launch per chain: Robinhood Chain, then Ethereum), job 8 wires the Promotions panel and the strip, and the same republish puts it live.
+6. **Phase 2.** The ad contracts are deployed by the job 9a launch (one launch per chain: Robinhood Chain, then Ethereum), job 9 wires the Promotions panel and the strip, and the same republish puts it live.
 7. **After that.** Changes are new `job.continue` jobs; the owner never edits code. Operating costs are zero: no server, no database, the relay is within Cloudflare's free tier, and users pay IMD directly for their own launches and placements.
 
