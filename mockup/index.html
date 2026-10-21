@@ -348,7 +348,7 @@ section.view { padding-block: 8px 24px; }
           </div>
           <div class="field-row">
             <div><label for="s-chain">DEPLOY ON</label><select id="s-chain"><option value="">Choose a chain</option><option value="4663">Robinhood Chain</option><option value="1">Ethereum</option></select></div>
-            <div id="pair-field"><label for="s-pair">PAIR WITH</label><select id="s-pair"><option value="eth">ETH</option><option value="imd" disabled>IMD (Robinhood and Ethereum only)</option></select></div>
+            <div id="pair-field"><label for="s-pair">PAIR WITH</label><select id="s-pair"><option value="imd">IMD</option><option value="eth">ETH</option></select></div>
           </div>
           <div class="field-row" id="pool-fields">
             <div><label for="s-pool">POOL SHARE OF YOUR 90% (%) · YOUR CHOICE</label><input id="s-pool" type="number" min="10" max="90" step="5" placeholder="10 to 90"><p class="small muted" style="margin:6px 0 0">How much of your share seeds the trading pool. The rest goes to your remainder address. Nothing is chosen for you.</p></div>
@@ -686,7 +686,7 @@ section.view { padding-block: 8px 24px; }
     'Liquidity is locked for 30 days and anyone who adds and removes liquidity within 10 blocks forfeits their fees.'
   ];
 
-  var state = { mode: null, type: 'A', prompt: '', blocks: [], settings: { chain: null, pair: 'eth', pool: null, rem: '', owner: '', token: '', tsym: '', hname: '', repo: '', commit: '' }, wallet: null };
+  var state = { mode: null, type: 'A', prompt: '', blocks: [], settings: { chain: null, pair: 'imd', pool: null, rem: '', owner: '', token: '', tsym: '', hname: '', repo: '', commit: '' }, wallet: null };
   function defaults(b) { var p = {}; b.params.forEach(function (x) { p[x.k] = x.d; }); return p; }
   function seedBlocks() { state.blocks = [{ id: 'token', p: defaults(byId.token) }, { id: 'swap-fee', p: defaults(byId['swap-fee']) }, { id: 'anti-sniper', p: defaults(byId['anti-sniper']) }, { id: 'jar', p: defaults(byId.jar) }]; }
   try { var saved = JSON.parse(localStorage.getItem('hooks-store:mockup-draft:v3') || 'null'); if (saved && saved.blocks && saved.settings) { state = saved; state.wallet = null; } else seedBlocks(); } catch (e) { seedBlocks(); }

@@ -1,0 +1,22 @@
+{
+  "action": "job.continue",
+  "input": {
+    "parentJobId": "abc4044e-49c5-4ece-b444-eb0a99bc916b",
+    "shape": "chain",
+    "steps": [
+      {
+        "skill": "build-website"
+      },
+      {
+        "skill": "adversarial-review"
+      }
+    ],
+    "objective": "Carry over from job 4's delivery: nothing is missing; one change of order. In the Builder's Pair with select (type A), list IMD first and start on IMD, ETH second (SPEC 4 step 3 and owner's decision 14); the composed request and the summary follow the choice as before. Refresh SPEC.md from https://raw.githubusercontent.com/the-hook-store/hooks-store-spec/main/SPEC.md (now 1.16). Everything else from job 4 stays as delivered. The Hooks Store, phase 1 job 5 of 6: the relay, the live free check, scene polish and final polish. Implement SPEC.md section 7.4 and the phase 2 polish of section 9 (reeds at the banks, a hat on the fisher, one or two birds over the canopy, all monochrome tiles). Write relay/worker.js, a single-file Cloudflare Worker that forwards POST /check to https://api.imd.fun/requests/check and POST /import to https://api.imd.fun/requests/import, and GET /launches, /launches/:id, /jobs/:id and /intake/:chain/:tx to the same paths on api.imd.fun, adds Access-Control-Allow-Origin *, caches GET responses for 30 seconds, and rejects every other path and method; include a README with the one-command deploy and unit tests with a fetch mock. In the site, read relayUrl from site-config.json (null by default): when set, enable the free-check button in the Builder and render the What the swarm understood panel from the response (facts with their states, plan step titles, blockers, suggestions) and block Launch while blockers exist; resolve own-code repositories through /import before composing; name launches in the pond ticker from /launches; show the real stage names Building, Audit panel and Deploying on the Hook page timeline from /jobs/:id. Final copy pass against SPEC.md section 8; Lighthouse accessibility at least 95 on Store and Builder; Playwright regression at three widths for every route. Deliver source, dist/, relay/ and test results. The second step is an adversarial review by a different seat, read-only, of the money path delivered in jobs 4 and 5: the price read, approve and request calls, body encoding, receipt parsing, request-id handling, the relay, and the chain reads; it reports concrete reproductions, and the owner carries any confirmed finding into the next job. No real launch happens before that review is read.",
+    "references": [
+      "eth-frontend-ux",
+      "better-interface"
+    ],
+    "github": true,
+    "ipfs": "the-hooks-store"
+  }
+}
