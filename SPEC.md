@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.20 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.21 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.21 (2026-10-21): job 6 is delivered and verified (jobs/log.md): the seven review findings are fixed, the relay address is set, the banner is gone and the site takes real launches. Its critic left two edge-case findings (a confirmed cancelled launch transaction still locks the flow; the pond ticker keeps an orphaned launch after a reorg) that ride at the top of job 7 with the hat removal. Phase 1 is complete; the three test launches of 15.4 come next.
 
 Changes in 1.20 (2026-10-21): no hat on Pepe (owner's decision 16): the pointed hat job 5 drew over the sprite makes his head look triangular; job 7 removes it and the sprite stays as the mockup draws it. The far boat and the birds stay (9).
 
@@ -508,7 +510,7 @@ The mockup is a drawing of the product, not the product. The swarm builds the re
    - *Block coverage.* There is no separate verification round. Claude checks every real launch the way 4.14 describes: the 4.11 function names are in the deployed ABI and do what the sentence says, the owner-only ones refuse other callers, and where a rule can be exercised with a swap (fees, limits, windows, cooldowns, jars) it is exercised and the effect is read back. Every block the launch used gets an entry in `evidence/blocks-verified.json` with passed true or false and notes, and the Builder shows the proven mark from then on. A failing block has its sentence or its 4.11 functions rewritten, or leaves the catalog. The Custom rule block cannot be pre-verified; the user's own launch audit covers it, and the card says so.
    Budget: three launches, 1.5 IMD plus gas; the owner may add the four all-blocks launches of 5.3 (2 IMD) at any time to cover every block sooner.
 5. **Go live, phase 1.** The site is static files, so "live" is a hosting decision, and two options can run at once:
-   - *IMD hosting.* Every delivery already publishes to `the-hooks-store.sites.imd.fun` and its ENS name `the-hooks-store.site.identitymd.eth`. Job 6 removes the in-progress banner and sets `relayUrl` (7.4) once the owner has deployed the worker from the delivered `relay/` folder with one wrangler command on a free Cloudflare account; Claude runs that command with the owner. The old `the-hooks-store-uniswap-v4-hooks` name stays on its offline page or is pointed at the new site later.
+   - *IMD hosting.* Every delivery already publishes to `the-hooks-store.sites.imd.fun` and its ENS name `the-hooks-store.site.identitymd.eth`. Done on 2026-10-21 by job 6: the banner is gone and `relayUrl` is set (7.4), the owner having deployed the worker from the delivered `relay/` folder with one wrangler command on a free Cloudflare account; Claude runs that command with the owner. The old `the-hooks-store-uniswap-v4-hooks` name stays on its offline page or is pointed at the new site later.
    - *The owner's own domain.* Cloudflare Pages (free) connected to a fork of the delivered repository under the owner's GitHub account, building `dist/` on every push, with a custom domain such as thehooksstore.xyz. Claude sets it up with the owner in about fifteen minutes. The relay worker (7.4) lives on the same Cloudflare account.
    Both serve the identical build. The IMD name is the canonical, audit-trailed copy; the custom domain is the one to advertise.
 6. **Phase 2.** The ad contracts are deployed by the job 7a launch (one launch per chain: Robinhood Chain, then Ethereum), job 7 wires the Promotions panel and the strip, and the same republish puts it live.
