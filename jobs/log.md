@@ -19,3 +19,10 @@ Job 2 continues job 1: `parentJobId` 4cc83fbc-42d7-49fe-a9db-4310fb61a570 is fil
 ## Job 2 paid (2026-10-21 09:09 UTC)
 
 Job 2 body: `job-2-builder.json` at spec commit 52e5b06 (v1.11), `job.continue@job-1` on the project of job 1 (0.5 IMD, one transaction: the allowance from job 1 covered it). IMD admitted it the same second and recorded exactly our objective. Status: `GET https://api.imd.fun/jobs/a9268c47-5864-45b4-ae6e-022d726eed3c`. Job 3's `parentJobId` is set to it.
+
+## Job 2 delivered (2026-10-21 10:00 UTC)
+
+- Nodes: `build_website` accepted (one revision after the critic), `design_critic` accepted. The critic reopened three findings (warning tooltips widening the page at 320/390, the untested status not readable by screen readers, a stale dependency note); the worker reproduced and fixed all three (`VALIDATION.md` in the delivery). Final run: typecheck, build, 16 unit tests and 38 Playwright tests passed.
+- Delivery: same repo at commit 6834a291 (pull request 2, merged). New: `src/blocks/catalog.json` (all 35 spec blocks, nine groups), `src/lib/compose.ts`, `web/src/Builder.tsx`, fixtures compose-A/B/C; the IMD snapshot and its script are gone.
+- Site: https://the-hooks-store.sites.imd.fun, pinned CID bafybeicwc4mb6wpm2lm46eh6acqza4fzmph5coi7ddpfpogqtd7hioqwie (801,772 bytes).
+- Owner's check: the three job 1 fixes landed (top bar as the mockup, landing copy, empty pond panel). Builder driven by script: default stack seeds on first Stack blocks, settings appear, REMOVE SWAP FEE FIRST and OWN POOLS ONLY pills, pool share gates Continue, composed text equals the 5.1 template, describe mode keeps the blocks as chips, the draft survives a reload, type C shows its settings and errors, no page errors. Three small misses go to the top of job 3: the brand mark falls back to a system font (the bundled VT323 subset lacks U+0283), the empty pond line differs from the spec, and the single-card featured strip shows a clipped duplicate. Records: `evidence/job-2-job.json`, `evidence/job-2-result.json`.
