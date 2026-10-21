@@ -91,8 +91,6 @@ details > div { padding: 0 14px 14px; }
 .mock { background: var(--ink); color: var(--paper); padding: 8px 0; }
 .mock .wrap { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 15px; }
 .mock b { font: 400 9px/1.6 var(--display); }
-.mock .prop-toggle { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font: 400 8px/1.6 var(--display); color: var(--ad); cursor: pointer; }
-.mock .prop-toggle input { width: 18px; height: 18px; min-height: 0; margin: 0; accent-color: var(--ad); }
 
 /* top bar */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--pine); color: var(--on-pine); border-bottom: 3px solid var(--ink); }
@@ -241,7 +239,7 @@ section.view { padding-block: 8px 24px; }
 </style>
 </head>
 <body>
-<div class="mock"><div class="wrap"><b>DESIGN MOCKUP</b><span>Sample data. Nothing here connects a wallet or sends a transaction. The hook cards are examples of hooks launched through this store; none is a real launch. Click the water to see a cast.</span><label class="prop-toggle"><input type="checkbox" id="prop-toggle"> SHOW PROPOSAL: PAIRING + IMD FEE</label></div></div>
+<div class="mock"><div class="wrap"><b>DESIGN MOCKUP</b><span>Sample data. Nothing here connects a wallet or sends a transaction. The hook cards are examples of hooks launched through this store; none is a real launch. Click the water to see a cast.</span></div></div>
 
 <header class="top">
   <div class="wrap top-in">
@@ -353,8 +351,6 @@ section.view { padding-block: 8px 24px; }
             <div><label for="s-chain">DEPLOY ON</label><select id="s-chain"><option value="">Choose a chain</option><option value="4663">Robinhood Chain</option><option value="1">Ethereum</option></select></div>
             <div id="pair-field"><label for="s-pair">PAIR WITH</label><select id="s-pair"><option value="imd">IMD</option><option value="eth">ETH</option></select></div>
           </div>
-          <div class="field-row" id="pair-extra"><div id="pairtoken-field" hidden><label for="s-pairtoken">PAIR TOKEN ADDRESS</label><input id="s-pairtoken" placeholder="0x…" spellcheck="false"><p class="small muted" style="margin:6px 0 0">Any token that already exists on the deploy chain. You open this pool yourself after the hook is live.</p></div><div></div></div>
-          <div class="notice" id="imd-fee-fields" hidden style="border-left:10px solid var(--ad)"><strong>STORE RULE <span class="pill ad">PROPOSAL</span></strong><p class="small" id="imd-fee-text" style="margin:6px 0 0"></p><div class="field-row"><div><label for="s-imdfee">THE IMD GOES TO</label><select id="s-imdfee"><option value="burn">Burn it</option><option value="treasury">A treasury address</option></select></div><div id="imdtreasury-field" hidden><label for="s-imdtreasury">TREASURY ADDRESS</label><input id="s-imdtreasury" placeholder="0x…" spellcheck="false"></div></div></div>
           <div class="field-row" id="pool-fields">
             <div><label for="s-pool">POOL SHARE OF YOUR 90% (%) · YOUR CHOICE</label><input id="s-pool" type="number" min="10" max="90" step="5" placeholder="10 to 90"><p class="small muted" style="margin:6px 0 0">How much of your share seeds the trading pool. The rest goes to your remainder address. Nothing is chosen for you.</p></div>
             <div><label for="s-rem">REMAINDER GOES TO</label><input id="s-rem" placeholder="your connected wallet" spellcheck="false"></div>
@@ -450,7 +446,6 @@ section.view { padding-block: 8px 24px; }
   <details><summary>WHAT HAPPENS TO A FEATURE AFTER LAUNCH?</summary><div><p>Most blocks run by themselves inside the pool. A few give the owner a switch (pause, allowlists, donation rules): those appear under Owner controls on your hook page, for your wallet only. A few give traders or anyone a button (place a limit order, trigger a buyback, run a prize draw) and a few only publish a reading (an average price, a jar balance): those appear under Traders, anyone, and readings. Every block card in the builder says which of these it is.</p></div></details>
   <details><summary>WHAT DOES IT COST?</summary><div><p><b class="num">0.5 IMD</b> plus gas for two transactions. The audit panel is included in that fee. Deployment gas is paid by IMD. A request the swarm refuses still costs the fee, which is why the builder checks it for free first. A featured #ad slot is <b class="num">0.1 IMD</b> for 24 hours and is optional.</p></div></details>
   <details><summary>WHICH CHAINS?</summary><div><p>Robinhood Chain or Ethereum, your choice in the Builder. There is no test network: every launch is real, paid in IMD on Ethereum or Robinhood Chain, and the swarm writes, tests and audits the hook before it deploys.</p></div></details>
-  <details class="prop-only" hidden><summary>WHY DO SOME POOLS PAY A 0.1% IMD FEE? <span class="pill ad">PROPOSAL</span></summary><div><p>Pools launched through this store that are not paired with IMD carry a store rule: <b class="num">0.1%</b> of the paired side of every swap is taken by the hook, converted to IMD, and burned or sent to the treasury address the creator chose at launch. Pools paired with IMD pay nothing extra. A brand-new token can be paired with ETH or IMD (IMD opens that pool); a hook for a token that already exists can be paired with any token, because you open that pool yourself.</p></div></details>
   <details><summary>WHO AUDITS IT?</summary><div><p>IMD's audit panel: four specialist agents (math, permissions, economics, control flow) and a judge who reproduces their findings. Nothing deploys with an unresolved finding. This is an automated review, not a guarantee.</p></div></details>
   <h2 style="margin-top:24px">READ THE SOURCES</h2>
   <div class="box" style="padding:14px;margin-bottom:20px">
@@ -692,16 +687,11 @@ section.view { padding-block: 8px 24px; }
     'Liquidity is locked for 30 days and anyone who adds and removes liquidity within 10 blocks forfeits their fees.'
   ];
 
-  var state = { mode: null, type: 'A', prompt: '', blocks: [], settings: { chain: null, pair: 'imd', pool: null, rem: '', owner: '', token: '', tsym: '', hname: '', repo: '', commit: '', pairtoken: '', imdfee: 'burn', imdtreasury: '' }, wallet: null, proposal: false };
+  var state = { mode: null, type: 'A', prompt: '', blocks: [], settings: { chain: null, pair: 'imd', pool: null, rem: '', owner: '', token: '', tsym: '', hname: '', repo: '', commit: '' }, wallet: null };
   function defaults(b) { var p = {}; b.params.forEach(function (x) { p[x.k] = x.d; }); return p; }
   function seedBlocks() { state.blocks = [{ id: 'token', p: defaults(byId.token) }, { id: 'swap-fee', p: defaults(byId['swap-fee']) }, { id: 'anti-sniper', p: defaults(byId['anti-sniper']) }, { id: 'jar', p: defaults(byId.jar) }]; }
   try { var saved = JSON.parse(localStorage.getItem('hooks-store:mockup-draft:v3') || 'null'); if (saved && saved.blocks && saved.settings) { state = saved; state.wallet = null; } else seedBlocks(); } catch (e) { seedBlocks(); }
-  state.proposal = state.proposal === true; ['pairtoken', 'imdtreasury'].forEach(function (k) { if (typeof state.settings[k] !== 'string') state.settings[k] = ''; }); if (state.settings.imdfee !== 'treasury') state.settings.imdfee = 'burn';
-  function proposalOn() { return state.proposal === true; }
-  function pairSym(s) { if (state.type === 'B') return 'ETH'; if (state.type === 'C' && !proposalOn()) return 'ETH'; return s.pair === 'imd' ? 'IMD' : s.pair === 'other' ? 'pair token' : 'ETH'; }
-  function pairLabel(s) { var p = pairSym(s); return p === 'pair token' ? 'the token at ' + (s.pairtoken || '0x\u2026') : p; }
-  function imdFeeOn() { return proposalOn() && state.type !== 'B' && pairSym(state.settings) !== 'IMD'; }
-  function imdFeeDest(s) { return s.imdfee === 'treasury' ? 'sends it to ' + (s.imdtreasury || '0x\u2026') : 'burns it'; }
+  function pairSym(s) { return state.type === 'A' && s.pair === 'imd' ? 'IMD' : 'ETH'; }
   function save() { try { localStorage.setItem('hooks-store:mockup-draft:v3', JSON.stringify(state)); } catch (e) { /* storage unavailable */ } }
 
   function has(id) { return state.blocks.some(function (b) { return b.id === id; }); }
@@ -722,7 +712,7 @@ section.view { padding-block: 8px 24px; }
     var prompt = cleanText(state.prompt).slice(0, 3000);
     if (state.type === 'A') { lines.push('Launch ' + c.name + ' (' + c.symbol + ') with a Uniswap v4 hook on ' + chainLabel(s) + ', paired with ' + s.pair.toUpperCase() + '.'); var t = tokenBlock(); lines.push(byId[t.id].s(t.p, c)); }
     else if (state.type === 'B') { lines.push('Deploy one contract: ' + c.name + ', a standalone Uniswap v4 hook with no token and no pool of its own, on ' + chainLabel(s) + '. It must be usable by anyone initializing a new pool with it on the PoolManager passed as a constructor argument (' + chainLabel(s) + ' PoolManager ' + (s.chain ? PM[s.chain] : '0x…') + ').'); }
-    else { lines.push('Deploy one contract on ' + chainLabel(s) + ': ' + c.name + ', a Uniswap v4 hook for the existing token ' + (s.token || '0x…') + (s.tsym ? ' (' + s.tsym + ')' : '') + ', paired with ' + pairLabel(s) + '. No new token and no pool created by the launch; the creator will initialize the pool with this hook afterwards on the PoolManager passed as a constructor argument (' + (s.chain ? PM[s.chain] : '0x…') + ').'); }
+    else { lines.push('Deploy one contract on ' + chainLabel(s) + ': ' + c.name + ', a Uniswap v4 hook for the existing token ' + (s.token || '0x…') + (s.tsym ? ' (' + s.tsym + ')' : '') + ', paired with ETH. No new token and no pool created by the launch; the creator will initialize the pool with this hook afterwards on the PoolManager passed as a constructor argument (' + (s.chain ? PM[s.chain] : '0x…') + ').'); }
     if (prompt && rules.length) lines.push('The hook does exactly what the creator describes, plus the numbered rules, and nothing else. If the description and a numbered rule disagree, the numbered rule wins.');
     else if (prompt) lines.push('The hook does exactly what the creator describes below, and nothing else.');
     else lines.push('The hook does exactly the following, and nothing else:');
@@ -731,7 +721,6 @@ section.view { padding-block: 8px 24px; }
     if (!prompt && !rules.length) lines.push('1. No swap-time behavior: the hook only implements the callback the launch factory requires and observes swaps.');
     lines.push(powers.length ? 'Owner ' + walletOr(s.owner) + ' may only: ' + powers.join(', ') + ', through the functions named above. No other admin function, no backend signer, no upgrade path.' : 'No owner functions, no backend signer, no upgrade path.');
     lines.push('Fees are always taken from the ' + pairSym(s) + ' (pair currency) side, never from ' + c.symbol + '; a fee the PoolManager cannot pay directly is minted as a claim the recipient can redeem.');
-    if (imdFeeOn()) lines.push('Because this pool is not paired with IMD, the hook also takes 0.1% of the ' + pairSym(s) + ' side of every swap as the store\u2019s IMD fee, converts it to IMD through the route named in the constructor, and ' + imdFeeDest(s) + '. This rule is set by the store and cannot be removed.');
     if (state.type === 'A') { lines.push('Enable beforeInitialize (required by the IMD launch factory) and only the callbacks the behavior above needs. Take the PoolManager as a constructor argument. Owner, if any, is $owner.'); if (s.pool !== null) lines.push('Pool: ' + s.pool + '% of my 90% share seeds the pool; the remainder goes to ' + walletOr(s.rem) + '.'); }
     else lines.push('Take the PoolManager as a constructor argument and enable only the callbacks the behavior above needs. The deployed address must carry the correct hook permission bits (mine a CREATE2 salt). Owner, if any, is $owner.');
     if (s.repo) lines.push('Start from the creator\u2019s own source at ' + s.repo + (s.commit ? ' commit ' + s.commit : '') + ': audit it as imported code, adapt it to this launch, and keep its behavior.');
@@ -816,19 +805,15 @@ section.view { padding-block: 8px 24px; }
     if (state.type === 'C') rows.push(['EXISTING TOKEN', esc(s.token || '(missing)')]);
     rows.push(['DEPLOY ON', s.chain === null ? '<span style="color:var(--bad)">not chosen</span>' : CHAINS[s.chain]]);
     if (state.type === 'A') { rows.push(['PAIRED WITH', s.pair.toUpperCase()]); rows.push(['POOL SHARE', s.pool === null ? '<span style="color:var(--bad)">not chosen</span>' : '<span class="num">' + s.pool + '%</span> of your 90%']); rows.push(['REMAINDER TO', esc(walletOr(s.rem))]); }
-    if (state.type === 'C' && proposalOn()) rows.push(['PAIRED WITH', esc(pairLabel(s))]);
-    if (imdFeeOn()) rows.push(['IMD FEE', '<span class="pill ad">STORE RULE</span> <span class="num">0.1%</span> of the ' + pairSym(s) + ' side, bought as IMD and ' + (s.imdfee === 'treasury' ? 'sent to ' + esc(s.imdtreasury || '0x\u2026') : 'burned')]);
     rows.push(['OWNER', esc(walletOr(s.owner))]); rows.push(['RULES', String(behaviorBlocks().length) + (cleanText(state.prompt) ? ' blocks + your words' : ' blocks')]); rows.push(['DESCRIPTION', '<span class="num">' + compose().length.toLocaleString('en-US') + '</span> characters']);
     $('summary').innerHTML = rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
     var fees = [['Swarm fee', '<b>0.5 IMD</b>, once. The audit panel is included. Read live from the Intake before you approve.'], ['Gas', 'Two transactions on the payment chain: approve, then launch.']];
     if (state.type === 'A') { fees.push(['Token supply', '<b>10%</b> to the swarm, <b>90%</b> to you. ' + (s.pool === null ? 'You have not chosen how much of yours seeds the pool yet.' : '<b>' + s.pool + '%</b> of yours seeds the pool, the rest goes to your remainder address.')]); fees.push(['Pool trading fee', '<b>1.25%</b> of every trade: <b>1%</b> to you, <b>0.25%</b> to the network. Your hook\u2019s own fee comes on top.']); }
     else { fees.push(['Token and pool', 'None created. You get the audited hook contract only.']); if (state.type === 'C') fees.push(['Opening the pool', 'One more transaction from your wallet after the hook is live, prepared by the site. Liquidity is yours to add.']); }
-    if (imdFeeOn()) fees.push(['IMD fee <span class="pill ad">STORE RULE</span>', '<b>0.1%</b> of the ' + pairSym(s) + ' side of every swap, bought as IMD and ' + (s.imdfee === 'treasury' ? 'sent to your treasury address' : 'burned') + '. Applies to every pool not paired with IMD. Pools paired with IMD pay nothing extra.']);
     fees.push(['Deployment', 'Paid by IMD. No deployment gas for you.']);
     $('fees').innerHTML = fees.map(function (f) { return '<tr><th>' + f[0] + '</th><td>' + f[1] + '</td></tr>'; }).join('');
     $('l-launch').title = s.chain === null ? 'Choose the deploy chain first' : state.type === 'A' && s.pool === null ? 'Choose the pool share first' : '';
     $('type-c-note').hidden = state.type !== 'C';
-    $('type-c-note').innerHTML = '<strong>After the hook is live:</strong> open the pool. We prepare the one transaction that creates the token / ' + esc(pairSym(s) === 'pair token' ? (s.pairtoken ? s.pairtoken.slice(0, 10) + '\u2026' : 'pair token') : pairSym(s)) + ' pool with your hook and hand it to your wallet. Then add liquidity from any v4 interface.';
   }
   function renderMode() {
     var m = state.mode;
@@ -839,23 +824,14 @@ section.view { padding-block: 8px 24px; }
   function renderTypes() {
     document.querySelectorAll('.type').forEach(function (b) { b.classList.toggle('on', b.dataset.type === state.type); });
     $('type-c-fields').hidden = state.type !== 'C'; $('type-bc-fields').hidden = state.type === 'A';
-    $('pool-fields').hidden = state.type !== 'A'; $('pair-field').style.visibility = (state.type === 'A' || (state.type === 'C' && proposalOn())) ? 'visible' : 'hidden';
-    var sel = $('s-pair'), want = state.type === 'C' && proposalOn() ? [['imd', 'IMD'], ['eth', 'ETH'], ['other', 'Another token']] : [['imd', 'IMD'], ['eth', 'ETH']];
-    if (sel.options.length !== want.length) sel.innerHTML = want.map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join('');
-    if (!want.some(function (o) { return o[0] === state.settings.pair; })) state.settings.pair = 'imd';
-    sel.value = state.settings.pair;
-    $('pairtoken-field').hidden = !(state.type === 'C' && proposalOn() && state.settings.pair === 'other');
-    $('imd-fee-fields').hidden = !imdFeeOn(); $('imdtreasury-field').hidden = state.settings.imdfee !== 'treasury';
-    $('imd-fee-text').textContent = 'This pool is not paired with IMD, so the hook takes 0.1% of the ' + pairSym(state.settings) + ' side of every swap, converts it to IMD and ' + (state.settings.imdfee === 'treasury' ? 'sends it to your treasury address' : 'burns it') + '. Pools paired with IMD pay nothing extra. Not in the spec yet.';
-    document.querySelectorAll('.prop-only').forEach(function (el) { el.hidden = !proposalOn(); }); $('prop-toggle').checked = proposalOn();
+    $('pool-fields').hidden = state.type !== 'A'; $('pair-field').style.visibility = state.type === 'A' ? 'visible' : 'hidden';
   }
   function renderAll() { renderMode(); renderTypes(); renderPalette(); renderCanvas(); renderPreview(); renderSummary(); renderMine(); save(); }
 
-  ['chain', 'pair', 'pool', 'rem', 'owner', 'token', 'tsym', 'hname', 'repo', 'commit', 'pairtoken', 'imdfee', 'imdtreasury'].forEach(function (k) {
+  ['chain', 'pair', 'pool', 'rem', 'owner', 'token', 'tsym', 'hname', 'repo', 'commit'].forEach(function (k) {
     var el = $('s-' + k); el.value = state.settings[k] === null || state.settings[k] === undefined ? '' : state.settings[k];
-    el.addEventListener('input', function () { state.settings[k] = k === 'chain' ? (el.value === '' ? null : Number(el.value)) : k === 'pool' ? (el.value === '' ? null : Number(el.value)) : el.value; renderTypes(); renderCanvas(); renderPreview(); renderSummary(); save(); });
+    el.addEventListener('input', function () { state.settings[k] = k === 'chain' ? (el.value === '' ? null : Number(el.value)) : k === 'pool' ? (el.value === '' ? null : Number(el.value)) : el.value; renderCanvas(); renderPreview(); renderSummary(); save(); });
   });
-  $('prop-toggle').addEventListener('change', function () { state.proposal = $('prop-toggle').checked; renderAll(); });
   $('p-text').value = state.prompt;
   $('p-text').addEventListener('input', function () { state.prompt = $('p-text').value; renderPreview(); renderSummary(); save(); });
   $('p-chips').innerHTML = EXAMPLES.map(function (t, i) { return '<button class="chip" type="button" data-ex="' + i + '">' + esc(t.slice(0, 54)) + '\u2026</button>'; }).join('');
