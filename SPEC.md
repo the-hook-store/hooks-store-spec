@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.21 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.22 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.22 (2026-10-21): the "treasury address" choice of the fee blocks never asked for an address, so a request read "send it to treasury address" and IMD's check assumed the paying wallet ("Who receives fees and payouts: unknown"). Now choosing it reveals a required address field in the block, the sentence carries the address, and the option is never IMD's own fee recipient (4, decision 17). Job 7 carries it.
 
 Changes in 1.21 (2026-10-21): job 6 is delivered and verified (jobs/log.md): the seven review findings are fixed, the relay address is set, the banner is gone and the site takes real launches. Its critic left two edge-case findings (a confirmed cancelled launch transaction still locks the flow; the pond ticker keeps an orphaned launch after a reorg) that ride at the top of job 7 with the hat removal. Phase 1 is complete; the three test launches of 15.4 come next.
 
@@ -165,7 +167,7 @@ The catalog covers every v4 hook capability: pool initialization rules, swap-tim
 
 | Block | Types | Parameters (defaults) | Sentence |
 |---|---|---|---|
-| Swap fee | ABC | rate % (1.0; 0.1–5), applies to (buy and sell / buy / sell), send to (my wallet / treasury address / burn) | "Take {rate}% of the ETH side of every {applies} as a hook fee, settled in ETH inside the swap that paid it (mint a claim when the PoolManager cannot pay it directly), and send it to {to}." |
+| Swap fee | ABC | rate % (1.0; 0.1–5), applies to (buy and sell / buy / sell), send to (my wallet / treasury address, which reveals a required address field / burn) | "Take {rate}% of the ETH side of every {applies} as a hook fee, settled in ETH inside the swap that paid it (mint a claim when the PoolManager cannot pay it directly), and send it to {to}." |
 | Fee that fades | ABC, needs Swap fee | start % (10), end % (1), minutes (30) | "The hook fee starts at {start}% of the ETH side of every swap when the pool opens and decreases linearly to {end}% over the first {minutes} minutes, then stays at {end}%." |
 | Different buy and sell fees | ABC, not with Swap fee | buy % (0.5), sell % (2.0), send to | "Take {buy}% of the ETH side of every buy and {sell}% of the ETH side of every sell as a hook fee, settled in ETH inside the swap that paid it (…), and send it to {to}." |
 | Whale fee | ABC | above ETH (1), extra % (1.0) | "Any swap whose ETH side is larger than {above} ETH pays an extra {extra}% of its ETH side as a hook fee, on top of any other hook fee, settled the same way." |
@@ -497,6 +499,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 14. Pairing order (2026-10-21, after job 4): the Pair with select lists IMD first and starts on IMD, ETH second. IMD's launch policy offers ETH, IMD and, on Ethereum only, FWA as the pool pairing for a new token; the store does not offer FWA. Job 5 carries the order.
 15. Go live (2026-10-21, after job 5): the owner's agent read job 5's adversarial review and the critic's findings; all seven ride in job 6, which removes the banner. The owner deploys the relay worker on a free Cloudflare account before job 6 so the free check works live from the first real launch.
 16. No hat (2026-10-21, after job 5): the owner saw the pointed hat the swarm drew over Pepe and asked for it to go. Nothing is drawn over the sprite; job 7 removes the hat and keeps the far boat and the birds.
+17. Treasury address (2026-10-21, before the first launch): in every block that offers "treasury address" (Swap fee, Different buy and sell fees, Buyback jar), choosing it reveals a required address field inside the block; the composed sentence names that address ("send it to 0x…"); an empty field is a rule error that blocks Continue. The option is the creator's own treasury, never IMD's fee recipient, which receives the network's pool share by itself. Until job 7 lands, creators should choose "my wallet".
 
 ## 15. From mockup to live
 
