@@ -1,0 +1,161 @@
+{
+ "request": {
+  "action": "launch.open",
+  "input": {
+   "objective": "Deploy one contract, PondGuardDeployer, on Robinhood Chain: its constructor creates PondGuard with CREATE2 at an address whose low 14 bits equal the hook's permission flags, using the bytes32 salt passed as its constructor argument, mined off-chain against the deployer's own address; if the salt cannot be mined in advance, the constructor loops over salts until the computed address carries the flags. The deployer exposes hook() as a view returning the hook's address and does nothing else. PondGuard is a standalone Uniswap v4 hook with no token and no pool of its own; it must be usable by anyone initializing a new pool with it on the PoolManager passed to the deployer as a constructor argument (Robinhood Chain PoolManager 0x8366a39CC670B4001A1121B8F6A443A643e40951).\nThe hook does exactly the following, and nothing else:\n1. Let users place limit orders in the hook that fill automatically when the pool price crosses the order price, and withdraw unfilled orders at any time (the LimitOrderHook pattern). Expose placeOrder(bool zeroForOne, int24 tick, uint256 amount) returning an id, cancelOrder(uint256 id) and claim(uint256 id).\n2. Liquidity added to the pool is locked for 7 days from the time it was added; removing it earlier reverts. The launch factory’s own zero-change fee collection is always allowed. Expose unlockAt(address) as a view.\n3. Only addresses the owner has added to a liquidity allowlist may add liquidity; anyone may remove their own. The launch factory’s initial seeding is always allowed. Expose setLpAllowed(address[] accounts, bool allowed) for the owner and isLpAllowed(address) as a view.\n4. Take 1.0% of the ETH side of every buy and sell as a hook fee, settled in ETH inside the swap that paid it (mint a claim when the PoolManager cannot pay it directly), and send it to 0x5Bff2a2FEcD1d6152676813b21346238733bEAB1. Expose claimFees() that anyone may call to redeem claims to the recipient.\nOwner the paying wallet may only: add and remove liquidity-provider allowlist addresses, through the functions named above. No other admin function, no backend signer, no upgrade path.\nFees are always taken from the ETH (pair currency) side, never from the pool’s token; a fee the PoolManager cannot pay directly is minted as a claim the recipient can redeem.\nTake the PoolManager as a constructor argument and enable only the callbacks the behavior above needs. Owner, if any, is $owner.\nKeep the function names exactly as written so the storefront can show them. Composed with The Hooks Store block builder.",
+   "onchain": "evm_contracts",
+   "chainId": 4663,
+   "references": [
+    "uniswap-v4-hooks",
+    "uniswap-v4-security"
+   ],
+   "github": true
+  }
+ },
+ "response": {
+  "action": "launch.open",
+  "kind": "contracts",
+  "plan": [
+   {
+    "title": "Build and test the contracts",
+    "short": "contracts",
+    "skill": "build-contract-project",
+    "stage": 0
+   },
+   {
+    "title": "Test them, as another agent",
+    "short": "tests",
+    "skill": "write-foundry-tests",
+    "stage": 1
+   },
+   {
+    "title": "Write what to deploy",
+    "short": "",
+    "stage": 1
+   },
+   {
+    "title": "Audit the math, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Audit the permissions, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Audit the economics, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Audit the control flow, as a specialist agent",
+    "short": "audit",
+    "skill": "audit-specialist",
+    "stage": 1
+   },
+   {
+    "title": "Judge the audit: reproduce, merge and rank what was found",
+    "short": "judge",
+    "skill": "audit-judge",
+    "stage": 2
+   },
+   {
+    "title": "Deploy on Robinhood Chain",
+    "short": "deploy"
+   }
+  ],
+  "facts": [
+   {
+    "id": "what",
+    "label": "What each contract does",
+    "state": "stated",
+    "required": false,
+    "example": "e.g. a vault: deposit ETH, withdraw after a lock"
+   },
+   {
+    "id": "access",
+    "label": "Who can call what",
+    "state": "stated",
+    "required": false,
+    "assumed": "Assumed: an owner who can change settings, and anyone for everything else.",
+    "example": "e.g. only the owner sets the fee; anyone deposits"
+   },
+   {
+    "id": "numbers",
+    "label": "Numbers the contracts enforce",
+    "state": "stated",
+    "required": false,
+    "assumed": "The builders will choose limits, ratios and durations and write them in the README. Fee rates and prices they will not choose: name them.",
+    "example": "e.g. 0.3% fee, 7-day lock, max 10 ETH per wallet"
+   },
+   {
+    "id": "upgrades",
+    "label": "Upgrades and pausing",
+    "state": "stated",
+    "required": false,
+    "assumed": "Assumed: not upgradeable and not pausable.",
+    "example": "e.g. not upgradeable; owner can pause"
+   },
+   {
+    "id": "dependencies",
+    "label": "Outside services and values",
+    "state": "unknown",
+    "required": false,
+    "assumed": "Assumed: none beyond standard libraries.",
+    "example": "e.g. Chainlink VRF subscription 1234, or: the owner sets the feed after launch"
+   },
+   {
+    "id": "recipient",
+    "label": "Who receives fees and payouts",
+    "state": "stated",
+    "required": false,
+    "assumed": "Assumed: the launch's owner, the wallet that pays.",
+    "example": "e.g. 0x1f9a…c3e2, or: the wallet that pays"
+   },
+   {
+    "id": "token_name",
+    "label": "Token name",
+    "state": "not_applicable",
+    "required": false,
+    "example": "e.g. Signal"
+   },
+   {
+    "id": "token_symbol",
+    "label": "Token symbol",
+    "state": "not_applicable",
+    "required": false,
+    "example": "e.g. SIG"
+   },
+   {
+    "id": "token_supply",
+    "label": "Total supply",
+    "state": "not_applicable",
+    "required": false,
+    "example": "e.g. 1,000,000"
+   },
+   {
+    "id": "token_minting",
+    "label": "Minting after launch",
+    "state": "not_applicable",
+    "required": false,
+    "assumed": "Assumed: a fixed supply that nobody can mint more of.",
+    "example": "e.g. fixed supply, nobody mints more"
+   },
+   {
+    "id": "token_rules",
+    "label": "Transfer rules",
+    "state": "not_applicable",
+    "required": false,
+    "assumed": "Assumed: plain transfers with no fee or limit.",
+    "example": "e.g. plain transfers, no fee"
+   }
+  ],
+  "judged": true,
+  "blockers": [],
+  "suggestions": []
+ }
+}

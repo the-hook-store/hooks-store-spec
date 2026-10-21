@@ -1,0 +1,16 @@
+{
+  "action": "job.continue",
+  "kind": "website",
+  "plan": [],
+  "owner": null,
+  "project": null,
+  "facts": [],
+  "judged": false,
+  "blockers": [
+    {
+      "code": "invalid_input",
+      "detail": "this job is still running; continue it when it has finished"
+    }
+  ],
+  "suggestions": []
+}
