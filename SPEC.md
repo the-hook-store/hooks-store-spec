@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.16 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.17 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.17 (2026-10-21): the mockup carries a parked proposal behind the SHOW PROPOSAL switch in its top strip: a Pair with choice for existing-token launches (IMD, ETH or another token that already exists) and a store IMD fee of 0.1% of the paired side on every pool not paired with IMD, converted to IMD and burned or sent to a treasury address the creator picks. It is not part of any job until this document says so. One correction found while drawing it: the composer's fee-side sentence (5.1) names the pair currency, IMD when paired with IMD, instead of always ETH; the next job mirrors it.
 
 Changes in 1.16 (2026-10-21): job 4 is delivered and verified (jobs/log.md): the chain reads settle in about five seconds on a fresh browser, the top bar has no chain pill, and the launch flow is live behind the in-progress banner. The Builder's Pair with select lists IMD first and starts on IMD, ETH second (owner's decision 14 in section 14); job 5 carries it. IMD's launch policy pairs a new token's pool only with ETH, IMD or, on Ethereum, FWA (capabilities read 2026-10-21); the store offers ETH and IMD.
 
@@ -315,7 +317,7 @@ The hook does exactly the following, and nothing else:            (with words on
 In the creator's own words: <description>{words}</description>      (only when words were written)
 1. {rule}  2. {rule} …                                               (only when blocks were stacked)
 {owner powers sentence, ending "through the functions named above" when there are powers}
-Fees are always taken from the ETH (pair currency) side, never from {symbol}; a fee the PoolManager cannot pay directly is minted as a claim the recipient can redeem.
+Fees are always taken from the {ETH|IMD} (pair currency) side, never from {symbol}; a fee the PoolManager cannot pay directly is minted as a claim the recipient can redeem.
 A: Enable beforeInitialize (required by the IMD launch factory) and only the callbacks the behavior above needs. Take the PoolManager as a constructor argument. Owner, if any, is $owner.
 A: Pool: {poolShare}% of my 90% share seeds the pool; the remainder goes to {remainderTo}.   (only once the user has chosen; never a default)
 B, C: Take the PoolManager as a constructor argument and enable only the callbacks the behavior above needs. The deployed address must carry the correct hook permission bits (mine a CREATE2 salt). Owner, if any, is $owner.
