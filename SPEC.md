@@ -1,6 +1,6 @@
 # The Hooks Store — product and build specification
 
-Version 1.34 · 2026-10-22 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.35 · 2026-10-22 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
 
@@ -509,6 +509,8 @@ Same logs filtered by payer, plus pending request ids saved in `localStorage` wh
 
 Contracts-only launches (types B and C): the result file that the chain's Completed event points at is written when the job completes, before deployment, and names no address (launch 1, 2026-10-22). So the Completed event with status 0 is the chain confirmation that the launch finished, and the deployed addresses come from the launch record (`GET /launches/:id` through the relay, `artifacts[].address`, with `attestation.contracts` naming each contract). When the artifact is a deployer (4.16 item 1, and launch 1's `deploy(salt)` design), the hook page reads `hook()` from it and shows both addresses; while `hook()` is zero it says "hook not deployed yet". The Live step turns green when the Completed event has status 0 and the launch record reads live; the hook's address is a separate line, never a condition for Live.
 
+Links from a launch (2026-10-22, after launch 7): the notice shown after payment and the hook page both link the request's build page, `https://explorer.imd.fun/jobs/<jobId>`, where the job id is the intake fate's `admission.result.jobId` that the site already reads for the Source job link; until the request is admitted the link is labelled "IMD explorer" and opens `https://explorer.imd.fun/`. The IMD explorer has no per-launch page (`/launches/<id>`, `/launches/<number>` and `/launch/<number>` answered 404 on 2026-10-22; `/launch` is the list), so the hook page's "Launch page" link is replaced by the same build page link, one per job id. The notice carries no link to the page it is shown on; the request id and the Copy link of 4.17 stay. The hook contract itself is reached from the Hook row, whose address links to the chain's block explorer (etherscan.io, robin.etherscan.io) once `hook()` is non-zero.
+
 ### 7.4 Optional relay
 
 A single-file Cloudflare Worker forwarding `POST /check` and `POST /import` to `api.imd.fun/requests/…`, and `GET /launches*`, `/jobs/:id`, `/intake/:chain/:tx` to the same paths, adding `Access-Control-Allow-Origin: *`, caching GETs 30 seconds, allowing nothing else. `site-config.json` has `relayUrl` (null by default). With it: the free check button and the "What the swarm understood" panel work live, the pond ticker names launches, the timeline shows Building / Audit panel / Deploying, and own-code imports are resolved. The swarm writes and tests it; the operator deploys it. The operator will also ask IMD to enable CORS on those routes.
@@ -611,6 +613,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 25. Live for contracts-only launches (2026-10-22, after launch 1): Live comes from the Completed event plus the launch record through the relay; addresses from the record's artifacts and the deployer's hook(); the result file is not the source of addresses (7.3). Job 9 carries it.
 26. Proven launches (2026-10-22, amended the same day): every verified launch is indexed and a draft that stacks the same blocks on the same chain is built from its audited repository automatically, in the background, with one line in the summary and no switch; a failed import falls back silently (4.17). Job 9 ships it.
 27. Instant hooks (2026-10-22): for stacks with a proven launch the swarm builds an audited factory per chain and the Builder offers an instant, gas-only lane beside the swarm launch, inside the stack-blocks mode, for hook-only and existing-token hooks (6.8). Phase 3, after the ads; the open decisions are listed there.
+28. Build-page links (2026-10-22, after launch 7): the owner found that "Open IMD explorer" in the post-payment notice opened the explorer's front page and "Hook page" opened the page it sat on. Both, and the hook page's "Launch page" link (a 404: the explorer has no per-launch page), now point at the job's build page on the IMD explorer (7.3); the hook contract is reached through the Hook row's block-explorer link. Rides at the top of job 10, the next website job; job 9 was already building.
 
 ## 15. From mockup to live
 
