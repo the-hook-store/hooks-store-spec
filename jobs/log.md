@@ -307,3 +307,7 @@ Builder v2, round 3 (06:10 UTC): the owner asked for a compact stack, the order 
 ## SPEC 1.41: Builder v2 approved; job 11 drafted (2026-10-22 06:25 UTC)
 
 The owner approved the Builder v2 mockup (artifact version 4) with two last notes: sizing must stay sane on wide and narrow screens (now a "Layout and sizing" rule in 3.2: a 1240 px cap, fixed type sizes, breakpoints at 1100 and 720 px, no horizontal scroll from 320 to 2560 px), and the repository fields exist only while "from my own code" is chosen (now in 3.2 and in the mockup). Section 3.2 rewritten from the mockup, decision 34, section 13 row 11, section 15 item 6. jobs/job-11-builder-v2.json drafted (layout and presentation only; composer, body, checks, relay and storage untouched; browser tests rewritten). Its parentJobId is job 9 for the free check and is replaced by job 10's id once job 10 is admitted, as was done for job 10 itself.
+
+## Job 11 staged ahead of job 10 (2026-10-22 06:35 UTC)
+
+The owner asked whether job 11 could go before job 10 while the deployer is down. It can: IMD only requires that a job continue the project's newest finished job (job 9), and job 11 does not depend on the ad contracts. Staged on the pay page (action job.continue@job-1, parent 0543f750, body equal to jobs/job-11-builder-v2.json, 3,513 bytes): page encoder equals the Python encoder (evidence/job-11-calldata.txt), body equals the file, served copy equals the file, READY on. Job 10's parent will be moved to job 11's id once job 11 is admitted.
