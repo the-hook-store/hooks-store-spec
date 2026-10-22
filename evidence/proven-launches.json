@@ -12,7 +12,7 @@
         "jar",
         "pause"
       ],
-      "repoUrl": "https://github.com/identity-md-launches/launch-2424-deploy-one-contract-pondsideguard",
+      "repoUrl": "https://github.com/identity-md-launches/launch-2424-deploy-one-contract-pondsideguard.git",
       "commit": "5a9f6a36d659084e084a8abc08a55213c9516f07",
       "hookAddress": "0x74bbef7025b0378050bfdd3263bc29508522d0cc",
       "deployerAddress": "0x0c45bc8ca7b4e08ea65962ae6837af0992809517",

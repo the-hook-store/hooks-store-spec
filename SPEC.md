@@ -380,6 +380,8 @@ IMD's builders stop and ask when a request leaves them a guess, the audit panel 
 
 ### 4.17 Proven launches: start from audited source
 
+Index form (2026-10-22, after job 9): each entry's `repoUrl` is written exactly as IMD's `/import` returns it, with `.git` at the end, because the delivered site compares the two strings as they are (the reviewers' high finding; the normalisation rides in job 10). Type A entries list the token block (`token` or `own-token`) with the behaviour blocks, because a type A draft's block set includes it.
+
 Every launch through the store leaves a public, audited repository (IMD delivers each launch to `identity-md-launches/launch-<number>-…`). The spec repository keeps `evidence/proven-launches.json`, one entry per launch the owner has verified: `{launchId, launchNumber, chainId, type, blocks: [block ids], repoUrl, commit, hookAddress, deployerAddress, name, verifiedAt}`. The site fetches it at load from raw.githubusercontent.com, like the tested marks of 4.14, and never bundles it.
 
 - **Matching, automatic.** A draft matches a proven launch when the launch type and the set of block ids are the same and the chain is the same; parameters may differ, and extra words or a Custom rule are allowed. Nothing is asked: the match is applied in the background, the summary shows one line, "Built from a proven launch: {name} (launch {number}, audited {date})", and the hook page carries the same line after launch. A creator's own repository in Advanced (start from my own code) overrides the match; there is no other control.
