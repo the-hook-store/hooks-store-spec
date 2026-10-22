@@ -1,0 +1,45 @@
+{
+ "chainId": 1,
+ "transactionHash": "0x70ecb3fbd4efeb4e740ecce409ce1eba9359dc30c4ecb0d35834c2f7e429606d",
+ "entries": [
+  {
+   "logIndex": 289,
+   "blockNumber": 26249096,
+   "kind": "request",
+   "intake": "0xa43e6f75ee006411f79ac1c84120606c2330de82",
+   "state": "admitted",
+   "reason": null,
+   "detail": null,
+   "payer": "0x5bff2a2fecd1d6152676813b21346238733beab1",
+   "asset": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+   "amount": "500000000000000000",
+   "requestId": "0x86deaeac963014bc3c80f6eb02c9cc9ae38965617c46ffd5cc171f94d52868cb",
+   "action": "job.continue",
+   "actionVersion": "job-1",
+   "bodyHash": "0x29c7be26027e2bcc19890817b30dc7aa269ae884b4077daf0e4c5d45b16ca542",
+   "callback": null,
+   "deliverTo": null,
+   "order": {
+    "id": "345db3e0-d7c0-4831-83e9-6381c14c6a9f",
+    "status": "paid",
+    "action": "job.continue",
+    "policyVersion": "job-1"
+   },
+   "admission": {
+    "id": "57d5f3bb-b2c7-4653-9d56-6f039994c9cb",
+    "result": {
+     "continues": "65b39d7a-7c8c-43d4-a48d-7083d0aab9ff",
+     "jobId": "a307647e-223c-4679-b2b1-f140a98f23df",
+     "kind": "job",
+     "resultUrl": "/jobs/a307647e-223c-4679-b2b1-f140a98f23df/result",
+     "statusUrl": "/jobs/a307647e-223c-4679-b2b1-f140a98f23df"
+    },
+    "createdAt": "2026-10-22T15:37:44.320Z"
+   },
+   "completion": null,
+   "delivery": null,
+   "receivedAt": "2026-10-22T15:37:42.787Z",
+   "updatedAt": "2026-10-22T15:37:45.000Z"
+  }
+ ]
+}
