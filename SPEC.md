@@ -1,6 +1,6 @@
 # The Hooks Store — product and build specification
 
-Version 1.35 · 2026-10-22 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.36 · 2026-10-22 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
 
@@ -376,6 +376,7 @@ IMD's builders stop and ask when a request leaves them a guess, the audit panel 
 28. **Arithmetic.** Percent rules use mulDiv; the own-token supply is capped at 1,000,000,000,000.
 29. **Copy to verify before advertising:** whether `poolBps` is a share of the creator's 90% or of the total supply (IMD's own launch describes 8,000 as "80% pool, 10% remainder, 10% swarm").
 30. **One launch per kind after a fix,** every builder question into `src/blocks/known-questions.json` (6.7), and every audit read on the explorer and turned into a rule here.
+31. **Buy-side limits and range orders** (launch 5's audit, launch 2448, 2026-10-22). Allowlist opening, Open at, Trading hours, Anti-sniper, Max buy, Max swap and Cooldown are checked when someone swaps, and a one-sided liquidity position placed just past the current price is a buy order that no swap check sees and no hook fee touches: when anyone sells into it, its pair currency turns into the token and the position's owner withdraws the token. For the limits that have a window (Allowlist opening, Open at, Trading hours, and Anti-sniper's opening minutes) the block sentence adds: "While this rule is active, adding liquidity is allowed only to the factory and the owner" (for type B and C hooks: only the owner), "removing liquidity is never restricted", and the hook enables beforeAddLiquidity, which changes the permission bits and the address mask. For the limits with no end (Max buy, Max swap, Cooldown) the sentence states the accepted limit instead: "A one-sided liquidity position is not a swap: it is not limited by this rule and pays no hook fee." The audit panel accepts either; it refuses the silent gap.
 
 ### 4.17 Proven launches: start from audited source
 
@@ -614,6 +615,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 26. Proven launches (2026-10-22, amended the same day): every verified launch is indexed and a draft that stacks the same blocks on the same chain is built from its audited repository automatically, in the background, with one line in the summary and no switch; a failed import falls back silently (4.17). Job 9 ships it.
 27. Instant hooks (2026-10-22): for stacks with a proven launch the swarm builds an audited factory per chain and the Builder offers an instant, gas-only lane beside the swarm launch, inside the stack-blocks mode, for hook-only and existing-token hooks (6.8). Phase 3, after the ads; the open decisions are listed there.
 28. Build-page links (2026-10-22, after launch 7): the owner found that "Open IMD explorer" in the post-payment notice opened the explorer's front page and "Hook page" opened the page it sat on. Both, and the hook page's "Launch page" link (a 404: the explorer has no per-launch page), now point at the job's build page on the IMD explorer (7.3); the hook contract is reached through the Hook row's block-explorer link. Rides at the top of job 10, the next website job; job 9 was already building.
+29. Range orders (2026-10-22, after launch 5 passed its audit): the test token's auditors found that a buyer kept off the allowlist can still obtain the token through a one-sided liquidity position during the opening window, fee-free, and rated it low because the brief had not claimed otherwise. Rule 31 in 4.16 closes it for every buy-side block: windowed limits gate liquidity adds while active, permanent limits state the route as an accepted limit. Rides at the top of job 10 with the link fixes.
 
 ## 15. From mockup to live
 
