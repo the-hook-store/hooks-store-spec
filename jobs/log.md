@@ -277,3 +277,9 @@ The owner approved 5 IMD to the Intake (tx 0x22da889b…, 04:34:35 UTC; 4.5 IMD 
 ## Job 10a, launch 2 of 2 (Ethereum) staged (2026-10-22 04:40 UTC)
 
 jobs/job-10a-ads-contract-ethereum.json is the Robinhood body with chainId 1 and two wording changes (deployed on Ethereum; the dependency is the IMD token on Ethereum 0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7). Free check: no blockers, no suggestions, plan ends "Deploy on Ethereum mainnet" (evidence/check-job-10a-ethereum.*). Staged on the pay page with READY on: page encoder equals the Python encoder (evidence/job-10a-ethereum-calldata.txt), body equals the file, served copy equals the file. The 5 IMD approval from launch 1 covers it, so only the Send step is needed.
+
+## Ad contracts, launch 1 of 2 (Robinhood Chain): audited and admitted as launch 2454 (2026-10-22 04:59 UTC)
+
+Job 7f951ad8 completed 24 minutes after payment with all eight steps accepted and no revision round. Launch 24f55ec3-e64c-43b7-a095-977c9c5dbfc3, number 2454, status admitted; every admission check passed (bytecode "3 contracts clean and reproducible", manifest "2 application contracts; no protocol token or pool"). Attested: HookListingRegistry, FeaturedPlacementsV2 and ExactStoreToken (a test token in the repository, not deployed). Source: identity-md-launches/launch-2454-what-build-two-immutable @ 952e62de, 78 tests. Evidence: launch-10a-robinhood-job.json, launch-10a-robinhood-launch-admitted.json, launch-10a-robinhood-reviews.md.
+
+The judge: no critical, high or medium defect; three low notes and two informational ones (SPEC 1.39, decision 32), all design choices, handled on the site in job 10 item 11 rather than by rebuilding the contracts. Deployment waits on IMD's deployer, stalled since 02:37; a watcher follows the launch record. The Ethereum copy stays staged on the pay page, unpaid as of 05:00 UTC.
