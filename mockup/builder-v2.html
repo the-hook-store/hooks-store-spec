@@ -122,7 +122,7 @@ details.adv summary::-webkit-details-marker { display: none; } details.adv summa
 details.adv > div { padding: 0 14px 14px; }
 
 /* the hook you are making */
-.hookcol { position: sticky; top: 84px; display: grid; gap: 18px; min-width: 0; }
+.hookcol { position: sticky; top: 84px; display: grid; gap: 18px; min-width: 0; max-height: calc(100vh - 100px); overflow: auto; align-content: start; padding: 0 6px 6px 0; }
 .hookcard { background: var(--paper-3); border: 3px solid var(--ink); box-shadow: var(--shadow); padding: 0; overflow: hidden; }
 .hookcard .hc-top { background: var(--pine); color: var(--on-pine); padding: 16px 18px; display: grid; gap: 8px; }
 .hookcard .hc-top .eyebrow { font: 400 8px/1.6 var(--display); opacity: .85; }
@@ -130,7 +130,8 @@ details.adv > div { padding: 0 14px 14px; }
 .hookcard .hc-top .sym { font-family: var(--mono); font-size: 22px; line-height: 1; opacity: .9; }
 .hookcard .hc-pills { display: flex; gap: 6px; flex-wrap: wrap; }
 .hookcard .hc-pills .pill { background: var(--paper); color: var(--ink); border-color: var(--ink); }
-.tiles { padding: 16px 18px 8px; display: grid; gap: 0; }
+.tiles { padding: 16px 18px 8px; display: grid; gap: 0; max-height: 40vh; overflow: auto; min-width: 0; }
+.tile .t strong, .tile .t span { overflow-wrap: anywhere; }
 .tile { display: grid; grid-template-columns: 14px 1fr; gap: 12px; align-items: stretch; }
 .tile i { display: block; background: var(--swatch, var(--ink)); border: 2px solid var(--ink); }
 .tile .t { padding: 10px 0 12px; border-bottom: 2px dashed var(--ink-3); display: grid; gap: 2px; }
@@ -152,11 +153,12 @@ details.adv > div { padding: 0 14px 14px; }
 .exact { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 18px 16px; font-size: 14px; color: var(--ink-2); }
 
 /* findings: one line each, never the request text */
-.findings { background: var(--paper-3); border: 3px solid var(--ink); border-left: 10px solid var(--bad); padding: 14px 16px; display: grid; gap: 10px; }
+.findings { background: var(--paper-3); border: 3px solid var(--ink); border-left: 10px solid var(--bad); padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.findings .list { max-height: 36vh; overflow: auto; min-width: 0; padding-right: 4px; }
 .findings h3 { font-size: 9px; color: var(--bad); }
 .findings p.small { color: var(--ink-2); }
 .finding { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center; padding: 10px 0; border-top: 2px dashed var(--ink-3); }
-.finding strong { font-size: 15px; } .finding em { grid-column: 1 / -1; font-style: normal; font-size: 13px; color: var(--ink-2); }
+.finding strong { font-size: 15px; min-width: 0; overflow-wrap: anywhere; } .finding em { grid-column: 1 / -1; font-style: normal; font-size: 13px; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
 .finding em q { font-family: var(--mono); font-size: 17px; color: var(--ink); quotes: "\201C" "\201D"; }
 .finding .btn { min-height: 32px; }
 .findings.ok { border-left-color: var(--ok); } .findings.ok h3 { color: var(--ok); }
@@ -174,7 +176,7 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
 
 @media (max-width: 1100px) {
   .b2 { grid-template-columns: 1fr; gap: 28px; }
-  .hookcol { position: static; order: -1; }
+  .hookcol { position: static; order: -1; max-height: none; overflow: visible; padding: 0; }
   .hookcol .hookcard { box-shadow: var(--shadow); }
 }
 @media (max-width: 720px) {
@@ -199,7 +201,7 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
 <main class="wrap">
 <div class="head">
   <div><h1>BUILDER</h1><p>Drafts save in this browser. Nothing is sent until you launch.</p></div>
-  <div class="progress" aria-label="Progress"><span class="done">1 TYPE</span><span class="done">2 HOW</span><span class="now">3 BLOCKS</span><span>4 SETTINGS</span><span>5 CHECK &amp; LAUNCH</span></div>
+  <div class="progress" aria-label="Progress"><span class="done">1 TYPE</span><span class="done">2 SETTINGS</span><span class="done">3 HOW</span><span class="now">4 BLOCKS</span><span>5 CHECK &amp; LAUNCH</span></div>
 </div>
 
 <div class="b2">
@@ -214,13 +216,25 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
     </div>
   </section>
 
+  <section class="step" aria-labelledby="s4">
+    <div class="step-head"><span class="n">2</span><h2 id="s4">SETTINGS</h2><span class="state" style="color:var(--bad)">2 to fill in</span></div>
+    <div class="fields">
+      <div><label for="s-chain">DEPLOY ON</label><select id="s-chain"><option value="">Choose a chain</option><option selected>Robinhood Chain</option><option>Ethereum</option></select></div>
+      <div><label for="s-pair">PAIR WITH</label><select id="s-pair"><option selected>IMD</option><option>ETH</option></select></div>
+      <div><label for="s-pool">POOL SHARE OF YOUR 90% (%)</label><input id="s-pool" type="number" placeholder="10 to 90, your choice" class="num"><p class="hint">How much of your share seeds the pool. The rest goes to your remainder address.</p></div>
+      <div><label for="s-rem">REMAINDER GOES TO</label><input id="s-rem" placeholder="your connected wallet" spellcheck="false"></div>
+      <div class="wide"><label for="s-owner">OWNER ADDRESS (USED BY THE PAUSE SWITCH)</label><input id="s-owner" placeholder="your connected wallet" spellcheck="false"><p class="hint">Leave empty to use the wallet that pays. Typed addresses are sent in lowercase.</p></div>
+    </div>
+    <details class="adv"><summary>ADVANCED: START FROM MY OWN CODE</summary><div><p class="small">Point the swarm at a public GitHub repository with your hook. It is audited as imported code, adapted to the launch, and reviewed before deploying.</p><div class="fields" style="margin-top:12px"><div><label for="s-repo">REPOSITORY URL</label><input id="s-repo" placeholder="https://github.com/you/your-hook"></div><div><label for="s-commit">COMMIT</label><input id="s-commit" placeholder="40-character commit id"></div></div></div></details>
+  </section>
+
   <section class="step" aria-labelledby="s2">
-    <div class="step-head"><span class="n">2</span><h2 id="s2">HOW DO YOU WANT TO BUILD IT?</h2><div class="seg" role="group" aria-label="Builder mode"><button type="button">DESCRIBE IT</button><button type="button" class="on">STACK BLOCKS</button></div></div>
+    <div class="step-head"><span class="n">3</span><h2 id="s2">HOW DO YOU WANT TO BUILD IT?</h2><div class="seg" role="group" aria-label="Builder mode"><button type="button">DESCRIBE IT</button><button type="button" class="on">STACK BLOCKS</button></div></div>
     <p class="mode-note">Blocks are checked sentences the swarm already knows. Switching to words keeps your blocks as numbered rules.</p>
   </section>
 
   <section class="step" aria-labelledby="s3">
-    <div class="step-head"><span class="n">3</span><h2 id="s3">STACK YOUR BLOCKS</h2><span class="state">4 added · 6 is plenty</span></div>
+    <div class="step-head"><span class="n">4</span><h2 id="s3">STACK YOUR BLOCKS</h2><span class="state">4 added · 6 is plenty</span></div>
     <div class="shelf-tabs" role="tablist" aria-label="Block categories">
       <button role="tab" class="on" style="--swatch:var(--fees)"><i></i>FEES <span class="c">1/7</span></button>
       <button role="tab" style="--swatch:var(--protection)"><i></i>PROTECTION <span class="c">1/6</span></button>
@@ -270,17 +284,6 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
     </div>
   </section>
 
-  <section class="step" aria-labelledby="s4">
-    <div class="step-head"><span class="n">4</span><h2 id="s4">SETTINGS</h2><span class="state" style="color:var(--bad)">2 to fill in</span></div>
-    <div class="fields">
-      <div><label for="s-chain">DEPLOY ON</label><select id="s-chain"><option value="">Choose a chain</option><option selected>Robinhood Chain</option><option>Ethereum</option></select></div>
-      <div><label for="s-pair">PAIR WITH</label><select id="s-pair"><option selected>IMD</option><option>ETH</option></select></div>
-      <div><label for="s-pool">POOL SHARE OF YOUR 90% (%)</label><input id="s-pool" type="number" placeholder="10 to 90, your choice" class="num"><p class="hint">How much of your share seeds the pool. The rest goes to your remainder address.</p></div>
-      <div><label for="s-rem">REMAINDER GOES TO</label><input id="s-rem" placeholder="your connected wallet" spellcheck="false"></div>
-      <div class="wide"><label for="s-owner">OWNER ADDRESS (USED BY THE PAUSE SWITCH)</label><input id="s-owner" placeholder="your connected wallet" spellcheck="false"><p class="hint">Leave empty to use the wallet that pays. Typed addresses are sent in lowercase.</p></div>
-    </div>
-    <details class="adv"><summary>ADVANCED: START FROM MY OWN CODE</summary><div><p class="small">Point the swarm at a public GitHub repository with your hook. It is audited as imported code, adapted to the launch, and reviewed before deploying.</p><div class="fields" style="margin-top:12px"><div><label for="s-repo">REPOSITORY URL</label><input id="s-repo" placeholder="https://github.com/you/your-hook"></div><div><label for="s-commit">COMMIT</label><input id="s-commit" placeholder="40-character commit id"></div></div></div></details>
-  </section>
 
 </div>
 
@@ -311,15 +314,18 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
   </div>
 
   <div class="findings" aria-labelledby="fx">
-    <h3 id="fx">FIX BEFORE PAYING · 2</h3>
-    <p class="small">Launch is locked until these are fixed. Each one points at the field or block to change.</p>
-    <div class="finding"><strong>Choose a pool share</strong><button class="btn tiny" type="button">JUMP TO IT</button><em>The request says <q>pool share (choose a share)</q>. Pick 10 to 90% in Settings.</em></div>
-    <div class="finding"><strong>Name the owner for the Pause switch</strong><button class="btn tiny" type="button">JUMP TO IT</button><em>The request says <q>Owner (connect a wallet)</q>. Connect a wallet or type an address.</em></div>
+    <h3 id="fx">FIX BEFORE PAYING · 3</h3>
+    <p class="small">Launch is locked until these are fixed. One line each; the list scrolls inside this box and never stretches the page.</p>
+    <div class="list">
+      <div class="finding"><strong>Choose a pool share</strong><button class="btn tiny" type="button">JUMP TO IT</button><em>The request says <q>pool share (choose a share)</q>. Pick 10 to 90% in Settings.</em></div>
+      <div class="finding"><strong>Name the owner for the Pause switch</strong><button class="btn tiny" type="button">JUMP TO IT</button><em>The request says <q>Owner (connect a wallet)</q>. Connect a wallet or type an address.</em></div>
+      <div class="finding"><strong>Deployer sentence needs a chain</strong><button class="btn tiny" type="button">JUMP TO IT</button><em>The request says <q>on (choose a chain): its constructor takes the (choose a chain) PoolManager</q>. Only the few wrong words are shown here, never the paragraph; the exact text sheet highlights them in place.</em></div>
+    </div>
   </div>
 </aside>
 </div>
 
-<div class="note"><b>WHAT CHANGED, FOR THE OWNER</b>The three cramped columns become two: the steps you work through on the left, and the hook itself on the right as a stack of tiles you can read at a glance. The block palette is a shelf above the stack, grouped by category tabs, with each block’s description visible. The red "fix the request" panel never quotes the whole request again: one line per problem, the few words that are wrong, and a button that jumps to the field. The exact text the swarm receives opens in a sheet when you ask for it, with the wrong words highlighted. Everything else, the words, the numbers, the checks and the prices, is the same.</div>
+<div class="note"><b>WHAT CHANGED, FOR THE OWNER</b>Settings come second, right after the launch type, so chain, pair and pool share are chosen before any block. The three cramped columns become two: the steps you work through on the left, and the hook itself on the right as a stack of tiles you can read at a glance. The block palette is a shelf above the stack, grouped by category tabs, with each block’s description visible. The red "fix the request" panel never quotes the whole request again: one line per problem, the few words that are wrong, and a button that jumps to the field. The exact text the swarm receives opens in a sheet when you ask for it, with the wrong words highlighted. Every list that can grow, your stack of tiles, the findings and the exact text, scrolls inside its own box; the hook card never gets taller than the screen. Everything else, the words, the numbers, the checks and the prices, is the same.</div>
 </main>
 
 <dialog id="exact">
