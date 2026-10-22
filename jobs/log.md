@@ -258,7 +258,7 @@ Job 292d0dab completed with all eight steps accepted and no revision round, 65 m
 
 The judge kept two low findings and one note: the fee basis differs by swap mode and dynamic-fee pools are accepted at initialization, the same two as launch 7, already closed by SPEC 1.37 (4.16 items 8 and 24, riding in job 10); and a stale README line. Nothing new to carry. All three test launches (5, 6, 7) have now passed the hardened catalog through the full swarm with zero builder questions and zero revision rounds; they wait on IMD's deployer, stalled since 02:37.
 
-## Job 9 delivered and reviewed (2026-10-22 04:05 UTC delivery, reviewed 04:10 to 04:40 UTC)
+## Job 9 delivered and reviewed (2026-10-22 04:05 UTC delivery, reviewed 04:10 to 04:30 UTC)
 
 Job 0543f750 completed: build-website accepted after two revision rounds driven by the adversarial review and the design critic (1,155 unit tests, 234 Playwright tests, bundle 8.37 MB). Delivery commit 7e57a8351f28c4d541e0b8d3cd94e8204cdb89b9, pull request 9, served at the site name within two minutes (bundle index-B_Rpc49h.js), IPFS cid bafybeie4rczo3rxn5mq…, site status named. Evidence: job-9-job.json, job-9-result.json, job-9-reviews.md (eight review texts), job-9-review/ (screenshots), import-pondsideguard-2026-10-22.json.
 
@@ -266,6 +266,10 @@ Verified on the live site with a fresh headless profile (scratchpad cdp-job9.mjs
 
 Found and carried (job 10, items 7 to 10): the delivered site compares the relay's import answer with the index entry byte for byte and IMD returns the repository URL with .git, so automatic reuse never activated until the index was rewritten in that form (commit 0834eb5, SPEC 4.17 note); "1 pct", "1/100" and "one in every hundred" still compose a silent "Hook fee rate: 0%"; an unknown payee followed by receives, gets or earns still defaults to the paying wallet without a finding (by code inspection, writtenFees.ts line 138; the browser probe cannot separate it from the no-wallet case); notifications watch every in-progress page a visitor opens; and the wait line is longer than what the clean launches measured. The "Launch page" and post-payment notice links were already carried (items 1 to 3). SPEC 1.38, decision 31.
 
-## Job 10a staged on the pay page (2026-10-22 04:50 UTC)
+## Job 10a staged on the pay page (2026-10-22 04:30 UTC)
 
 The pay page (tools/pay-onchain.html, served at http://localhost:8787/pay-onchain.html) now holds job 10a: action launch.open@launch-1 (priced 0.5 IMD on the Intake, read on chain), body equal to jobs/job-10a-ads-contract.json (Robinhood Chain, owner the operator wallet, evm_contracts, 2,746 bytes). Verified: the page's encoder and an independent Python encoder produce the same calldata (evidence/job-10a-calldata.txt), the served copy equals the file, READY is on. The dry-run eth_call reverts with ERC20InsufficientAllowance(Intake, 0, 0.5 IMD), which is the expected state before the Approve step and confirms the Intake decoded the action and its price. The Ethereum copy (same body, chainId 1) is staged after this launch is paid; the deployer stall means both will queue behind launches 2448 to 2450.
+
+## Job 10a, launch 1 of 2 (Robinhood Chain) paid (2026-10-22 04:34 UTC)
+
+The owner approved 5 IMD to the Intake (tx 0x22da889b…, 04:34:35 UTC; 4.5 IMD of allowance remain for later payments) and sent the request: tx 0xd4cf7996bda56ef9f6a37354bee081afa3dc759dc16c4ad639d80340fd6ae316 (04:34:47 UTC), request id 0xd6e3f156fa71d5d898c6cbc288082788ab70a76909e4b4f81298c24a18afcb1a, bodyHash 0x242d02f3… equal to keccak256 of the compact body of jobs/job-10a-ads-contract.json. IMD admitted it as launch job 7f951ad8-ac62-41f0-b968-79737c96623e (evidence/launch-10a-robinhood.intake.json, launch-10a-robinhood-job-at-admission.json). The paid-by list lagged the chain by a minute; the chain read found the payment first. Pay page locked. Next: the Ethereum copy (same contracts, chainId 1) is free-checked and staged.
