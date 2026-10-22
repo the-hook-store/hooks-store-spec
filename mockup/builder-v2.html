@@ -104,11 +104,22 @@ label { display: block; font: 400 9px/1.6 var(--display); margin: 0 0 6px; }
 .bcard.added { opacity: .55; }
 .stack-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
 .stack-head h3 { font-size: 10px; } .stack-head .small { color: var(--ink-2); }
-.rule { background: var(--paper-3); border: 3px solid var(--ink); border-left: 12px solid var(--swatch, var(--ink)); padding: 14px 16px; margin-bottom: 14px; display: grid; gap: 10px; }
-.rule-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.rule-head .n { font: 400 11px/1 var(--display); color: var(--ink-2); } .rule-head h3 { flex: 1 1 auto; }
-.rule-head .tools { display: flex; gap: 6px; }
-.rule-head .tools button { font: 400 9px/1 var(--display); min-width: 34px; min-height: 34px; border: 2px solid var(--ink); background: var(--paper-3); cursor: pointer; color: var(--ink); }
+.rule { background: var(--paper-3); border: 3px solid var(--ink); border-left: 12px solid var(--swatch, var(--ink)); margin-bottom: 8px; min-width: 0; }
+.rule .row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 8px 12px 8px 14px; }
+.rule .row .n { font: 400 11px/1 var(--display); color: var(--ink-2); }
+.rule .txt { display: flex; gap: 10px 14px; align-items: baseline; flex-wrap: wrap; min-width: 0; }
+.rule .txt strong { font: 400 9px/1.6 var(--display); } .rule .txt span { font-family: var(--mono); font-size: 19px; line-height: 1.1; color: var(--ink-2); overflow-wrap: anywhere; }
+.rule .chip { font: 400 7px/1.5 var(--display); color: var(--ink-2); border: 2px solid var(--ink-3); padding: 4px 6px; white-space: nowrap; }
+.rule .chip.owner { color: var(--pine); border-color: var(--pine); }
+.rule .tools { display: flex; gap: 6px; }
+.rule .tools button { font: 400 8px/1 var(--display); min-width: 32px; min-height: 32px; border: 2px solid var(--ink); background: var(--paper-3); cursor: pointer; color: var(--ink); padding: 0 8px; }
+.rule .tools .edit { background: var(--paper-2); }
+.rule .body { display: none; padding: 4px 14px 14px; border-top: 2px dashed var(--ink-3); }
+.rule.open .body { display: grid; gap: 10px; }
+.rule.open .row { background: var(--paper-2); }
+.link { font: inherit; background: none; border: 0; padding: 0; color: var(--pine); text-decoration: underline; cursor: pointer; }
+.start { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.own { margin-top: 12px; padding: 12px 14px; border: 2px dashed var(--ink-3); }
 .rule .params { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
 .rule .who { font-size: 14px; color: var(--ink-2); }
 .rule .who b { color: var(--ink); font-weight: 600; }
@@ -180,7 +191,8 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
   .hookcol .hookcard { box-shadow: var(--shadow); }
 }
 @media (max-width: 720px) {
-  .types, .fields { grid-template-columns: 1fr; }
+  .types, .fields, .start { grid-template-columns: 1fr; }
+  .rule .row { grid-template-columns: auto minmax(0, 1fr); } .rule .chip { grid-column: 2; justify-self: start; } .rule .tools { grid-column: 1 / -1; }
   .step { padding: 16px; }
   .shelf { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 12px; gap: 10px; }
   .shelf .bcard { flex: 0 0 210px; scroll-snap-align: start; }
@@ -201,7 +213,7 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
 <main class="wrap">
 <div class="head">
   <div><h1>BUILDER</h1><p>Drafts save in this browser. Nothing is sent until you launch.</p></div>
-  <div class="progress" aria-label="Progress"><span class="done">1 TYPE</span><span class="done">2 SETTINGS</span><span class="done">3 HOW</span><span class="now">4 BLOCKS</span><span>5 CHECK &amp; LAUNCH</span></div>
+  <div class="progress" aria-label="Progress"><span class="done">1 TYPE</span><span class="done">2 HOW</span><span class="now">3 BLOCKS</span><span>4 SETTINGS</span><span>5 CHECK &amp; LAUNCH</span></div>
 </div>
 
 <div class="b2">
@@ -216,25 +228,28 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
     </div>
   </section>
 
-  <section class="step" aria-labelledby="s4">
-    <div class="step-head"><span class="n">2</span><h2 id="s4">SETTINGS</h2><span class="state" style="color:var(--bad)">2 to fill in</span></div>
-    <div class="fields">
-      <div><label for="s-chain">DEPLOY ON</label><select id="s-chain"><option value="">Choose a chain</option><option selected>Robinhood Chain</option><option>Ethereum</option></select></div>
-      <div><label for="s-pair">PAIR WITH</label><select id="s-pair"><option selected>IMD</option><option>ETH</option></select></div>
-      <div><label for="s-pool">POOL SHARE OF YOUR 90% (%)</label><input id="s-pool" type="number" placeholder="10 to 90, your choice" class="num"><p class="hint">How much of your share seeds the pool. The rest goes to your remainder address.</p></div>
-      <div><label for="s-rem">REMAINDER GOES TO</label><input id="s-rem" placeholder="your connected wallet" spellcheck="false"></div>
-      <div class="wide"><label for="s-owner">OWNER ADDRESS (USED BY THE PAUSE SWITCH)</label><input id="s-owner" placeholder="your connected wallet" spellcheck="false"><p class="hint">Leave empty to use the wallet that pays. Typed addresses are sent in lowercase.</p></div>
-    </div>
-    <details class="adv"><summary>ADVANCED: START FROM MY OWN CODE</summary><div><p class="small">Point the swarm at a public GitHub repository with your hook. It is audited as imported code, adapted to the launch, and reviewed before deploying.</p><div class="fields" style="margin-top:12px"><div><label for="s-repo">REPOSITORY URL</label><input id="s-repo" placeholder="https://github.com/you/your-hook"></div><div><label for="s-commit">COMMIT</label><input id="s-commit" placeholder="40-character commit id"></div></div></div></details>
-  </section>
+
+
+
 
   <section class="step" aria-labelledby="s2">
-    <div class="step-head"><span class="n">3</span><h2 id="s2">HOW DO YOU WANT TO BUILD IT?</h2><div class="seg" role="group" aria-label="Builder mode"><button type="button">DESCRIBE IT</button><button type="button" class="on">STACK BLOCKS</button></div></div>
-    <p class="mode-note">Blocks are checked sentences the swarm already knows. Switching to words keeps your blocks as numbered rules.</p>
+    <div class="step-head"><span class="n">2</span><h2 id="s2">HOW DO YOU WANT TO BUILD IT?</h2></div>
+    <h4 style="margin-bottom:8px">STARTING POINT</h4>
+    <div class="start">
+      <button class="type on" type="button"><strong>FROM SCRATCH</strong><span>The swarm writes the hook from your blocks or your words. Best for a first hook.</span></button>
+      <button class="type" type="button"><strong>FROM MY OWN CODE</strong><span>A public GitHub repository with your hook. It is audited as imported code, then adapted to the rules you add below, and reviewed before deploying.</span></button>
+    </div>
+    <div class="own" aria-label="Own code fields">
+      <p class="small muted" style="margin-bottom:10px">Shown when "from my own code" is chosen. The request pins this exact commit; your blocks and words become the changes the swarm makes to it.</p>
+      <div class="fields"><div><label for="s-repo">REPOSITORY URL</label><input id="s-repo" placeholder="https://github.com/you/your-hook"></div><div><label for="s-commit">COMMIT</label><input id="s-commit" placeholder="40-character commit id"></div></div>
+    </div>
+    <h4 style="margin:18px 0 8px">HOW YOU DESCRIBE THE RULES</h4>
+    <div class="seg" role="group" aria-label="Builder mode"><button type="button">DESCRIBE IT</button><button type="button" class="on">STACK BLOCKS</button></div>
+    <p class="mode-note">Blocks are checked sentences the swarm already knows. Words are yours and riskier. Switching never loses anything: blocks stay as numbered rules under your words.</p>
   </section>
 
   <section class="step" aria-labelledby="s3">
-    <div class="step-head"><span class="n">4</span><h2 id="s3">STACK YOUR BLOCKS</h2><span class="state">4 added · 6 is plenty</span></div>
+    <div class="step-head"><span class="n">3</span><h2 id="s3">STACK YOUR BLOCKS</h2><span class="state">6 added · 6 is plenty</span></div>
     <div class="shelf-tabs" role="tablist" aria-label="Block categories">
       <button role="tab" class="on" style="--swatch:var(--fees)"><i></i>FEES <span class="c">1/7</span></button>
       <button role="tab" style="--swatch:var(--protection)"><i></i>PROTECTION <span class="c">1/6</span></button>
@@ -255,36 +270,50 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
       <div class="bcard"><strong>Dynamic LP fee</strong><p>The pool’s own fee tier moves with volatility. Own pools only.</p><div class="foot"><span class="state">OWN POOLS ONLY</span></div></div>
     </div>
 
-    <div class="stack-head"><h3>YOUR STACK</h3><span class="small">Rules run in this order. Drag or use the arrows.</span></div>
+    <div class="stack-head"><h3>YOUR STACK</h3><span class="small">One line per rule. Open a rule to change its numbers. <button class="link" type="button" id="expand-all">Open all</button></span></div>
     <div id="stack">
       <article class="rule" style="--swatch:var(--token)">
-        <div class="rule-head"><span class="n">0</span><h3>LAUNCH TOKEN</h3><span class="pill">STANDARD</span></div>
-        <div class="params"><div><label for="t-name">NAME</label><input id="t-name" value="Pond Token"></div><div><label for="t-sym">SYMBOL</label><input id="t-sym" value="POND"></div></div>
-        <p class="who">1B supply, 18 decimals, no owner. <b>10% to the swarm</b>, your pool share from the rest.</p>
+        <div class="row"><span class="n">0</span><div class="txt"><strong>LAUNCH TOKEN</strong><span>Pond Token ($POND) · standard · 1B</span></div><span class="chip">STANDARD</span><div class="tools"><button type="button" class="edit" aria-expanded="false">EDIT</button></div></div>
+        <div class="body"><div class="params"><div><label for="t-name">NAME</label><input id="t-name" value="Pond Token"></div><div><label for="t-sym">SYMBOL</label><input id="t-sym" value="POND"></div></div><p class="who">1B supply, 18 decimals, no owner. <b>10% to the swarm</b>, your pool share from the rest.</p></div>
       </article>
-      <article class="rule" style="--swatch:var(--fees)">
-        <div class="rule-head"><span class="n">1</span><h3>SWAP FEE</h3><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button></div></div>
-        <div class="params"><div><label for="f-rate">RATE (%)</label><input id="f-rate" type="number" value="1.0" step="0.1" class="num"></div><div><label for="f-on">ON</label><select id="f-on"><option>every buy and sell</option><option>buys only</option><option>sells only</option></select></div><div><label for="f-to">SEND TO</label><select id="f-to"><option>my wallet</option><option>treasury</option><option>an address…</option></select></div></div>
-        <p class="who"><b>Runs itself.</b> Anyone can press the button that sends collected fees to the recipient. · On the hook page: <b>claimFees()</b></p>
+      <article class="rule open" style="--swatch:var(--fees)">
+        <div class="row"><span class="n">1</span><div class="txt"><strong>SWAP FEE</strong><span>1.0% on every buy and sell → my wallet</span></div><span class="chip">RUNS ITSELF</span><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button><button type="button" class="edit" aria-expanded="true">CLOSE</button></div></div>
+        <div class="body"><div class="params"><div><label for="f-rate">RATE (%)</label><input id="f-rate" type="number" value="1.0" step="0.1" class="num"></div><div><label for="f-on">ON</label><select id="f-on"><option>every buy and sell</option><option>buys only</option><option>sells only</option></select></div><div><label for="f-to">SEND TO</label><select id="f-to"><option>my wallet</option><option>treasury</option><option>an address…</option></select></div></div><p class="who"><b>Runs itself.</b> Anyone can press the button that sends collected fees to the recipient. · On the hook page: <b>claimFees()</b></p></div>
       </article>
       <article class="rule" style="--swatch:var(--protection)">
-        <div class="rule-head"><span class="n">2</span><h3>ANTI-SNIPER WINDOW</h3><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button></div></div>
-        <div class="params"><div><label for="a-min">FOR THE FIRST (MIN)</label><input id="a-min" type="number" value="10" class="num"></div><div><label for="a-pct">MAX PER WALLET (% OF SUPPLY)</label><input id="a-pct" type="number" value="1.0" step="0.1" class="num"></div></div>
-        <p class="who"><b>Runs itself</b> for the window, then switches off. · On the hook page: <b>windowEndsAt()</b></p>
+        <div class="row"><span class="n">2</span><div class="txt"><strong>ANTI-SNIPER WINDOW</strong><span>first 10 min: max 1.0% per wallet</span></div><span class="chip">RUNS ITSELF</span><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button><button type="button" class="edit" aria-expanded="false">EDIT</button></div></div>
+        <div class="body"><div class="params"><div><label for="a-min">FOR THE FIRST (MIN)</label><input id="a-min" type="number" value="10" class="num"></div><div><label for="a-pct">MAX PER WALLET (% OF SUPPLY)</label><input id="a-pct" type="number" value="1.0" step="0.1" class="num"></div></div><p class="who"><b>Runs itself</b> for the window, then switches off. · On the hook page: <b>windowEndsAt()</b></p></div>
       </article>
       <article class="rule" style="--swatch:var(--treasury)">
-        <div class="rule-head"><span class="n">3</span><h3>BUYBACK JAR</h3><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button></div></div>
-        <div class="params"><div><label for="j-rate">INTO THE JAR (%)</label><input id="j-rate" type="number" value="1.0" step="0.1" class="num"></div><div><label for="j-trig">BUY BACK AT (IMD)</label><input id="j-trig" type="number" value="100" class="num"></div></div>
-        <p class="who"><b>Runs itself;</b> anyone presses the button when the jar is full. · On the hook page: <b>buyback()</b>, <b>jar()</b></p>
+        <div class="row"><span class="n">3</span><div class="txt"><strong>BUYBACK JAR</strong><span>1.0% into a jar, buy back at 100 IMD</span></div><span class="chip">ANYONE PRESSES</span><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button><button type="button" class="edit" aria-expanded="false">EDIT</button></div></div>
+        <div class="body"><div class="params"><div><label for="j-rate">INTO THE JAR (%)</label><input id="j-rate" type="number" value="1.0" step="0.1" class="num"></div><div><label for="j-trig">BUY BACK AT (IMD)</label><input id="j-trig" type="number" value="100" class="num"></div></div><p class="who"><b>Runs itself;</b> anyone presses the button when the jar is full. · On the hook page: <b>buyback()</b>, <b>jar()</b></p></div>
       </article>
       <article class="rule" style="--swatch:var(--timing)">
-        <div class="rule-head"><span class="n">4</span><h3>PAUSE SWITCH</h3><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button></div></div>
-        <p class="who"><b>The owner</b> can pause and resume swaps. Liquidity can always be removed while paused. Buyers may dislike it. · On the hook page: owner buttons <b>pause</b>, <b>unpause</b></p>
+        <div class="row"><span class="n">4</span><div class="txt"><strong>PAUSE SWITCH</strong><span>owner can pause</span></div><span class="chip owner">OWNER</span><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button><button type="button" class="edit" aria-expanded="false">EDIT</button></div></div>
+        <div class="body"><p class="who"><b>The owner</b> can pause and resume swaps. Liquidity can always be removed while paused. Buyers may dislike it. · On the hook page: owner buttons <b>pause</b>, <b>unpause</b></p></div>
+      </article>
+      <article class="rule" style="--swatch:var(--protection)">
+        <div class="row"><span class="n">5</span><div class="txt"><strong>COOLDOWN</strong><span>30s between swaps per wallet</span></div><span class="chip">RUNS ITSELF</span><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button><button type="button" class="edit" aria-expanded="false">EDIT</button></div></div>
+        <div class="body"><div class="params"><div><label for="c-secs">WAIT (SECONDS)</label><input id="c-secs" type="number" value="30" class="num"></div></div><p class="who"><b>Runs itself.</b> Makes a wallet wait between swaps.</p></div>
+      </article>
+      <article class="rule" style="--swatch:var(--timing)">
+        <div class="row"><span class="n">6</span><div class="txt"><strong>ALLOWLIST OPENING</strong><span>allowlist only for 15 min</span></div><span class="chip owner">OWNER</span><div class="tools"><button type="button" aria-label="Move up">↑</button><button type="button" aria-label="Move down">↓</button><button type="button" aria-label="Remove">×</button><button type="button" class="edit" aria-expanded="false">EDIT</button></div></div>
+        <div class="body"><div class="params"><div><label for="w-min">FOR THE FIRST (MIN)</label><input id="w-min" type="number" value="15" class="num"></div></div><p class="who"><b>The owner</b> adds and removes buyer addresses. While it is active, only the owner may add liquidity.</p></div>
       </article>
     </div>
+    <p class="hint" style="margin-top:10px">Six rules stacked. Above six, every extra rule is more for the audit panel to refuse, and the contract has a 24 KB size limit.</p>
   </section>
 
-
+  <section class="step" aria-labelledby="s4">
+    <div class="step-head"><span class="n">4</span><h2 id="s4">SETTINGS</h2><span class="state" style="color:var(--bad)">2 to fill in</span></div>
+    <div class="fields">
+      <div><label for="s-chain">DEPLOY ON</label><select id="s-chain"><option value="">Choose a chain</option><option selected>Robinhood Chain</option><option>Ethereum</option></select></div>
+      <div><label for="s-pair">PAIR WITH</label><select id="s-pair"><option selected>IMD</option><option>ETH</option></select></div>
+      <div><label for="s-pool">POOL SHARE OF YOUR 90% (%)</label><input id="s-pool" type="number" placeholder="10 to 90, your choice" class="num"><p class="hint">How much of your share seeds the pool. The rest goes to your remainder address.</p></div>
+      <div><label for="s-rem">REMAINDER GOES TO</label><input id="s-rem" placeholder="your connected wallet" spellcheck="false"></div>
+      <div class="wide"><label for="s-owner">OWNER ADDRESS (USED BY THE PAUSE SWITCH)</label><input id="s-owner" placeholder="your connected wallet" spellcheck="false"><p class="hint">Leave empty to use the wallet that pays. Typed addresses are sent in lowercase.</p></div>
+    </div>
+  </section>
 </div>
 
 <aside class="hookcol" aria-label="The hook you are building">
@@ -300,13 +329,15 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
       <div class="tile" style="--swatch:var(--protection)"><i></i><div class="t"><strong>Anti-sniper window</strong><span>first 10 min: max 1.0% per wallet</span></div></div>
       <div class="tile" style="--swatch:var(--treasury)"><i></i><div class="t"><strong>Buyback jar</strong><span>1.0% into a jar, buy back at 100 IMD</span></div></div>
       <div class="tile" style="--swatch:var(--timing)"><i></i><div class="t"><strong>Pause switch</strong><span>owner can pause</span></div></div>
+      <div class="tile" style="--swatch:var(--protection)"><i></i><div class="t"><strong>Cooldown</strong><span>30s between swaps per wallet</span></div></div>
+      <div class="tile" style="--swatch:var(--timing)"><i></i><div class="t"><strong>Allowlist opening</strong><span>allowlist only for 15 min</span></div></div>
     </div>
     <div class="flow"><b>WHERE THE MONEY GOES</b><span>1.0% of every swap → your wallet · 1.0% → the jar, spent on POND · pool fee 1.25% → liquidity providers</span><span class="muted">Fees are taken on the IMD side and settled in IMD.</span></div>
     <ul class="ready" aria-label="Before you can launch">
       <li>Type, chain and pair chosen</li>
-      <li>4 blocks, all allowed for this type</li>
+      <li>6 blocks, all allowed for this type</li>
       <li class="todo">Pool share not chosen · <button type="button">fill it in</button></li>
-      <li class="todo">Owner address missing for the Pause switch · <button type="button">fill it in</button></li>
+      <li class="todo">Owner address missing for the Pause switch and the Allowlist · <button type="button">fill it in</button></li>
     </ul>
     <div class="cost"><span>Swarm fee <strong>0.5 IMD</strong></span><span>Gas <strong>2 tx</strong></span><span>Usually <strong>30–90 min</strong></span></div>
     <div class="hc-actions"><button class="btn" type="button">CHECK WITH THE SWARM (FREE)</button><button class="btn primary" type="button" disabled>CONTINUE TO LAUNCH</button></div>
@@ -325,7 +356,7 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
 </aside>
 </div>
 
-<div class="note"><b>WHAT CHANGED, FOR THE OWNER</b>Settings come second, right after the launch type, so chain, pair and pool share are chosen before any block. The three cramped columns become two: the steps you work through on the left, and the hook itself on the right as a stack of tiles you can read at a glance. The block palette is a shelf above the stack, grouped by category tabs, with each block’s description visible. The red "fix the request" panel never quotes the whole request again: one line per problem, the few words that are wrong, and a button that jumps to the field. The exact text the swarm receives opens in a sheet when you ask for it, with the wrong words highlighted. Every list that can grow, your stack of tiles, the findings and the exact text, scrolls inside its own box; the hook card never gets taller than the screen. Everything else, the words, the numbers, the checks and the prices, is the same.</div>
+<div class="note"><b>WHAT CHANGED, FOR THE OWNER</b>The order is type, how, blocks, settings. "Start from my own code" moved into step 2 as the starting point: your repository is audited as imported code, then adapted to the blocks and words you add, so blocks on top of your own code is a real path. The stack is one line per rule, with the numbers filled in, a chip saying who uses it, and the fields only when you open a rule, so ten rules take the space four used to. The hook card on the right reads the same stack at a glance, with where the money goes and a readiness list. Findings are one line each in a box that scrolls; the exact text opens in a sheet with the wrong words highlighted. Same colours, fonts, words and prices. No change to what is sent to IMD or to the relay.</div>
 </main>
 
 <dialog id="exact">
@@ -355,6 +386,8 @@ Owner <mark>(connect a wallet)</mark> may only: pause and unpause swaps. No othe
     document.getElementById('tiles').appendChild(tile);
     var card = b.closest('.bcard'); card.classList.add('added'); card.querySelector('.state').textContent = 'ADDED'; b.remove();
   });
+  document.getElementById('stack').addEventListener('click', function (e) { var b = e.target.closest('.edit'); if (!b) return; var r = b.closest('.rule'); r.classList.toggle('open'); var on = r.classList.contains('open'); b.textContent = on ? 'CLOSE' : 'EDIT'; b.setAttribute('aria-expanded', on); });
+  document.getElementById('expand-all').addEventListener('click', function () { var all = [...document.querySelectorAll('.rule')]; var open = all.some(function (r) { return !r.classList.contains('open'); }); all.forEach(function (r) { r.classList.toggle('open', open); var b = r.querySelector('.edit'); b.textContent = open ? 'CLOSE' : 'EDIT'; b.setAttribute('aria-expanded', open); }); this.textContent = open ? 'Close all' : 'Open all'; });
   document.querySelectorAll('.shelf-tabs button').forEach(function (t) { t.addEventListener('click', function () { document.querySelectorAll('.shelf-tabs button').forEach(function (x) { x.classList.remove('on'); }); t.classList.add('on'); }); });
 })();
 </script>
