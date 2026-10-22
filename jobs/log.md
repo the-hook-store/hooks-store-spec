@@ -351,3 +351,15 @@ The owner weighed factories against the store's principles (every launch pays th
 ## Where the money goes; the ad contracts need switching on (2026-10-22 16:51 UTC)
 
 The owner asked where every fee on the site is routed. Launch fees: IMD. Hook fees: each creator's choice (wallet, IMD's treasury, burn). Token launches: IMD's pool economics (10 percent seeds the pool, 10 percent to the swarm, 80 percent to the creator; pool fee 1.25 percent, 1 percent to the creator and 0.25 percent to the network). Listings: free. Placements: 0.1 IMD per 24 hours plus boosts, credited to the proceeds recipient inside FeaturedPlacementsV2, withdrawable only by that recipient. Reading both contracts on chain: owner is the owner's wallet, but imd() and proceedsRecipient() are zero on both chains, so deposits and purchases would fail until the owner's two setup calls per chain (configureToken(IMD), setProceedsRecipient) are made. Decision 40: the recipient is the owner's wallet; a factory charge, if ever, the same. tools/ads-setup.html (http://localhost:8787/ads-setup.html) reads both contracts from the public RPCs, simulates each call from the owner and sends it on the owner's press; all four simulated successfully (about 80,000 gas for configureToken, 48,000 for the recipient). The proven index's first scheduled run (hand-triggered 16:49 UTC) succeeded and committed its state by itself (commit 3c1701c). SPEC 1.47. Nothing to pay.
+
+## Ad contracts switched on by the owner (2026-10-22, recorded 17:19 UTC)
+
+The owner sent the four setup transactions from tools/ads-setup.html; both FeaturedPlacementsV2 contracts now read the IMD token of their chain as the escrow token and the owner's wallet as the proceeds recipient (decision 40), confirmed from the public RPCs. Transactions:
+- Ethereum: 0x8be0079c tx 0x1e9a0662a95042821de95e3d69304e42bb4e11b09cadbeb7d9148a6d8b52cb4a block 26248823 at 14:42 UTC
+- Ethereum: TokenConfigured tx 0xaa163d1cea687c45a2262571044fccee86a3a1b3249c6e813a58bec345b79ef5 block 26249603 at 17:18 UTC
+- Ethereum: ProceedsRecipientSet tx 0xcae9aa34076d0722ee655cbd7012cea004fcfa42e2daab4c4862856670ffc93e block 26249604 at 17:18 UTC
+- Robinhood Chain: 0x8be0079c tx 0xd37d4b653052d23edaa493d852b5ca6e84253b1a90e6823929e954810af9bc52 block 95187962 at 14:40 UTC
+- Robinhood Chain: TokenConfigured tx 0x8ac03b03aba26fc6f43ef71eb0d8184283d5f8e2bd3b479c978e352451df5817 block 95279224 at 17:18 UTC
+- Robinhood Chain: ProceedsRecipientSet tx 0x4fed00afb06d8fdf1336e0e0988b980274e2a4ed487d303502ac0622c72843a8 block 95279330 at 17:18 UTC
+
+Job 10 at this time: build_website accepted, design_critic working. Nothing to pay.
