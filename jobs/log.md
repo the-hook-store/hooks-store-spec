@@ -273,3 +273,7 @@ The pay page (tools/pay-onchain.html, served at http://localhost:8787/pay-onchai
 ## Job 10a, launch 1 of 2 (Robinhood Chain) paid (2026-10-22 04:34 UTC)
 
 The owner approved 5 IMD to the Intake (tx 0x22da889b…, 04:34:35 UTC; 4.5 IMD of allowance remain for later payments) and sent the request: tx 0xd4cf7996bda56ef9f6a37354bee081afa3dc759dc16c4ad639d80340fd6ae316 (04:34:47 UTC), request id 0xd6e3f156fa71d5d898c6cbc288082788ab70a76909e4b4f81298c24a18afcb1a, bodyHash 0x242d02f3… equal to keccak256 of the compact body of jobs/job-10a-ads-contract.json. IMD admitted it as launch job 7f951ad8-ac62-41f0-b968-79737c96623e (evidence/launch-10a-robinhood.intake.json, launch-10a-robinhood-job-at-admission.json). The paid-by list lagged the chain by a minute; the chain read found the payment first. Pay page locked. Next: the Ethereum copy (same contracts, chainId 1) is free-checked and staged.
+
+## Job 10a, launch 2 of 2 (Ethereum) staged (2026-10-22 04:40 UTC)
+
+jobs/job-10a-ads-contract-ethereum.json is the Robinhood body with chainId 1 and two wording changes (deployed on Ethereum; the dependency is the IMD token on Ethereum 0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7). Free check: no blockers, no suggestions, plan ends "Deploy on Ethereum mainnet" (evidence/check-job-10a-ethereum.*). Staged on the pay page with READY on: page encoder equals the Python encoder (evidence/job-10a-ethereum-calldata.txt), body equals the file, served copy equals the file. The 5 IMD approval from launch 1 covers it, so only the Send step is needed.
