@@ -1,0 +1,48 @@
+{
+  "action": "job.open",
+  "kind": "video",
+  "plan": [
+    {
+      "title": "Make the video",
+      "short": "video",
+      "skill": "create-video",
+      "stage": 0
+    }
+  ],
+  "facts": [
+    {
+      "id": "media_subject",
+      "label": "What the video shows",
+      "state": "stated",
+      "required": false,
+      "example": "e.g. a fox reading a book"
+    },
+    {
+      "id": "media_style",
+      "label": "Style",
+      "state": "stated",
+      "required": false,
+      "assumed": "The makers will choose a style.",
+      "example": "e.g. watercolor, warm light"
+    },
+    {
+      "id": "media_size",
+      "label": "Length",
+      "state": "stated",
+      "required": false,
+      "assumed": "Assumed: under a minute.",
+      "example": "e.g. 16:9, or 30 seconds"
+    },
+    {
+      "id": "media_text",
+      "label": "Words in it",
+      "state": "stated",
+      "required": false,
+      "assumed": "Assumed: no words.",
+      "example": "e.g. none"
+    }
+  ],
+  "judged": true,
+  "blockers": [],
+  "suggestions": []
+}
