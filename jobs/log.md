@@ -304,10 +304,14 @@ Job a9818b4d completed 24 minutes after payment with all eight steps accepted an
 
 Builder v2, round 3 (06:10 UTC): the owner asked for a compact stack, the order type, how, blocks, settings, and "start from my own code" moved up into step 2. Mockup updated (artifact version 3): step 2 has a starting point (from scratch, or from my own code with the repository and commit fields) above the describe-or-stack control; the stack is one line per rule with the numbers filled in, a chip saying who uses it, and the fields only when a rule is opened, with an open-all link; the card on the right shows six tiles. Own code works today as a starting point: the composer writes "Start from the creator's own source at <repo> commit <c>: audit it as imported code, adapt it to this launch, and keep its behavior." and the blocks and words follow as the rules the swarm applies, so blocks on top of own code is the existing path, not a new one.
 
-## SPEC 1.41: Builder v2 approved; job 11 drafted (2026-10-22 06:25 UTC)
+## SPEC 1.41: Builder v2 approved; job 11 drafted (2026-10-22 06:12 UTC)
 
 The owner approved the Builder v2 mockup (artifact version 4) with two last notes: sizing must stay sane on wide and narrow screens (now a "Layout and sizing" rule in 3.2: a 1240 px cap, fixed type sizes, breakpoints at 1100 and 720 px, no horizontal scroll from 320 to 2560 px), and the repository fields exist only while "from my own code" is chosen (now in 3.2 and in the mockup). Section 3.2 rewritten from the mockup, decision 34, section 13 row 11, section 15 item 6. jobs/job-11-builder-v2.json drafted (layout and presentation only; composer, body, checks, relay and storage untouched; browser tests rewritten). Its parentJobId is job 9 for the free check and is replaced by job 10's id once job 10 is admitted, as was done for job 10 itself.
 
-## Job 11 staged ahead of job 10 (2026-10-22 06:35 UTC)
+## Job 11 staged ahead of job 10 (2026-10-22 06:18 UTC)
 
 The owner asked whether job 11 could go before job 10 while the deployer is down. It can: IMD only requires that a job continue the project's newest finished job (job 9), and job 11 does not depend on the ad contracts. Staged on the pay page (action job.continue@job-1, parent 0543f750, body equal to jobs/job-11-builder-v2.json, 3,513 bytes): page encoder equals the Python encoder (evidence/job-11-calldata.txt), body equals the file, served copy equals the file, READY on. Job 10's parent will be moved to job 11's id once job 11 is admitted.
+
+## Job 11 (Builder v2) paid (2026-10-22 06:23 UTC)
+
+The owner asked whether job 11 should wait for job 10 in case the restyle and the ads collide; answer: the two jobs edit different parts of the site, each job starts from the previous commit, and any damage is caught in review and fixed at the top of the next job, so the order carries no extra risk, while job 10 cannot run before the deployer returns. Transaction 0xab53174fa94dae44fee59a1b72d61fc14044562e21fb6a76a2234eb3444ad350 (06:23:47 UTC, 0.5 IMD, covered by the 5 IMD approval), request id 0x8cabb12071cdc735b0af7e16b51cd427103c5b9a84402fb81963cffd9ab673d8, bodyHash equal to keccak256 of the compact jobs/job-11-builder-v2.json. Admitted as job 65b39d7a-7c8c-43d4-a48d-7083d0aab9ff (evidence/job-11-paid.intake.json, job-11-job-at-admission.json). Pay page locked; job 10's parentJobId moved to job 11.
