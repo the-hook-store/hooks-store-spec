@@ -235,12 +235,12 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
   <section class="step" aria-labelledby="s2">
     <div class="step-head"><span class="n">2</span><h2 id="s2">HOW DO YOU WANT TO BUILD IT?</h2></div>
     <h4 style="margin-bottom:8px">STARTING POINT</h4>
-    <div class="start">
-      <button class="type on" type="button"><strong>FROM SCRATCH</strong><span>The swarm writes the hook from your blocks or your words. Best for a first hook.</span></button>
-      <button class="type" type="button"><strong>FROM MY OWN CODE</strong><span>A public GitHub repository with your hook. It is audited as imported code, then adapted to the rules you add below, and reviewed before deploying.</span></button>
+    <div class="start" id="start">
+      <button class="type on" type="button" data-start="scratch"><strong>FROM SCRATCH</strong><span>The swarm writes the hook from your blocks or your words. Best for a first hook.</span></button>
+      <button class="type" type="button" data-start="own"><strong>FROM MY OWN CODE</strong><span>A public GitHub repository with your hook. It is audited as imported code, then adapted to the rules you add below, and reviewed before deploying.</span></button>
     </div>
-    <div class="own" aria-label="Own code fields">
-      <p class="small muted" style="margin-bottom:10px">Shown when "from my own code" is chosen. The request pins this exact commit; your blocks and words become the changes the swarm makes to it.</p>
+    <div class="own" aria-label="Own code fields" id="own" hidden>
+      <p class="small muted" style="margin-bottom:10px">The request pins this exact commit. Your blocks and words become the changes the swarm makes to it.</p>
       <div class="fields"><div><label for="s-repo">REPOSITORY URL</label><input id="s-repo" placeholder="https://github.com/you/your-hook"></div><div><label for="s-commit">COMMIT</label><input id="s-commit" placeholder="40-character commit id"></div></div>
     </div>
     <h4 style="margin:18px 0 8px">HOW YOU DESCRIBE THE RULES</h4>
@@ -356,7 +356,7 @@ dialog pre mark { background: #f6e3a1; color: inherit; outline: 2px solid var(--
 </aside>
 </div>
 
-<div class="note"><b>WHAT CHANGED, FOR THE OWNER</b>The order is type, how, blocks, settings. "Start from my own code" moved into step 2 as the starting point: your repository is audited as imported code, then adapted to the blocks and words you add, so blocks on top of your own code is a real path. The stack is one line per rule, with the numbers filled in, a chip saying who uses it, and the fields only when you open a rule, so ten rules take the space four used to. The hook card on the right reads the same stack at a glance, with where the money goes and a readiness list. Findings are one line each in a box that scrolls; the exact text opens in a sheet with the wrong words highlighted. Same colours, fonts, words and prices. No change to what is sent to IMD or to the relay.</div>
+<div class="note"><b>WHAT CHANGED, FOR THE OWNER</b>The order is type, how, blocks, settings. "Start from my own code" moved into step 2 as the starting point, and its repository and commit fields appear only when it is chosen: your repository is audited as imported code, then adapted to the blocks and words you add, so blocks on top of your own code is a real path. The stack is one line per rule, with the numbers filled in, a chip saying who uses it, and the fields only when you open a rule, so ten rules take the space four used to. The hook card on the right reads the same stack at a glance, with where the money goes and a readiness list. Findings are one line each in a box that scrolls; the exact text opens in a sheet with the wrong words highlighted. Same colours, fonts, words and prices. No change to what is sent to IMD or to the relay.</div>
 </main>
 
 <dialog id="exact">
@@ -388,6 +388,7 @@ Owner <mark>(connect a wallet)</mark> may only: pause and unpause swaps. No othe
   });
   document.getElementById('stack').addEventListener('click', function (e) { var b = e.target.closest('.edit'); if (!b) return; var r = b.closest('.rule'); r.classList.toggle('open'); var on = r.classList.contains('open'); b.textContent = on ? 'CLOSE' : 'EDIT'; b.setAttribute('aria-expanded', on); });
   document.getElementById('expand-all').addEventListener('click', function () { var all = [...document.querySelectorAll('.rule')]; var open = all.some(function (r) { return !r.classList.contains('open'); }); all.forEach(function (r) { r.classList.toggle('open', open); var b = r.querySelector('.edit'); b.textContent = open ? 'CLOSE' : 'EDIT'; b.setAttribute('aria-expanded', open); }); this.textContent = open ? 'Close all' : 'Open all'; });
+  document.getElementById('start').addEventListener('click', function (e) { var b = e.target.closest('[data-start]'); if (!b) return; document.querySelectorAll('#start .type').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); document.getElementById('own').hidden = b.getAttribute('data-start') !== 'own'; });
   document.querySelectorAll('.shelf-tabs button').forEach(function (t) { t.addEventListener('click', function () { document.querySelectorAll('.shelf-tabs button').forEach(function (x) { x.classList.remove('on'); }); t.classList.add('on'); }); });
 })();
 </script>
