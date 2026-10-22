@@ -1,0 +1,123 @@
+# Job 11 live checks (headless Chrome against https://the-hooks-store.sites.imd.fun/#builder, bundle index-B4dnJ0t-.js, 2026-10-22 07:35-07:42 UTC)
+
+## Pass 1 (cdp-job11.mjs)
+--- A. structure at 1440x900
+bundle: index-B4dnJ0t-.js
+steps: ["step-1 | What are you launching? | state=Hook + new token + pool","step-2 | How do you want to build it? | state=","step-3 | Stack your blocks | state=3 added","step-4 | Settings | state=2 to fill in"]
+progress: ["1 Type[done]","2 How[done]","3 Blocks[done]","4 Settings[now]","5 Check & launch"]
+step2 text: 2 STEP 2: HOW DO YOU WANT TO BUILD IT? STARTING POINT FROM SCRATCH The swarm writes the hook from your blocks or your words. Best for a first hook. FROM MY OWN CODE A public GitHub repository with your hook. It is audited as imported code, then adapted to the rules you add below, and reviewed before deploying. HOW YOU DESCRIBE THE RULES DESCRIBE IT STACK BLOCKS Blocks are checked sentences the swarm already knows. Words are yours and riskier. Switching never loses anything: blocks stay as numbered rules under your words.
+own fields present initially: false | #s-repo: false
+step4 text: 4 STEP 4: SETTINGS 2 to fill in DEPLOY ON Choose a chain Robinhood Chain Ethereum Choose a deploy chain: Robinhood Chain or Ethereum. PAIR WITH IMD ETH POOL SHARE OF TOTAL SUPPLY (%) · YOUR CHOICE This percentage of the total supply seeds the pool. The swarm receives 10%; the remaining 90 minus your choice% goes to your remainder address. Nothing is chosen for you. REMAINDER GOES TO OWNER ADDRESS Leave empty to use the wallet that pays. Typed addresses are sent in lowercase.
+settings mentions repo/advanced: false
+card pills: ["Hook + token + pool","No chain yet","Paired with IMD"] | name: Pondside $POND
+tiles: ["TOKEN Pondside ($POND), standard token","Swap fee 1.0% on every buy and sell → my wallet","Anti-sniper window first 10 min: max 1.0% per wallet","Buyback jar 1.0% into a jar, buy back at 0.1 IMD"]
+flow: WHERE THE MONEY GOES 1.0% on every buy and sell → my wallet · 1.0% into a jar, buy back at 0.1 IMD, spent on POND · pool fee 1.25% (1% to you, 0.25% network) → liquidity Fees are taken on the IMD side and settled in IMD.
+ready: ["Hook + token + pool chosen","3 blocks, all allowed for this type","Choose a deploy chain: Robinhood Chain or Ethereum. · fill it in","Choose the pool share: 10 to 90, in steps of 5. · fill it in"]
+cost: Swarm fee 0.5 IMD Gas 2 tx | wait: Typically 1 to 3 hours: the swarm writes, tests, audits with four auditors and a
+buttons: ["Check with the swarm (free) disabled=true","Continue to launch disabled=true"] | exact: The request the swarm receives, 3,416 characters · 3.6 / 16 KiB SHOW EXACT TEXT
+findings h3: Fix before paying · 7 | rows: ["Choose a deploy chain: Robinhood Chain or Ethereum. || The request says (choose a chain) in the request. || btn=Jump to it: Choose a deploy chain: Robinhood Chain or Ethereum.","Choose the pool share: 10 to 90, in steps of 5. ||  || btn=Jump to it: Choose the pool share: 10 to 90, in steps of 5.","Every body address must be a full lowercase EVM address. ||  || btn=Jump to it: Every body address must be a full lowercase EVM address.","Replace the recipient with its full address. Connect the paying wallet for “my wallet”. || The request says the paying wallet (connect to resolve its address) in the request. || btn=Jump to it: Replace the recipient with its full address. Connect the paying wallet for “my wallet”.","Connect the paying wallet or enter a full owner address. || The request says the paying wallet in the request. || btn=Jump to it: Connect the paying wallet or enter a full owner address.","Choose a supported deploy chain with a verified PoolManager. || The request says (choose a chain) in the request. || btn=Jump to it: Choose a supported deploy chain with a verified PoolManager.","Connect the paying wallet or enter a full owner address; the body always carries owner. ||  || btn=Jump to it: Connect the paying wallet or enter a full owner address; the body always carries owner."]
+findings list max-height: 297px | findings box height: 408
+layout: b2 cols= 752px 420px | hookcol w= 420 | wrap w= 1240 | hookcol sticky= sticky | hookcol maxH= 800px
+card h= 653 | scroll-room= 182px | hc-scroll h= 182 | hc-scroll scrollH= 710 | continue bottom= 783.484375 | findings top= 901.984375
+chip font: 7px | rule rows: ["0 LAUNCH TOKEN Pondside ($POND), standard token STANDARD EDIT TOKEN","1 SWAP FEE , NOT YET PROVEN IN A LIVE LAUNCH 1.0% on every buy and sell → my wallet RUNS I","2 ANTI-SNIPER WINDOW , NOT YET PROVEN IN A LIVE LAUNCH ! first 10 min: max 1.0% per wallet","3 BUYBACK JAR , NOT YET PROVEN IN A LIVE LAUNCH 1.0% into a jar, buy back at 0.1 IMD ANYON"]
+overflow 1440: 1440 vs 1440
+--- B. sticky fit after scrolling and typing (1440x900)
+scrolled: scrollY= 1000 | card viewport top= 84 | room before typing= 140px | hc-scroll h= 140
+after typing while scrolled: room= 140px | hc-scroll h= 140 | card h= 611 | tiles visible? 140/710
+back at top and retyped: room= 182px | hc-scroll h= 182
+--- C. own code toggle
+clicked
+own box: true | fields: #s-repo=true #s-commit=true #s-resolve=false | own text: The request pins this exact commit. Your blocks and words become the changes the swarm makes to it. REPOSITORY URL Repository: enter the public https://github.com/owner/name URL of your hook. COMMIT C
+buttons: ["Check with t disabled=true","Continue to  disabled=true"]
+findings: ["Choose a deploy chain: Robinhood Chain or Ethereum.","Choose the pool share: 10 to 90, in steps of 5.","Repository: enter the public https://github.com/owner/name URL of your hook.","Commit: enter the full 40-character commit id.","Every body address must be a full lowercase EVM address.","Replace the recipient with its full address. Connect the paying wallet for “my wallet”.","Connect the paying wallet or enter a full owner address.","Choose a supported deploy chain with a verified PoolManager.","Connect the paying wallet or enter a full owner address; the body always carries owner."]
+ready todo: ["Choose a deploy chain: Robinhood Chain or Ethereum. · fill it in","Choose the pool share: 10 to 90, in steps of 5. · fill it in","Repository: enter the public https://github.com/owner/name URL of your hook. · fill it in","Commit: enter the full 40-character commit id. · fill it in"]
+progress: ["1 Type[done]","2 How[now]","3 Blocks[done]","4 Settings","5 Check & launch"]
+composed has own-source line (empty fields): false | composed starts: Launch Pondside (POND) with a Uniswap v4 hook on (choose a chain), paired with IMD.
+Token:
+typed repo+commit: resolve btn= Resolve repository disabled=false | findings: ["Choose a deploy chain: Robinhood Chain or Ethereum.","Choose the pool share: 10 to 90, in steps of 5.","Resolve your repository in step 2."] | composed starts: Resolve your repository in step 2 to compose the request from its pinned source. | check-note: Resolve your repository in step 2 before continuing.
+jump on resolve finding: clicked
+active element after jump: s-resolve
+clicked
+scratch: own box= false | findings: ["Choose a deploy chain: Robinhood Chain or Ethereum.","Choose the pool share: 10 to 90, in steps of 5.","Every body address must be a full lowercase EVM address.","Replace the recipient with its full address. Connect the paying wallet for “my wallet”.","Connect the paying wallet or enter a full owner address.","Choose a supported deploy chain with a verified PoolManager.","Connect the paying wallet or enter a full owner address; the body always carries owner."] | composed starts: Launch Pondside (POND) with a Uniswap v4 hook on (choose a c | draft repo in storage: "repo":""
+clicked
+own again restored: repo= https://github.com/example/example-hook | commit= 0123456789ab
+clicked
+--- D. findings jump + settings fill
+jump chain: clicked: Choose a deploy chain: Robinhood Chain or Ethereum.
+active: s-chain
+after chain+pool: findings h3= Fix before paying · 4 | rows: ["Every body address must be a full lowercase EVM address. || ","Replace the recipient with its full address. Connect the paying wallet for “my wallet”. || The request says the paying wallet (connect to resolve its address) in the request.","Connect the paying wallet or enter a full owner address. || The request says the paying wallet in the request.","Connect the paying wallet or enter a full owner address; the body always carries owner. || "] | pills: ["Hook + token + pool","Robinhood Chain","Paired with IMD"] | ready: ["Hook + token + pool chosen","Deploys on Robinhood Chain, paired with IMD","Pool share 50%","3 blocks, all allowed for this type"] | buttons: ["Check with t disabled=true","Continue to  disabled=true"] | progress: ["1 Type[done]","2 How[done]","3 Blocks[done]","4 Settings[done]","5 Check & launch[now]"]
+jump token name (clear it): no finding: Every body address must be a full lowercase EVM address. / Replace the recipient with its full address. Connect the paying wallet for “my wallet”. / Connect the paying wallet or enter a full owner address. / Connect the paying wallet or enter a full owner address; the body always carries owner.
+token row open= false | active= s-chain
+--- E. exact text sheet
+clicked Show exact text
+dialog open= true | head= Connect a wallet× | composed len= 3631 | marks= 4 | dialog rect= {"x":340,"y":16,"width":760,"height":868,"top":16,"right":1100,"bottom":884,"left":340}
+clicked Close
+dialog open after close= false
+--- F. shelf and stack
+tabs: ["Token 1/2","Fees 1/7[on]","Protection 1/6","Treasury 1/2","Liquidity 0/4","Timing 0/5","Advanced 0/7","Games 0/1","Custom 0/1"]
+clicked
+protection cards: ["anti-sniper:ADDED","max-buy:ADD","max-swap:ADD","anti-sandwich:ADD","cooldown:ADD","breaker:ADD"]
+add pause: missing
+rule-pause open= undefined | rows: ["token chip=STANDARD","swap-fee chip=RUNS ITSELF","anti-sniper chip=RUNS ITSELF","jar chip=ANYONE PRESSES"] | tiles: ["Token","Swap fee","Anti-sniper window","Buyback jar"] | step3 state: 3 added
+pause body text: undefined
+clicked Open all
+all open: [true,true,true,true]
+clicked Close all
+describe mode: clicked Describe it
+p-text in step2: true | step3 state: Saved, not sent while you describe it | tiles: ["Token","Your words"] | shelf pause pill: undefined
+describe: ready= ["Hook + token + pool chosen","Deploys on Robinhood Chain, paired with IMD","Pool share 50%","Your words are written"] | findings= ["Every body address must be a full lowercase EVM address.","Connect the paying wallet or enter a full owner address.","Connect the paying wallet or enter a full owner address; the body always carries owner."]
+stack mode: clicked Stack blocks
+--- G. widths
+W320x900: {"sw":320,"cw":320,"cols":"288px","wrap":{"t":178,"w":320,"h":4872},"hookcol":{"t":382,"w":288,"h":1009},"steps":{"t":1419,"w":288,"h":3524},"card":{"t":382,"w":288,"h":583},"hcScroll":{"t":547,"w":282,"h":64},"room":"64px","contBottom":846,"innerH":900,"shelfScroll":"1334/244","h2":"13px","clipped":[]}
+W390x844: {"sw":390,"cw":390,"cols":"358px","wrap":{"t":168,"w":390,"h":4394},"hookcol":{"t":371,"w":358,"h":948},"steps":{"t":1347,"w":358,"h":3107},"card":{"t":371,"w":358,"h":540},"hcScroll":{"t":505,"w":352,"h":64},"room":"64px","contBottom":794,"innerH":844,"shelfScroll":"1334/314","h2":"13px","clipped":[]}
+W768x1024: {"sw":768,"cw":768,"cols":"736px","wrap":{"t":168,"w":768,"h":3582},"hookcol":{"t":379,"w":736,"h":1045},"steps":{"t":1452,"w":736,"h":2190},"card":{"t":379,"w":736,"h":629},"hcScroll":{"t":492,"w":730,"h":244},"room":"244px","contBottom":939,"innerH":1024,"shelfScroll":"676/676","h2":"13px","clipped":[]}
+W1100x900: {"sw":1100,"cw":1100,"cols":"612px 420px","wrap":{"t":68,"w":1100,"h":2802},"hookcol":{"t":231,"w":420,"h":800},"steps":{"t":231,"w":612,"h":2531},"card":{"t":231,"w":414,"h":653},"hcScroll":{"t":376,"w":408,"h":182},"room":"182px","contBottom":783,"innerH":900,"shelfScroll":"552/552","h2":"13px","clipped":[]}
+W1440x900: {"sw":1440,"cw":1440,"cols":"752px 420px","wrap":{"t":68,"w":1240,"h":2461},"hookcol":{"t":231,"w":420,"h":800},"steps":{"t":231,"w":752,"h":2190},"card":{"t":231,"w":414,"h":653},"hcScroll":{"t":376,"w":408,"h":182},"room":"182px","contBottom":783,"innerH":900,"shelfScroll":"692/692","h2":"13px","clipped":[]}
+W2560x1300: {"sw":2560,"cw":2560,"cols":"752px 420px","wrap":{"t":68,"w":1240,"h":2461},"hookcol":{"t":231,"w":420,"h":1200},"steps":{"t":231,"w":752,"h":2190},"card":{"t":231,"w":414,"h":1053},"hcScroll":{"t":376,"w":408,"h":582},"room":"582px","contBottom":1183,"innerH":1300,"shelfScroll":"692/692","h2":"13px","clipped":[]}
+ERRORS: []
+
+## Pass 2 (cdp-job11b.mjs)
+--- sticky collapse, clean sequence at 1440x900
+at load: 182px / hc-scroll 182 of 662 / card top 231
+scrolled 1000, no input: 182px / hc-scroll 182 of 662 / card top 84
+scrolled, 3 s later: 182px / hc-scroll 182 of 662 / card top 84
+typed while scrolled: 140px / hc-scroll 140 of 662 / card top 84
+back to top, no input: 140px / hc-scroll 140 of 662 / card top 231
+back to top, typed: 182px / hc-scroll 182 of 662 / card top 231
+--- add a block from the shelf
+find pause tab: not found
+add pause: missing
+rule-pause open= undefined | rows: ["token chip=STANDARD","swap-fee chip=RUNS ITSELF","anti-sniper chip=RUNS ITSELF","jar chip=ANYONE PRESSES"] | tiles: ["Token","Swap fee","Anti-sniper window","Buyback jar"] | step3 state: 3 added | focus: BODY
+pause body: undefined
+shelf pause pill now: undefined
+move pause up: missing
+rows after move: ["token","swap-fee","anti-sniper","jar"] | tiles: ["Token","Swap fee","Anti-sniper window","Buyback jar"]
+remove pause: missing
+rows after remove: ["token","swap-fee","anti-sniper","jar"]
+sheet head (scoped): EXACT TEXT THE SWARM RECEIVES COPY CLOSE
+--- zoomed crops
+--- phone 390: what the 64px window shows
+390: 64px / hc-scroll 64 of 684 / card top 371 | hc-scroll children heights: ["tiles:271","flow:185","ready:145","small:45"]
+ERRORS: []
+
+## Pass 3 (cdp-job11c.mjs)
+tab timing: clicked
+timing cards: ["open-at:ADD","hours:ADD","allowlist:ADD","pause:ADD","sunset:ADD"]
+add pause: clicked
+rule-pause open= true | rows: ["token chip=STANDARD","swap-fee chip=RUNS ITSELF","anti-sniper chip=RUNS ITSELF","jar chip=ANYONE PRESSES","pause chip=OWNER"] | tiles: ["Token","Swap fee","Anti-sniper window","Buyback jar","Pause switch"] | step3 state: 4 added | shelf pill: ADDED
+pause body: Who uses it: You (the owner) flip the switch. On the hook page: Owner buttons: pause swaps, resume swaps. Readings: paused right now?.
+composed has pause rule: true
+crop zoom-rule-pause {"x":143,"y":472.046875,"width":698,"height":123}
+move up: clicked
+rows after up: ["token","swap-fee","anti-sniper","pause","jar"] | tiles: ["Token","Swap fee","Anti-sniper window","Pause switch","Buyback jar"]
+move down: clicked
+rows after down: ["token","swap-fee","anti-sniper","jar","pause"]
+edit toggle (close): clicked
+open= false
+crop zoom-rule-row {"x":155,"y":464.59375,"width":683,"height":55.28125}
+crop zoom-findings {"x":904,"y":431.296875,"width":414,"height":408.390625}
+crop zoom-shelf {"x":143,"y":449.140625,"width":698,"height":86}
+remove: clicked
+rows after remove: ["token","swap-fee","anti-sniper","jar"] | shelf pill: ADD
+reload keeps stack: token,swap-fee,anti-sniper,jar
+ERRORS: []
