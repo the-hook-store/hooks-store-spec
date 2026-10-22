@@ -363,3 +363,7 @@ The owner sent the four setup transactions from tools/ads-setup.html; both Featu
 - Robinhood Chain: ProceedsRecipientSet tx 0x4fed00afb06d8fdf1336e0e0988b980274e2a4ed487d303502ac0622c72843a8 block 95279330 at 17:18 UTC
 
 Job 10 at this time: build_website accepted, design_critic working. Nothing to pay.
+
+## Decision 41: readable text, option B (2026-10-22 17:30 UTC)
+
+The owner found the reading font hard to read and asked to keep the pixel face for titles and bold labels with a readable face for the rest. Compared on a mockup (today's Pixelify Sans and VT323 beside three pairings, Press Start 2P kept on every title): the owner chose option B, Atkinson Hyperlegible for text and JetBrains Mono for numbers and addresses. SPEC 1.48 (section 14 Type, section 15 item 1, decision 41); carry-over (j) in jobs/next-job-carry-overs.md and in the job 12 draft. Nothing to pay.

@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.47 · 2026-10-22 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.48 · 2026-10-22 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.48 (2026-10-22): readable text (decision 41). Press Start 2P stays for the bar, titles, buttons, pills and labels; Pixelify Sans and VT323 go: reading text is Atkinson Hyperlegible, numbers and addresses are JetBrains Mono, sizes unchanged. Job 12 carries it (jobs/next-job-carry-overs.md item j).
 
 Changes in 1.47 (2026-10-22): where the store's money goes (decision 40): ad proceeds to the owner's wallet, set by the owner on both ad contracts after deployment (they shipped unconfigured: token and recipient are owner steps), and a factory charge, if factories ever come, to the same wallet.
 
@@ -546,7 +548,7 @@ Job states: `GET /jobs/:id` reports each node as `waiting` (queued), `working` (
 
 **One theme, by choice.** Beige for everyone; the site does not switch to a dark palette. Tokens: paper `#e9dfc3` (page), paper-2 `#dfd3b0` (rails, panels), paper-3 `#f3ecd8` (cards, inputs), ink `#15130f` (text, borders, shadows), ink-2 `#5b5342` (muted), ink-3 `#8a816a` (dashed rules, state pills), pine `#1e5a3a` (top bar, primary buttons, links, active states), pine-2 `#2c7a50` (hover), on-pine `#f3ecd8`, ad `#c9a227` (the #AD pill only), bad `#a3382b`, warn `#a1731c`.
 
-**Type.** Press Start 2P for the bar, headings, buttons and pills at 8–26 px, never for paragraphs. Pixelify Sans 15–18 px for body. VT323 for addresses, hashes, the exact request text, function signatures, and **every number and amount** (0.5 IMD, 50%, 1.25%, counts, numeric inputs), because Pixelify Sans draws a 5 that reads as an 8. Google Fonts with system fallbacks.
+**Type.** Press Start 2P for the bar, headings, buttons, pills, chips and labels at 7–26 px, never for paragraphs. Reading text (paragraphs, rule lines, findings, fields, notices, the catalog cards) is Atkinson Hyperlegible 15–18 px, weight 400, bold 700 where a word is emphasised. Numbers, addresses, hashes, the exact request text, function signatures and every reading in a panel are JetBrains Mono 15–18 px, weight 400 or 500, tabular figures. Both faces are self-hosted as latin woff2 subsets beside the existing Press Start 2P file, with system fallbacks (Verdana; ui-monospace) declared. Decision 41 (2026-10-22) replaced Pixelify Sans and VT323, which the owner found hard to read at length; sizes, line heights and the layout did not change.
 
 **Components.** Button, pill, state pill (grey, wraps, 96 px max), #AD pill, input, numeric input in VT323, notice (left stripe in the semantic color), segmented control, collapsible group, card, ad card (warm paper), open-slot card (dashed), choice card, type card (pine when selected), summary list, timeline, steps, manage rows. Content column 1,180 px, 16 px gutters, one breakpoint at 820 px. The top bar never wraps above 820 px (3.0). No footer.
 
@@ -610,7 +612,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 
 ## 14. Decisions taken by the owner (2026-10-21)
 
-1. Fonts: Press Start 2P, Pixelify Sans and VT323, numbers in VT323. Kept.
+1. Fonts: Press Start 2P for titles, buttons, pills and labels. Kept. Pixelify Sans and VT323 replaced by Atkinson Hyperlegible (text) and JetBrains Mono (numbers, addresses) on 2026-10-22, decision 41.
 2. Pool share: no default. The user chooses it, and can change it freely within IMD's 10–90% range.
 3. Trade links: Uniswap's interface on every chain where it lists the pool. No code or asset from any other product is used anywhere in this project; other sites were only looked at for ideas.
 4. Going live: see section 15. Partly superseded by decision 12: there is no test-network phase, and phase 2 now means only the ads (6.6).
@@ -650,6 +652,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 38. The Builder goes fluid (2026-10-22): the owner asked for the Builder to fill the screen and what normal websites do. Reading sites cap text at a measure; application dashboards (the kind of page the Builder is) fill the window with fluid columns and stop at a generous ceiling so a 4K window does not stretch controls across the whole screen. Decided: fluid up to 1800 px with scaling gutters (clamp(16px, 3vw, 48px)), the steps column taking the rest, the card clamp(420px, 28vw, 520px), paragraph text keeping its 65ch measure, type sizes unchanged. The rest of the site keeps its 1180 px reading width for now. Implemented by the next job (jobs/next-job-carry-overs.md item i), with the width sweep extended to 1920×1080 and 2560×1440.
 39. Phase 3 is the proven lane, not factories (2026-10-22): the owner wants every launch to pay the swarm and burn IMD and every launch audited, and saw that a factory removes all three from every repeat of a design while a reader of code could already redeploy any audited hook. Decided: no factory for now; the proven index updates itself (scripts/proven_index.py, scheduled on GitHub Actions in this repository; tested the same day against IMD's list: it re-found launches 2448, 2449 and 2450 with the same addresses, blocks and pool id as the hand-made entries and added nothing foreign); job 12 adds the nearest match, the proven marks and the wait line. The owner's factory plan is recorded in 6.8 for later: tally first, several factories at once, their own section, 0.25 IMD per use.
 40. Where the store's money goes (2026-10-22): the only income the store has is the featured placements (0.1 IMD per 24 hours plus boosts); launch fees go to IMD, hook fees go where each creator chose, listings are free. The owner chose their own wallet as the proceeds recipient on both chains (withdrawable at will, to burn or keep), and the same wallet for a factory charge should factories ever be built. Found on the way: both ad contracts were live with no token configured and no recipient set, so a deposit or purchase would have failed on the live site; four owner transactions (tools/ads-setup.html) switch them on, each simulated from the owner's address before this decision was written.
+41. Readable text (2026-10-22): the owner found the site's reading font hard to read and asked to keep the pixel face for titles and bold labels with a more readable face for everything else, uniform and easy on the eye. Compared on a mockup of the hook card and a finding (today's fonts beside three pairings, every title in Press Start 2P): the owner chose Atkinson Hyperlegible for text and JetBrains Mono for numbers and addresses, a pairing built for legibility where every letter and digit has a distinct shape. Sizes and layout unchanged; Press Start 2P unchanged wherever it is used today. Job 12 ships it (carry-over j).
 
 ## 15. From mockup to live
 
