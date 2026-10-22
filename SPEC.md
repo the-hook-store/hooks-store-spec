@@ -1,8 +1,10 @@
 # The Hooks Store — product and build specification
 
-Version 1.31 · 2026-10-21 · Status: draft for review, then handed to the IMD swarm job by job.
+Version 1.32 · 2026-10-22 · Status: draft for review, then handed to the IMD swarm job by job.
 
 This document is a specification, not a wish list. Every section says exactly what to build, what data it uses, and how to tell when it is done. The clickable mockup in `mockup/index.html` is the visual reference; where the mockup and this text disagree, this text wins.
+
+Changes in 1.32 (2026-10-22): launch 1 is live and its hook PondsideGuard is deployed, the store's first. Found on the way: for a contracts-only launch the result file the Completed event points at is written before deployment and never names an address, so Live cannot come from the chain alone; 7.3 now says the hook page takes the deployed addresses from the launch record's artifacts through the relay, reads hook() when the artifact is a deployer, and treats the Completed event with status 0 as the chain confirmation. Job 9 carries it.
 
 Changes in 1.31 (2026-10-21): section 4.16 is rewritten in full after an independent review that read the audit findings of all four launches, IMD's own successful hook launch on Robinhood Chain and 18 more free checks (evidence/review-2026-10-21/). Corrections: the deployer mines its salt inside its constructor (an off-chain salt cannot be known), partial fills that specify the pair-currency amount revert, the no-fee sentence uses IMD's phrasing "Hook fee rate: 0%". New: type A hooks accept initialization only from the IMD launch factory ($factory), the Buyback jar cannot burn the standard token and keeps the tokens instead, the buyback happens only inside buyback(), fee blocks are tied together with one rate and one destination, liquidity rules are keyed per position, time is measured in seconds (Robinhood Chain's block number is the L1's), incompatible advanced blocks exclude each other, Batch auctions leaves version 1, the dynamic-fee flag, pull payments for the prize pot, the owner always in the body, and a no-outside-dependency sentence in every request. Job 8 ships all of it.
 
@@ -488,6 +490,8 @@ RPCs and windows (`site-config.json`, measured 2026-10-21): Ethereum reads go to
 
 Same logs filtered by payer, plus pending request ids saved in `localStorage` when launched from this site.
 
+Contracts-only launches (types B and C): the result file that the chain's Completed event points at is written when the job completes, before deployment, and names no address (launch 1, 2026-10-22). So the Completed event with status 0 is the chain confirmation that the launch finished, and the deployed addresses come from the launch record (`GET /launches/:id` through the relay, `artifacts[].address`, with `attestation.contracts` naming each contract). When the artifact is a deployer (4.16 item 1, and launch 1's `deploy(salt)` design), the hook page reads `hook()` from it and shows both addresses; while `hook()` is zero it says "hook not deployed yet". The Live step turns green when the Completed event has status 0 and the launch record reads live; the hook's address is a separate line, never a condition for Live.
+
 ### 7.4 Optional relay
 
 A single-file Cloudflare Worker forwarding `POST /check` and `POST /import` to `api.imd.fun/requests/…`, and `GET /launches*`, `/jobs/:id`, `/intake/:chain/:tx` to the same paths, adding `Access-Control-Allow-Origin: *`, caching GETs 30 seconds, allowing nothing else. `site-config.json` has `relayUrl` (null by default). With it: the free check button and the "What the swarm understood" panel work live, the pond ticker names launches, the timeline shows Building / Audit panel / Deploying, and own-code imports are resolved. The swarm writes and tests it; the operator deploys it. The operator will also ask IMD to enable CORS on those routes.
@@ -586,6 +590,7 @@ One IMD website project, built as `job.open` then `job.continue` jobs so each jo
 22. Reviews, not audits (2026-10-21): no standalone audit job is planned. Website jobs that touch the money path or the composer carry a read-only adversarial review as their second step (jobs 5 and 8); every hook launch and the ad contracts launch carry IMD's audit panel by themselves.
 23. Audit-derived wording (2026-10-21): the Anti-sandwich rule caps every swap at the block's opening price in its own direction and donates the withheld difference to liquidity providers; fees are computed on the amount traded; windows start at the first swap; wallets are tx.origin with the limit stated; standalone hooks key everything by pool (4.16 items 11 to 16).
 24. Independent review adopted (2026-10-21): section 4.16 is rewritten in full from the review's findings; the type A factory gate, the in-constructor salt, the revert on partial fills and the jar without burn are decided as written there.
+25. Live for contracts-only launches (2026-10-22, after launch 1): Live comes from the Completed event plus the launch record through the relay; addresses from the record's artifacts and the deployer's hook(); the result file is not the source of addresses (7.3). Job 9 carries it.
 
 ## 15. From mockup to live
 
