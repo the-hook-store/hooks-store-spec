@@ -2,6 +2,8 @@ name: proven-index
 # Keeps evidence/proven-launches.json up to date (SPEC 4.17, decision 39): every few hours it
 # reads IMD's launch list, verifies new store launches from IMD's record and the chain, and
 # commits the ones that pass. Entries already in the file are never changed or removed.
+# The same run refreshes evidence/launch-records.json (SPEC 7.3, decision 48 item r): IMD's
+# record of every store launch, which the site reads when IMD's record plane fails.
 on:
   schedule:
     - cron: '17 */6 * * *'
@@ -19,13 +21,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify and index new launches
         run: python3 -I scripts/proven_index.py
+      - name: Snapshot the store's launch records
+        run: python3 -I scripts/launch_records.py
       - name: Commit when the index changed
         run: |
-          if git diff --quiet -- evidence/proven-launches.json evidence/proven-index-state.json; then
+          if git diff --quiet -- evidence/proven-launches.json evidence/proven-index-state.json evidence/launch-records.json evidence/launch-records-state.json; then
             echo "no change"; exit 0
           fi
           git config user.name "The Hooks Store"
           git config user.email "345667368+the-hook-store@users.noreply.github.com"
-          git add evidence/proven-launches.json evidence/proven-index-state.json
-          git commit -m "Proven index: scheduled run $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git add evidence/proven-launches.json evidence/proven-index-state.json evidence/launch-records.json evidence/launch-records-state.json
+          git commit -m "Proven index and launch records: scheduled run $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push

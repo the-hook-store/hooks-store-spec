@@ -1,0 +1,444 @@
+{
+  "checked": {
+    "00ca1618-b4cd-43f0-9656-9e1d20fb9e9f": {
+      "launchNumber": 2308,
+      "store": false,
+      "updatedAt": "2026-10-20T20:26:39.101Z"
+    },
+    "01a31e09-09ec-4ce6-9b65-e58c2047da03": {
+      "launchNumber": 2433,
+      "store": false,
+      "updatedAt": "2026-10-22T14:41:13.192Z"
+    },
+    "01cfb128-811e-4584-8035-85249f0a4884": {
+      "launchNumber": 2190,
+      "store": false,
+      "updatedAt": "2026-10-18T22:04:05.583Z"
+    },
+    "0322d00f-8972-4573-9676-67988f1c9b33": {
+      "launchNumber": 2422,
+      "store": false,
+      "updatedAt": "2026-10-22T14:43:40.996Z"
+    },
+    "0528a007-5ec6-4acd-b9cc-b3ded6fe2929": {
+      "launchNumber": 2071,
+      "store": false,
+      "updatedAt": "2026-10-17T11:17:50.343Z"
+    },
+    "0537b7d1-e1e1-415b-9e4c-d3bd581f4e60": {
+      "launchNumber": 2329,
+      "store": false,
+      "updatedAt": "2026-10-20T19:17:05.606Z"
+    },
+    "0a89829a-94c5-4935-8b4c-4bbe1e5b92c3": {
+      "launchNumber": 2380,
+      "store": false,
+      "updatedAt": "2026-10-21T15:26:16.355Z"
+    },
+    "0c06d58a-8d2f-45ed-b0a0-ba3b6143d8d5": {
+      "launchNumber": 2407,
+      "store": false,
+      "updatedAt": "2026-10-21T21:31:51.319Z"
+    },
+    "11fd096c-23fe-45a1-a957-20dd29747efa": {
+      "launchNumber": 2088,
+      "store": false,
+      "updatedAt": "2026-10-17T16:20:16.752Z"
+    },
+    "1377d17c-3f09-49e8-87e7-20a07ad45ea9": {
+      "launchNumber": 2404,
+      "store": false,
+      "updatedAt": "2026-10-21T18:51:16.808Z"
+    },
+    "1cce2f16-6ab9-4866-8585-510518a6a48d": {
+      "launchNumber": 2084,
+      "store": false,
+      "updatedAt": "2026-10-17T16:23:27.608Z"
+    },
+    "1fc75324-ba82-44d4-98c3-fb5f478c527b": {
+      "launchNumber": 2176,
+      "store": false,
+      "updatedAt": "2026-10-18T17:41:27.150Z"
+    },
+    "24f55ec3-e64c-43b7-a095-977c9c5dbfc3": {
+      "launchNumber": 2454,
+      "store": false,
+      "updatedAt": "2026-10-22T14:40:41.471Z"
+    },
+    "2844d117-8ac6-4d50-b205-1b4aa254b52b": {
+      "launchNumber": 2194,
+      "store": false,
+      "updatedAt": "2026-10-18T22:15:50.587Z"
+    },
+    "2ccf6c19-8fa3-46ad-908b-25a6c131b9e5": {
+      "launchNumber": 2199,
+      "store": false,
+      "updatedAt": "2026-10-19T04:30:14.667Z"
+    },
+    "2db364f1-455c-4d48-8b29-f88404dfb820": {
+      "launchNumber": 2315,
+      "store": false,
+      "updatedAt": "2026-10-20T16:57:04.643Z"
+    },
+    "31f83052-5918-402f-9f13-5f4afd80b879": {
+      "launchNumber": 2201,
+      "store": false,
+      "updatedAt": "2026-10-18T23:59:49.425Z"
+    },
+    "328add1b-9584-461f-aa63-47549a03bde7": {
+      "launchNumber": 2148,
+      "store": false,
+      "updatedAt": "2026-10-18T06:38:41.212Z"
+    },
+    "37adb437-0fdf-4aaf-88e8-05f991d68724": {
+      "launchNumber": 2196,
+      "store": false,
+      "updatedAt": "2026-10-18T23:05:49.306Z"
+    },
+    "3836b728-fabb-40bc-a57f-180416ed7f84": {
+      "launchNumber": 2456,
+      "store": false,
+      "updatedAt": "2026-10-22T14:42:28.602Z"
+    },
+    "38dff53e-bb1d-4ae8-a75e-6cd5181989c4": {
+      "launchNumber": 2255,
+      "store": false,
+      "updatedAt": "2026-10-19T20:00:52.480Z"
+    },
+    "49157b8c-728a-4f12-8c49-ea012783d898": {
+      "launchNumber": 2167,
+      "store": false,
+      "updatedAt": "2026-10-18T14:05:24.774Z"
+    },
+    "4ba572fe-2cf9-462f-9851-52975b8b5cea": {
+      "launchNumber": 2147,
+      "store": false,
+      "updatedAt": "2026-10-18T06:26:28.710Z"
+    },
+    "503c2f1a-6479-4fbb-856a-4d57361698fb": {
+      "launchNumber": 2099,
+      "store": false,
+      "updatedAt": "2026-10-17T19:13:25.421Z"
+    },
+    "548e5558-2971-480a-8ab2-1bb31e385288": {
+      "launchNumber": 2232,
+      "store": false,
+      "updatedAt": "2026-10-19T15:08:32.074Z"
+    },
+    "58402822-80fb-40bb-ab36-77241e1fa6bb": {
+      "launchNumber": 2159,
+      "store": false,
+      "updatedAt": "2026-10-18T11:05:39.905Z"
+    },
+    "5992ada2-68e1-4af2-ad6d-47d67e09f703": {
+      "launchNumber": 2418,
+      "store": false,
+      "updatedAt": "2026-10-21T21:38:49.701Z"
+    },
+    "5cd4c328-f769-4b5b-9627-5e9ee98a6465": {
+      "launchNumber": 2343,
+      "store": false,
+      "updatedAt": "2026-10-20T21:46:01.201Z"
+    },
+    "5cddd7dc-a9a2-4615-af12-41abc1092e52": {
+      "launchNumber": 2408,
+      "store": false,
+      "updatedAt": "2026-10-21T18:36:46.091Z"
+    },
+    "5d70e904-8bd6-4eb9-bed7-409e05b0439c": {
+      "launchNumber": 2215,
+      "store": false,
+      "updatedAt": "2026-10-19T06:37:54.749Z"
+    },
+    "5f1898f4-8af8-432d-b01c-f4a645a11a75": {
+      "launchNumber": 2233,
+      "store": false,
+      "updatedAt": "2026-10-19T14:20:52.565Z"
+    },
+    "632979e3-2f01-425f-baf2-3bd4f7b7673a": {
+      "launchNumber": 2260,
+      "store": false,
+      "updatedAt": "2026-10-19T21:47:49.200Z"
+    },
+    "643d757c-f70b-45d9-9661-4ea6dc491e10": {
+      "launchNumber": 2210,
+      "store": false,
+      "updatedAt": "2026-10-19T04:50:02.587Z"
+    },
+    "702e6c9d-37ee-41ef-afcb-5d5e1af9f31b": {
+      "launchNumber": 2336,
+      "store": false,
+      "updatedAt": "2026-10-20T19:56:49.866Z"
+    },
+    "76d76557-7569-43cb-a87e-4cc7ae379a6e": {
+      "launchNumber": 2399,
+      "store": false,
+      "updatedAt": "2026-10-21T22:53:27.383Z"
+    },
+    "76fe1985-1f08-416b-88da-6aa5a21eaa4e": {
+      "launchNumber": 2251,
+      "store": false,
+      "updatedAt": "2026-10-19T17:48:51.457Z"
+    },
+    "7833501f-1f99-4659-832a-290999ffc03f": {
+      "launchNumber": 2305,
+      "store": false,
+      "updatedAt": "2026-10-20T16:22:25.619Z"
+    },
+    "790d256e-0949-4810-b23c-0ac8eb7fb2d4": {
+      "launchNumber": 2172,
+      "store": false,
+      "updatedAt": "2026-10-18T16:27:25.967Z"
+    },
+    "79a49a69-8051-47ce-8dae-09c926eea3d8": {
+      "launchNumber": 2279,
+      "store": false,
+      "updatedAt": "2026-10-20T08:16:08.118Z"
+    },
+    "7b3da6ae-7b9b-4c39-851b-154c41433898": {
+      "launchNumber": 2448,
+      "store": true,
+      "updatedAt": "2026-10-22T14:40:35.618Z"
+    },
+    "7b944eb2-1ef8-449b-b6cd-2cb8bc401024": {
+      "launchNumber": 2093,
+      "store": false,
+      "updatedAt": "2026-10-17T17:17:51.176Z"
+    },
+    "7c1c1e1d-4edb-4a93-8781-7b2854c2722e": {
+      "launchNumber": 2391,
+      "store": false,
+      "updatedAt": "2026-10-21T16:16:23.801Z"
+    },
+    "7f26903e-62c7-4ae2-acab-6d06ded7a0eb": {
+      "launchNumber": 2398,
+      "store": false,
+      "updatedAt": "2026-10-21T17:13:26.770Z"
+    },
+    "7f4dd9ec-15e4-4062-8b94-9d1a859513cd": {
+      "launchNumber": 2362,
+      "store": false,
+      "updatedAt": "2026-10-21T06:01:26.892Z"
+    },
+    "8122e3ef-fedd-466b-b884-ac647119946f": {
+      "launchNumber": 2303,
+      "store": false,
+      "updatedAt": "2026-10-20T16:07:42.091Z"
+    },
+    "81c00c6e-5258-4090-a168-f92e7b231bd4": {
+      "launchNumber": 2235,
+      "store": false,
+      "updatedAt": "2026-10-19T14:00:40.619Z"
+    },
+    "83b4f111-0ed1-4b4e-8ead-400bb6ae31a2": {
+      "launchNumber": 2302,
+      "store": false,
+      "updatedAt": "2026-10-20T15:21:03.849Z"
+    },
+    "8594ca07-e200-48f4-9d60-30f50c558b6f": {
+      "launchNumber": 2229,
+      "store": false,
+      "updatedAt": "2026-10-19T13:37:25.481Z"
+    },
+    "862b1501-b1ff-4a2a-8ce9-3fff13f08076": {
+      "launchNumber": 2230,
+      "store": false,
+      "updatedAt": "2026-10-19T15:55:52.094Z"
+    },
+    "881ffed7-e6bd-49ef-9fbf-68568982f4b8": {
+      "launchNumber": 2341,
+      "store": false,
+      "updatedAt": "2026-10-20T22:15:14.242Z"
+    },
+    "88bb3e90-e0c0-4753-b17c-242f5482a395": {
+      "launchNumber": 2406,
+      "store": false,
+      "updatedAt": "2026-10-21T18:53:51.689Z"
+    },
+    "8d227b92-3688-41b5-968c-1e8ec8b37e99": {
+      "launchNumber": 2292,
+      "store": false,
+      "updatedAt": "2026-10-20T15:01:52.578Z"
+    },
+    "902170a7-d7a3-4d73-a8bf-fefc1e07e76a": {
+      "launchNumber": 2436,
+      "store": false,
+      "updatedAt": "2026-10-21T23:32:01.546Z"
+    },
+    "95b27707-8a97-4d4c-9f29-171db0cdbc2b": {
+      "launchNumber": 2164,
+      "store": false,
+      "updatedAt": "2026-10-18T14:03:16.130Z"
+    },
+    "9781dc7e-23dc-4f1c-93f8-4766c016cac7": {
+      "launchNumber": 2189,
+      "store": false,
+      "updatedAt": "2026-10-18T21:17:49.784Z"
+    },
+    "981d8c6b-d3c2-43a7-a701-1fef35c3bd03": {
+      "launchNumber": 2449,
+      "store": true,
+      "updatedAt": "2026-10-22T14:40:38.121Z"
+    },
+    "9c2520b0-2497-443c-9020-b6c06b59fd65": {
+      "launchNumber": 2445,
+      "store": false,
+      "updatedAt": "2026-10-22T01:34:40.052Z"
+    },
+    "9ed20a51-ec83-49e3-9e05-550c36540df7": {
+      "launchNumber": 2266,
+      "store": false,
+      "updatedAt": "2026-10-19T21:41:11.731Z"
+    },
+    "9f778988-4553-4ff6-99fb-706824bb9e31": {
+      "launchNumber": 2424,
+      "store": true,
+      "updatedAt": "2026-10-22T00:00:44.607Z"
+    },
+    "a3ddcd10-65d0-46d9-ad47-70acde6523a9": {
+      "launchNumber": 2335,
+      "store": false,
+      "updatedAt": "2026-10-20T19:18:42.117Z"
+    },
+    "b0f86ec4-dc0b-4701-b039-51b563a6df78": {
+      "launchNumber": 2079,
+      "store": false,
+      "updatedAt": "2026-10-17T14:36:53.233Z"
+    },
+    "b455e86f-af3c-4119-9b74-396614820089": {
+      "launchNumber": 2267,
+      "store": false,
+      "updatedAt": "2026-10-19T22:23:00.820Z"
+    },
+    "b6f14292-434a-4839-b780-effee70db820": {
+      "launchNumber": 2054,
+      "store": false,
+      "updatedAt": "2026-10-17T05:46:25.627Z"
+    },
+    "b76e13db-19a5-456d-a6ad-451e94b6b40d": {
+      "launchNumber": 2193,
+      "store": false,
+      "updatedAt": "2026-10-18T22:06:38.409Z"
+    },
+    "b9a37ad5-8338-4647-a8fd-134e8cc53fa3": {
+      "launchNumber": 2185,
+      "store": false,
+      "updatedAt": "2026-10-18T21:32:23.227Z"
+    },
+    "ba15aa1d-afc1-4274-862e-cd0614e3af29": {
+      "launchNumber": 2322,
+      "store": false,
+      "updatedAt": "2026-10-20T17:29:01.695Z"
+    },
+    "ba3c2a45-99a6-446b-91ab-a839869a08a5": {
+      "launchNumber": 2124,
+      "store": false,
+      "updatedAt": "2026-10-18T00:26:14.268Z"
+    },
+    "bc263020-770a-4014-91a9-5c06bc8d9d54": {
+      "launchNumber": 2361,
+      "store": false,
+      "updatedAt": "2026-10-21T08:34:27.668Z"
+    },
+    "c426ed5b-70fa-4122-901e-171c5a4fa2ce": {
+      "launchNumber": 2389,
+      "store": false,
+      "updatedAt": "2026-10-21T16:13:50.525Z"
+    },
+    "cad0c789-2611-4392-bec0-456cb8e57d2c": {
+      "launchNumber": 2455,
+      "store": false,
+      "updatedAt": "2026-10-22T14:42:02.648Z"
+    },
+    "d4303b9d-4c8d-4548-9dc4-a10e770c5d53": {
+      "launchNumber": 2244,
+      "store": false,
+      "updatedAt": "2026-10-19T16:07:26.920Z"
+    },
+    "d545b1c4-f052-449e-81b4-06d9ed677af1": {
+      "launchNumber": 2321,
+      "store": false,
+      "updatedAt": "2026-10-20T17:50:39.223Z"
+    },
+    "d6d156db-1a20-4133-ad21-5ff232bb4090": {
+      "launchNumber": 2402,
+      "store": false,
+      "updatedAt": "2026-10-21T18:46:56.814Z"
+    },
+    "df94a04b-ca9c-4c2c-ae5b-f83d6f791b6e": {
+      "launchNumber": 2363,
+      "store": false,
+      "updatedAt": "2026-10-21T10:45:26.963Z"
+    },
+    "e6576f68-4756-4e7f-b628-1c623176247b": {
+      "launchNumber": 2442,
+      "store": false,
+      "updatedAt": "2026-10-22T00:26:37.480Z"
+    },
+    "e6674b46-b888-4bb9-84ea-56cd23d00868": {
+      "launchNumber": 2282,
+      "store": false,
+      "updatedAt": "2026-10-20T10:56:52.407Z"
+    },
+    "e860d18a-8f10-4543-9b43-b0a945855c90": {
+      "launchNumber": 2439,
+      "store": false,
+      "updatedAt": "2026-10-22T01:17:26.175Z"
+    },
+    "eb0cc821-2cbd-46ee-a720-014594db03e2": {
+      "launchNumber": 2183,
+      "store": false,
+      "updatedAt": "2026-10-18T19:39:51.191Z"
+    },
+    "ec1d4b0d-2dc4-4827-a626-e24add58df22": {
+      "launchNumber": 2278,
+      "store": false,
+      "updatedAt": "2026-10-20T05:52:18.989Z"
+    },
+    "ed655678-5440-49bc-888f-bb04942b97ce": {
+      "launchNumber": 2225,
+      "store": false,
+      "updatedAt": "2026-10-19T13:36:28.642Z"
+    },
+    "edd53a85-d642-4b4b-a807-21ee6e36558e": {
+      "launchNumber": 2314,
+      "store": false,
+      "updatedAt": "2026-10-20T16:11:38.513Z"
+    },
+    "ee3c1925-b70f-4c0e-9125-1129755ef45c": {
+      "launchNumber": 2437,
+      "store": false,
+      "updatedAt": "2026-10-21T23:52:27.855Z"
+    },
+    "f3a9856a-fcda-4f87-8413-a615708e3d41": {
+      "launchNumber": 2450,
+      "store": true,
+      "updatedAt": "2026-10-22T14:40:39.537Z"
+    },
+    "f3f405cd-9de4-496c-af14-f208d6600e76": {
+      "launchNumber": 2368,
+      "store": false,
+      "updatedAt": "2026-10-21T07:08:27.020Z"
+    },
+    "fa2ea5af-d273-413a-9649-393518faeb6a": {
+      "launchNumber": 2064,
+      "store": false,
+      "updatedAt": "2026-10-17T09:25:28.992Z"
+    },
+    "fa5586a5-ad0e-49ee-b695-bbbc7f67d352": {
+      "launchNumber": 2304,
+      "store": false,
+      "updatedAt": "2026-10-20T18:39:01.735Z"
+    },
+    "fc482853-4f78-4e75-811f-0a387406360c": {
+      "launchNumber": 2300,
+      "store": false,
+      "updatedAt": "2026-10-20T15:48:26.129Z"
+    },
+    "ffd8f76a-484d-4366-b1d6-a3100b9766e4": {
+      "launchNumber": 2223,
+      "store": false,
+      "updatedAt": "2026-10-19T13:35:28.521Z"
+    }
+  }
+}
