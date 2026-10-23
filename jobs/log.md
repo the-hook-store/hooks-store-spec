@@ -439,3 +439,13 @@ The owner asked for a fast way to remove the failed test launches from the websi
 ## Job 14 paid and admitted (2026-10-23 04:58 UTC)
 
 Paid on Ethereum: transaction 0x8d0aa6c28023d429a8e67ffca3236b03d32c0c2cde02e85aee3e1db7a4e97e61, block 26253085 at 04:58:11 UTC, 0.5 IMD from the owner's wallet to the Intake; the calldata's body is byte for byte the staged jobs/job-14-public-pond.json (5,549 bytes) and IMD's intake fate records request 0x9381ffcc… as admitted (body hash 0xa33800d9…); admitted within 40 seconds as job 4c5dbeb7-9acb-4a64-b204-9f55e6d78ada continuing job 13 (fae11abf), build_website working and design_critic waiting at 04:58:51 UTC. Evidence: evidence/job-14-paid.intake.json, evidence/job-14-job-at-admission.json. The pay page is locked again; a watcher follows the job. Nothing further is staged.
+
+## Job 14 completed; IMD's domain went dark during the publish (2026-10-23 06:09–06:20 UTC)
+
+Job 14 (`4c5dbeb7`) completed at 06:09:44 UTC: `build_website` accepted (structural verdict "paths and tree verified; no suite was run for this kind of work", tree `046b6ba0`), `design_critic` accepted. At completion `delivery` is null and `site.status` is `queued` (attempts 0); IMD's repo `main` is still `199ffd1` (job 13). Record: `evidence/job-14-job-completed.json`.
+
+At 05:45:05 UTC the registry record of `imd.fun` changed to status **client hold** (registrar Namecheap; name servers `dns1/dns2.registrar-servers.com`; registered 2026-08-18, expires 2027-08-18). Under client hold the `.fun` registry stops publishing the domain, so every `imd.fun` name (`api`, `explorer`, `*.sites.imd.fun`, `ipfs.imd.fun`) answers NXDOMAIN at Cloudflare's and Google's resolvers. Records: `evidence/imd-fun-rdap-2026-10-23.json`, `evidence/imd-fun-dns-2026-10-23.json`.
+
+IMD's servers are still running: pinned to `69.46.46.29`, `api.imd.fun` and `explorer.imd.fun` answer 200 (the sites host answers 502 there, it is served elsewhere). The store's relay worker answers Cloudflare error 1016 (origin DNS) on every route. IMD's recorded site URL `https://the-hooks-store.site.identitymd.eth.limo` fails TLS (eth.limo issues no certificate for a four-label name), and public IPFS gateways rate-limit (dweb.link 429) or time out (4everland 504) for the job 13 CID `bafybeihweu5…`. So the site has no working public address while the hold lasts, and the pond's IMD reads fail everywhere; this is the case carry-over (r) "Live without IMD's record plane" was written for.
+
+Nothing was lost: the job completed and the payment bought the work; the pay page stays locked. Next: the publish is watched through the pinned API address; the delivery is verified from IMD's repo on localhost in headless Chrome, and on the live host once the domain returns.
