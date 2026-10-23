@@ -1,0 +1,312 @@
+<title>Hooks Store Promo Cut 4</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* A 1920×1080 stage scaled to the window, transport below. Single theme by choice: the store's paper, ink, pine and gold. Real site screenshots sit in hard-edged frames; cuts land on the bars of the track. */
+  :root { --paper: #f4ecd8; --paper-2: #e9dfc6; --paper-3: #fff8e6; --ink: #15130f; --ink-2: #4a443a; --ink-3: #8a8270; --pine: #1f4d3a; --pine-2: #2f6a50; --on-pine: #f4ecd8; --gold: #b8902a; --bad: #b3261e; --dusk: #e4d6b6;
+    --display: 'Press Start 2P', 'Courier New', monospace; --body: 'Atkinson Hyperlegible', Verdana, sans-serif; --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--body); }
+  .wrap { padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px 32px; display: grid; gap: 14px; justify-items: center; }
+  .stagebox { width: 100%; max-width: 1280px; aspect-ratio: 16 / 9; position: relative; border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); background: var(--paper); overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; background: var(--paper); overflow: hidden; }
+  .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(21,19,15,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(21,19,15,.07) 1px, transparent 1px); background-size: 28px 28px; }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  .scene.show { opacity: 1; }
+  .el { position: absolute; will-change: transform, opacity; }
+  .flash { position: absolute; inset: 0; background: var(--paper-3); opacity: 0; pointer-events: none; }
+  .big { font-family: var(--display); line-height: 1.5; text-transform: uppercase; color: var(--ink); }
+  .w { display: inline-block; will-change: transform, opacity; }
+  .kicker { font-family: var(--display); font-size: 22px; letter-spacing: .02em; color: var(--ink-2); text-transform: uppercase; }
+  .sub { font-size: 40px; line-height: 1.35; color: var(--ink-2); font-weight: 700; }
+  .mono { font-family: var(--mono); }
+  /* frames with site footage */
+  .frame { position: absolute; left: 60px; top: 60px; width: 1800px; height: 960px; border: 4px solid var(--ink); box-shadow: 14px 14px 0 var(--ink); overflow: hidden; background: var(--paper-3); transform-origin: 50% 50%; }
+  .frame.thumb { width: 560px; height: 300px; left: auto; top: auto; box-shadow: 10px 10px 0 var(--ink); }
+  .zoom { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+  .zoom img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .callout { position: absolute; border: 5px solid var(--gold); box-shadow: 0 0 0 3px var(--ink), 8px 8px 0 rgba(21,19,15,.35); opacity: 0; transform-origin: 50% 50%; box-sizing: border-box; }
+  .cover { position: absolute; background: var(--paper-3); }
+  .typed { position: absolute; font-family: var(--mono); font-size: 19px; color: var(--ink); white-space: nowrap; line-height: 1; }
+  .typed i { display: inline-block; width: 10px; height: 20px; background: var(--ink); vertical-align: -3px; margin-left: 2px; }
+  .cursor { position: absolute; width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 34px solid var(--ink); transform: rotate(-35deg); opacity: 0; filter: drop-shadow(3px 3px 0 var(--paper-3)); }
+  .cursor::after { content: ""; position: absolute; left: -7px; top: 6px; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 20px solid var(--paper-3); }
+  .cap { position: absolute; left: 100px; bottom: 96px; background: var(--paper-3); border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); padding: 24px 30px; font-family: var(--display); font-size: 30px; line-height: 1.6; text-transform: uppercase; max-width: 1100px; opacity: 0; }
+  .cap.right { left: auto; right: 100px; }
+  .cap.top { bottom: auto; top: 96px; }
+  .cap.pine { background: var(--pine); color: var(--on-pine); }
+  .cap em { font-style: normal; color: var(--gold); }
+  .cap.pine em { color: #e9c35b; }
+  .stat { position: absolute; font-family: var(--mono); font-weight: 700; font-size: 118px; white-space: nowrap; line-height: 1; letter-spacing: -0.02em; }
+  .stat small { display: block; font-family: var(--body); font-weight: 700; font-size: 28px; color: var(--ink-2); margin-top: 14px; letter-spacing: 0; }
+  /* pond */
+  .sky { position: absolute; inset: 0; background: linear-gradient(var(--paper) 0%, var(--dusk) 72%); }
+  .water { position: absolute; left: 0; right: 0; bottom: 0; height: 300px; background: var(--pine); }
+  .ripple { position: absolute; left: 0; right: 0; height: 5px; background: var(--pine-2); }
+  .reed { position: absolute; bottom: 270px; width: 10px; background: var(--pine); }
+  .reed::after { content: ""; position: absolute; top: -22px; left: -10px; width: 30px; height: 32px; background: var(--ink); }
+  .hookmark { position: absolute; width: 70px; height: 96px; border: 10px solid var(--ink); border-top: 0; border-right-color: transparent; border-radius: 0 0 36px 36px; }
+  .hookmark::before { content: ""; position: absolute; left: -10px; top: -58px; width: 10px; height: 62px; background: var(--ink); }
+  .castbox { display: inline-block; font-family: var(--display); font-size: 34px; text-transform: uppercase; background: var(--paper-3); border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); padding: 26px 36px; }
+  .castbox i { display: inline-block; width: 22px; height: 38px; background: var(--ink); vertical-align: middle; margin-left: 10px; }
+  .comet { position: absolute; width: 12px; height: 12px; background: var(--gold); box-shadow: -16px 0 0 rgba(184,144,42,.8), -32px 0 0 rgba(184,144,42,.6), -48px 0 0 rgba(184,144,42,.4), -64px 0 0 rgba(184,144,42,.2); }
+  .wm { font-family: var(--display); font-size: 26px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 22px; }
+  .wm .hookmark { position: static; width: 34px; height: 46px; border-width: 6px; border-radius: 0 0 18px 18px; }
+  .wm .hookmark::before { left: -6px; top: -28px; width: 6px; height: 30px; }
+  .node { position: absolute; width: 180px; height: 180px; background: var(--paper-3); border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); display: grid; place-items: center; font-family: var(--display); font-size: 15px; text-align: center; text-transform: uppercase; line-height: 1.7; box-sizing: border-box; }
+  .node.on { background: var(--pine); color: var(--on-pine); }
+  .bar2 { width: 100%; max-width: 1280px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .bar2 button { font: 400 10px/1.6 var(--display); text-transform: uppercase; border: 3px solid var(--ink); background: var(--pine); color: var(--on-pine); padding: 10px 14px; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; }
+  .bar2 button.plain { background: var(--paper-3); color: var(--ink); }
+  .bar2 button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .bar2 input[type=range] { flex: 1 1 200px; min-width: 120px; accent-color: var(--pine); }
+  .bar2 .clock { font-family: var(--mono); font-size: 16px; min-width: 110px; font-variant-numeric: tabular-nums; }
+  .note { max-width: 1280px; width: 100%; font-size: 15px; color: var(--ink-2); }
+  body.render .bar2, body.render .note { display: none; }
+  body.render .wrap { padding: 0; }
+  body.render .stagebox { width: 1920px; height: 1080px; border: 0; box-shadow: none; max-width: none; aspect-ratio: auto; }
+</style>
+<div class="wrap">
+  <div class="stagebox" id="stagebox">
+    <div id="stage">
+      <div class="grid"></div>
+      <!-- 1 cold open: the pond on the real landing page -->
+      <section class="scene" id="s1">
+        <div class="frame" style="left:0;top:0;width:1920px;height:1080px;border:0;box-shadow:none"><div class="zoom" id="z1"><img src="img/store-top.jpg" alt=""></div></div>
+        <div class="el" id="cast" style="left:120px;top:120px"><span class="castbox"><span id="casttext">Casting</span><i id="cursor1"></i></span></div>
+        <div class="hookmark el" id="hook1" style="left:925px;top:-160px"></div>
+      </section>
+      <!-- 2 title -->
+      <section class="scene" id="s2">
+        <div class="el big" id="title1" style="left:0;right:0;top:330px;text-align:center;font-size:104px"><span class="w">The</span> <span class="w">Hooks</span> <span class="w">Store</span></div>
+        <div class="el sub" id="sub1" style="left:0;right:0;top:540px;text-align:center">Uniswap v4 hooks, built from blocks.</div>
+      </section>
+      <!-- 3 kinetic + three details -->
+      <section class="scene" id="s3">
+        <div class="el big" id="k1" style="left:120px;top:240px;font-size:76px"><span class="w">Hooks</span> <span class="w">are</span> <span class="w">code.</span></div>
+        <div class="el big" id="k2" style="left:120px;top:460px;font-size:58px;color:var(--ink-3)"><span class="w">You</span> <span class="w">don't</span> <span class="w">have</span> <span class="w">to</span><br><span class="w">write</span> <span class="w">it.</span></div>
+        <div class="frame thumb el" id="th1" style="left:1240px;top:110px"><div class="zoom" id="zt1"><img src="img/shelf-before.jpg" alt=""></div></div>
+        <div class="frame thumb el" id="th2" style="left:1240px;top:400px"><div class="zoom" id="zt2"><img src="img/hook-top.jpg" alt=""></div></div>
+        <div class="frame thumb el" id="th3" style="left:1240px;top:690px"><div class="zoom" id="zt3"><img src="img/launch-top.jpg" alt=""></div></div>
+      </section>
+      <!-- 4 landing: describe it -->
+      <section class="scene" id="s4">
+        <div class="frame" id="f4"><div class="zoom" id="z4"><img src="img/store-top.jpg" alt=""><div class="cover" style="left:649px;top:379px;width:472px;height:40px"></div><div class="typed" id="ty4" style="left:662px;top:389px"></div><div class="callout" id="c4" style="left:1121px;top:369px;width:160px;height:60px"></div></div></div>
+        <div class="cap el" id="cap4"><span class="w">Say</span> <span class="w">what</span> <span class="w">it</span> <span class="w">should</span> <span class="w">do.</span></div>
+      </section>
+      <!-- 5 drop 1: the builder -->
+      <section class="scene" id="s5">
+        <div class="frame" id="f5"><div class="zoom" id="z5"><img src="img/builder-top.jpg" alt=""><div class="callout" id="c5" style="left:127px;top:707px;width:304px;height:66px"></div></div></div>
+        <div class="cap pine" id="cap5"><span class="w">Describe</span> <span class="w">it.</span> <span class="w"><em>Or</em></span> <span class="w"><em>stack</em></span> <span class="w"><em>blocks.</em></span></div>
+      </section>
+      <!-- 6 shelf: add a block -->
+      <section class="scene" id="s6">
+        <div class="frame" id="f6"><div class="zoom" id="z6"><img src="img/shelf-before.jpg" alt=""><img src="img/shelf-after.jpg" id="z6b" alt="" style="opacity:0"><div class="callout" id="c6" style="left:358px;top:333px;width:220px;height:162px"></div><div class="cursor" id="cur6" style="left:531px;top:457px"></div></div></div>
+        <div class="cap" id="cap6"><span class="w">52</span> <span class="w">reviewed</span> <span class="w">blocks.</span> <span class="w">One</span> <span class="w">click</span> <span class="w">each.</span></div>
+      </section>
+      <!-- 7 stack -->
+      <section class="scene" id="s7">
+        <div class="frame" id="f7"><div class="zoom" id="z7"><img src="img/builder-stack.jpg" alt=""><div class="callout" id="c7" style="left:127px;top:76px;width:1110px;height:470px"></div></div></div>
+        <div class="cap" id="cap7"><span class="w">Every</span> <span class="w">block</span> <span class="w">is</span> <span class="w">an</span> <span class="w">exact</span> <span class="w">rule.</span></div>
+      </section>
+      <!-- 8 hook card -->
+      <section class="scene" id="s8">
+        <div class="frame" id="f8"><div class="zoom" id="z8"><img src="img/builder-stack.jpg" alt=""><div class="callout" id="c8" style="left:1288px;top:190px;width:528px;height:180px"></div></div></div>
+        <div class="cap" id="cap8"><span class="w">Your</span> <span class="w">hook,</span> <span class="w">as</span> <span class="w">it</span> <span class="w">stands.</span></div>
+      </section>
+      <!-- 9 exact text -->
+      <section class="scene" id="s9">
+        <div class="frame" id="f9"><div class="zoom" id="z9"><img src="img/builder-sheet.jpg" alt=""></div></div>
+        <div class="cap right" id="cap9"><span class="w">The</span> <span class="w">swarm</span> <span class="w">gets</span> <span class="w">the</span> <span class="w">exact</span> <span class="w">text.</span></div>
+      </section>
+      <!-- 10 findings -->
+      <section class="scene" id="s10">
+        <div class="frame" id="f10"><div class="zoom" id="z10"><img src="img/builder-findings.jpg" alt=""><div class="callout" id="c10" style="left:1284px;top:708px;width:530px;height:358px"></div></div></div>
+        <div class="frame" id="f10b"><div class="zoom" id="z10b"><img src="img/ready-findings.jpg" alt=""><div class="callout" id="c10b" style="left:1284px;top:971px;width:530px;height:95px"></div></div></div>
+        <div class="cap" id="cap10"><span class="w">Checked</span> <span class="w">before</span> <span class="w">you</span> <span class="w">pay.</span></div>
+      </section>
+      <!-- 11 settings -->
+      <section class="scene" id="s11">
+        <div class="frame" id="f11"><div class="zoom" id="z11"><img src="img/settings-set.jpg" alt=""><div class="callout" id="c11" style="left:127px;top:753px;width:555px;height:62px"></div></div></div>
+        <div class="cap right" id="cap11"><span class="w">Robinhood</span> <span class="w">Chain</span> <span class="w">or</span> <span class="w">Ethereum.</span></div>
+      </section>
+      <!-- 12 launch review -->
+      <section class="scene" id="s12">
+        <div class="frame" id="f12"><div class="zoom" id="z12"><img src="img/launch-top.jpg" alt=""><div class="callout" id="c12" style="left:985px;top:394px;width:534px;height:270px"></div></div></div>
+        <div class="cap pine" id="cap12"><span class="w">Pay</span> <span class="w"><em>0.5</em></span> <span class="w"><em>IMD.</em></span> <span class="w">Once.</span></div>
+      </section>
+      <!-- 13 breakdown: the pipeline -->
+      <section class="scene" id="s13">
+        <div class="el big" id="k13" style="left:120px;top:130px;font-size:62px"><span class="w">Written.</span> <span class="w">Tested.</span> <span class="w">Audited.</span><br><span class="w" style="color:var(--pine)">Then</span> <span class="w" style="color:var(--pine)">deployed.</span></div>
+        <div class="frame el" id="f13" style="left:120px;top:500px;width:1680px;height:190px"><div class="zoom" id="z13"><img src="img/hook-top.jpg" alt=""><div class="callout" id="c13" style="left:380px;top:353px;width:236px;height:133px"></div></div></div>
+        <div class="stat el" id="st13" style="left:120px;top:790px;color:var(--pine)">30–90<small>minutes from paying to live, usually</small></div>
+        <div class="stat el" id="st13b" style="left:1060px;top:790px;color:var(--ink-3)">×4<small>independent audits on every launch</small></div>
+      </section>
+      <!-- 14 riser into drop 2 -->
+      <section class="scene" id="s14">
+        <div class="frame" id="f14"><div class="zoom" id="z14"><img src="img/hook-top.jpg" alt=""></div></div>
+        <div class="el" id="veil14" style="left:0;top:0;width:1920px;height:1080px;background:var(--paper)"></div>
+        <div class="el big" id="k14" style="left:0;right:0;top:440px;text-align:center;font-size:96px"><span class="w">Then</span> <span class="w">it's</span> <span class="w" style="color:var(--pine)">live.</span></div>
+      </section>
+      <!-- 15 drop 2: the hook page -->
+      <section class="scene" id="s15">
+        <div class="frame" id="f15"><div class="zoom" id="z15"><img src="img/hook-top.jpg" alt=""><div class="callout" id="c15" style="left:600px;top:88px;width:72px;height:46px"></div></div></div>
+        <div class="cap pine" id="cap15"><span class="w"><em>Live.</em></span> <span class="w">On</span> <span class="w">its</span> <span class="w">own</span> <span class="w">page.</span></div>
+      </section>
+      <!-- 16 addresses -->
+      <section class="scene" id="s16">
+        <div class="frame" id="f16"><div class="zoom" id="z16"><img src="img/hook-addresses.jpg" alt=""><div class="callout" id="c16" style="left:380px;top:56px;width:640px;height:520px"></div></div></div>
+        <div class="cap right" id="cap16"><span class="w">Real</span> <span class="w">addresses,</span> <span class="w">read</span> <span class="w">from</span> <span class="w">chain.</span></div>
+      </section>
+      <!-- 17 owner controls -->
+      <section class="scene" id="s17">
+        <div class="frame" id="f17"><div class="zoom" id="z17"><img src="img/hook-owner.jpg" alt=""><div class="callout" id="c17" style="left:380px;top:56px;width:576px;height:470px"></div></div></div>
+        <div class="cap" id="cap17"><span class="w">Pause.</span> <span class="w">Resume.</span> <span class="w">Claim</span> <span class="w">fees.</span> <span class="w">Yours.</span></div>
+      </section>
+      <!-- 18 open the pool -->
+      <section class="scene" id="s18">
+        <div class="frame" id="f18"><div class="zoom" id="z18"><img src="img/hook-pool.jpg" alt=""></div></div>
+        <div class="cap right" id="cap18"><span class="w">Open</span> <span class="w">the</span> <span class="w">pool</span> <span class="w">right</span> <span class="w">there.</span></div>
+      </section>
+      <!-- 19 my hooks -->
+      <section class="scene" id="s19">
+        <div class="frame" id="f19"><div class="zoom" id="z19"><img src="img/mine-top.jpg" alt=""><div class="callout" id="c19" style="left:380px;top:425px;width:1160px;height:300px"></div></div></div>
+        <div class="cap" id="cap19"><span class="w">All</span> <span class="w">your</span> <span class="w">hooks.</span> <span class="w">One</span> <span class="w">place.</span></div>
+      </section>
+      <!-- 20 promotions -->
+      <section class="scene" id="s20">
+        <div class="frame" id="f20"><div class="zoom" id="z20"><img src="img/mine-promotions.jpg" alt=""><div class="cover" style="left:431px;top:811px;width:400px;height:37px"></div><div class="typed" id="ty20" style="left:441px;top:820px"></div><div class="callout" id="c20" style="left:401px;top:1003px;width:300px;height:60px"></div><div class="cursor" id="cur20" style="left:520px;top:1030px"></div></div></div>
+        <div class="cap right" id="cap20"><span class="w">Promote</span> <span class="w">it.</span> <span class="w"><em>0.1</em></span> <span class="w"><em>IMD</em></span> <span class="w">a</span> <span class="w">day.</span></div>
+      </section>
+      <!-- 21 featured band -->
+      <section class="scene" id="s21">
+        <div class="frame" id="f21"><div class="zoom" id="z21"><img src="img/featured-still.jpg" alt=""><div class="callout" id="c21" style="left:390px;top:397px;width:407px;height:60px"></div></div></div>
+        <div class="cap" id="cap21"><span class="w">Featured</span> <span class="w">on</span> <span class="w">the</span> <span class="w">store.</span></div>
+      </section>
+      <!-- 22 catalog, proven -->
+      <section class="scene" id="s22">
+        <div class="frame" id="f22"><div class="zoom" id="z22"><img src="img/store-catalog.jpg" alt=""><div class="callout" id="c22a" style="left:643px;top:166px;width:84px;height:42px"></div><div class="callout" id="c22b" style="left:949px;top:166px;width:84px;height:42px"></div><div class="callout" id="c22c" style="left:1255px;top:166px;width:84px;height:42px"></div></div></div>
+        <div class="cap pine" id="cap22"><span class="w"><em>Proven</em></span> <span class="w">launches</span> <span class="w">make</span> <span class="w">the</span> <span class="w">next</span> <span class="w">one</span> <span class="w">faster.</span></div>
+      </section>
+      <!-- 23 close -->
+      <section class="scene" id="s23">
+        <div class="sky"></div>
+        <div class="reed" style="left:160px;height:230px"></div><div class="reed" style="right:200px;height:200px"></div>
+        <div class="water"><div class="ripple" id="rp3" style="top:80px"></div><div class="ripple" id="rp4" style="top:170px"></div></div>
+        <div class="comet el" id="comet7" style="left:-100px;top:560px"></div>
+        <div class="hookmark el" id="hook7" style="left:925px;top:690px"></div>
+        <div class="el" id="wm7" style="left:50%;top:150px;transform:translateX(-50%)"><span class="wm"><span class="hookmark"></span>The Hooks Store</span></div>
+        <div class="el big" id="k7" style="left:0;right:0;top:300px;text-align:center;font-size:120px"><span class="w">Cast</span> <span class="w">yours.</span></div>
+        <div class="el mono" id="url7" style="left:0;right:0;top:520px;text-align:center;font-size:48px;font-weight:700;color:var(--ink)">the-hooks-store.sites.imd.fun</div>
+      </section>
+      <div class="flash" id="flash"></div>
+    </div>
+  </div>
+  <div class="bar2">
+    <button id="play" type="button">Play</button>
+    <button id="replay" type="button" class="plain">Replay</button>
+    <input id="scrub" type="range" min="0" max="52.35" step="0.05" value="0" aria-label="Scrub the cut">
+    <span class="clock" id="clock">0.0 / 52.4 s</span>
+  </div>
+  <p class="note">Cut 4: real pages from the live store, cut on the bars of the track (drops at 11.2 s and 34.4 s). The rendered MP4 carries the music; this preview is silent. Press Play; the scrubber jumps to any second.</p>
+</div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id); const stage = $('stage'); const box = $('stagebox');
+  const RENDER = /[?&]render=1/.test(location.search); if (RENDER) document.body.classList.add('render');
+  const DUR = 52.35, BEAT = 0.4838, B0 = 1.524, BAR = 1.9352; const bar = b => B0 + b * BAR; const DROPS = [bar(5), bar(17)];
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  const outExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x), inCubic = x => x * x * x, inOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, lin = x => x;
+  const spring = x => x >= 1 ? 1 : 1 - Math.exp(-6 * x) * Math.cos(6 * x);
+  const prog = (t, t0, d) => clamp((t - t0) / d, 0, 1);
+  const fadeUp = (el, t, t0, d = .5, dy = 40) => { const p = outExpo(prog(t, t0, d)); el.style.opacity = p; el.style.transform = `translateY(${dy * (1 - p)}px)`; };
+  const words = (el, t, t0, gap = .09, d = .5, dy = 50) => { [...el.querySelectorAll('.w')].forEach((w, i) => { const p = outExpo(prog(t, t0 + i * gap, d)); w.style.opacity = p; w.style.transform = `translateY(${dy * (1 - p)}px)`; }); el.style.opacity = t >= t0 ? 1 : 0; };
+  const out = (el, t, t1, d = .35, dy = -40) => { if (t < t1) return; const p = inCubic(prog(t, t1, d)); el.style.opacity = 1 - p; el.style.transform = `translateY(${dy * p}px)`; };
+  const typeInto = (el, text, t, t0, d, cursor = true) => { const n = Math.round(text.length * prog(t, t0, d)); const key = n + (cursor ? 'c' : ''); if (el.dataset.n !== key) { el.textContent = text.slice(0, n); if (cursor) el.appendChild(document.createElement('i')); el.dataset.n = key; } };
+  // Ken Burns: show image region (cx, cy) of a 1920×1080 page at scale s inside a frame of W×H
+  const view = (el, s, cx, cy, W = 1800, H = 960) => { el.style.transform = `translate(${W / 2 - cx * s}px, ${H / 2 - cy * s}px) scale(${s})`; };
+  const kb = (el, t, t0, t1, a, b, ease = inOut, W = 1800, H = 960) => { const p = ease(prog(t, t0, t1 - t0)); view(el, a.s + (b.s - a.s) * p, a.x + (b.x - a.x) * p, a.y + (b.y - a.y) * p, W, H); };
+  const cap = (el, t, t0, gap = .07) => { words(el, t, t0, gap, .45, 36); const p = outExpo(prog(t, t0, .4)); el.style.transform = `translateY(${30 * (1 - p)}px)`; };
+  const callout = (el, t, t0, d = .4) => { const p = spring(prog(t, t0, d)); el.style.opacity = t >= t0 ? 1 : 0; el.style.transform = `scale(${1.25 - 0.25 * p})`; };
+  const cursorTo = (el, t, t0, t1, from, to, click) => { const p = inOut(prog(t, t0, t1 - t0)); el.style.opacity = t >= t0 - 0.05 ? 1 : 0; const c = click !== undefined && t >= click && t < click + 0.18 ? 0.85 : 1; el.style.transform = `translate(${from.x + (to.x - from.x) * p}px, ${from.y + (to.y - from.y) * p}px) rotate(-35deg) scale(${c})`; };
+  const scenes = [[0, bar(0)], [bar(0), bar(1)], [bar(1), bar(3)], [bar(3), bar(5)], [bar(5), bar(6)], [bar(6), bar(7)], [bar(7), bar(8)], [bar(8), bar(9)], [bar(9), bar(10)], [bar(10), bar(11)], [bar(11), bar(12)], [bar(12), bar(13)], [bar(13), bar(16)], [bar(16), bar(17)], [bar(17), bar(18)], [bar(18), bar(19)], [bar(19), bar(20)], [bar(20), bar(21)], [bar(21), bar(22)], [bar(22), bar(23)], [bar(23), bar(24)], [bar(24), bar(25)], [bar(25), 99]];
+  const inDrop = t => (t >= bar(5) && t < bar(13)) || (t >= bar(17) && t < bar(25));
+  function render(t) {
+    scenes.forEach(([a, b], i) => { $('s' + (i + 1)).classList.toggle('show', t >= a && t < b); });
+    let flash = 0; DROPS.forEach(d => { if (t >= d && t < d + 0.2) flash = Math.max(flash, 1 - (t - d) / 0.2); }); $('flash').style.opacity = flash * 0.92;
+    const punch = DROPS.reduce((m, d) => (t >= d && t < d + 0.4) ? Math.max(m, 1 - (t - d) / 0.4) : m, 0);
+    const since = ((t - 0.073) % BEAT + BEAT) % BEAT; const pulse = inDrop(t) ? 1 + 0.011 * Math.max(0, 1 - since / 0.22) : 1;
+    document.querySelectorAll('.frame:not(.thumb)').forEach(f => { if (f.closest('#s1')) return; f.style.transform = `scale(${pulse})`; });
+    for (const [id, base, sp] of [['rp3', 80, 20], ['rp4', 170, 14]]) { const r = $(id); r.style.transform = `translateX(${Math.sin(t * 0.9) * sp}px)`; r.style.top = base + Math.sin(t * 1.3 + base) * 5 + 'px'; }
+    // 1 cold open: the pond creature on the real landing page, "Casting" typed, hook drops on the last beat
+    kb($('z1'), t, 0, bar(0), { s: 2.0, x: 1440, y: 330 }, { s: 2.2, x: 1480, y: 345 }, lin, 1920, 1080);
+    typeInto($('casttext'), 'Casting', t, 0.1, 0.5, false); $('cursor1').style.opacity = Math.floor(t * 4) % 2 ? 0 : 1;
+    const drop = inCubic(prog(t, 0.9, 0.6)); $('hook1').style.transform = `translateY(${drop * 900}px)`; $('hook1').style.opacity = 1;
+    // 2 title: one word per beat
+    words($('title1'), t, bar(0) + 0.02, BEAT, 0.4, 70); fadeUp($('sub1'), t, bar(0) + 3 * BEAT, 0.45);
+    // 3 kinetic + three details on the beats of bar 2
+    words($('k1'), t, bar(1) + 0.02, BEAT * 0.5, 0.4, 60); words($('k2'), t, bar(2) + 0.02, 0.08, 0.45, 60);
+    [['th1', 0], ['th2', 1], ['th3', 2]].forEach(([id, i]) => { const t0 = bar(2) + i * BEAT; const p = spring(prog(t, t0, 0.6)); const el = $(id); el.style.opacity = t >= t0 ? 1 : 0; el.style.transform = `translateX(${(1 - p) * 120}px) scale(${0.9 + 0.1 * p})`; });
+    view($('zt1'), 1.9, 254, 408, 560, 300); view($('zt2'), 1.5, 560, 140, 560, 300); view($('zt3'), 1.6, 1252, 446, 560, 300);
+    // 4 landing: type the question, then tighten on the button during the silence before the drop
+    const q = '1% of every buy goes to a prize pot';
+    if (t < 9.56) kb($('z4'), t, bar(3), 9.56, { s: 1.0, x: 960, y: 540 }, { s: 1.7, x: 960, y: 420 }); else kb($('z4'), t, 9.56, bar(5), { s: 1.7, x: 960, y: 420 }, { s: 2.9, x: 1120, y: 400 }, inCubic);
+    typeInto($('ty4'), q, t, bar(3) + 0.3, 2.0); callout($('c4'), t, 9.7); cap($('cap4'), t, bar(3) + 0.25);
+    // 5 drop 1: builder slams in
+    kb($('z5'), t, bar(5), bar(6), { s: 1.14, x: 960, y: 560 }, { s: 1.0, x: 960, y: 540 }, outExpo); callout($('c5'), t, bar(5) + 2 * BEAT); cap($('cap5'), t, bar(5) + 0.05);
+    // 6 shelf: cursor to Add, click on beat 2, card turns ADDED
+    kb($('z6'), t, bar(6), bar(7), { s: 1.55, x: 700, y: 470 }, { s: 1.65, x: 640, y: 460 });
+    const click6 = bar(6) + 2 * BEAT; $('z6b').style.opacity = t >= click6 ? 1 : 0; cursorTo($('cur6'), t, bar(6), click6 - 0.05, { x: 420, y: 220 }, { x: 0, y: 0 }, click6); callout($('c6'), t, click6); cap($('cap6'), t, bar(6) + 0.05);
+    // 7 stack rules
+    kb($('z7'), t, bar(7), bar(8), { s: 1.5, x: 682, y: 330 }, { s: 1.58, x: 682, y: 312 }); callout($('c7'), t, bar(7) + BEAT); cap($('cap7'), t, bar(7) + 0.05);
+    // 8 hook card
+    kb($('z8'), t, bar(8), bar(9), { s: 1.7, x: 1390, y: 345 }, { s: 1.8, x: 1418, y: 335 }); callout($('c8'), t, bar(8) + BEAT); cap($('cap8'), t, bar(8) + 0.05);
+    // 9 exact text: slow scroll down the sheet
+    kb($('z9'), t, bar(9), bar(10), { s: 1.5, x: 960, y: 340 }, { s: 1.5, x: 960, y: 520 }, lin); cap($('cap9'), t, bar(9) + 0.05);
+    // 10 findings: three to fix, then nothing to fix on beat 2
+    const sw10 = bar(10) + 2 * BEAT; $('f10').style.opacity = t < sw10 ? 1 : 0; $('f10b').style.opacity = t >= sw10 ? 1 : 0;
+    kb($('z10'), t, bar(10), sw10, { s: 1.9, x: 1440, y: 820 }, { s: 1.95, x: 1444, y: 822 }); callout($('c10'), t, bar(10) + 0.1);
+    kb($('z10b'), t, sw10, bar(11), { s: 1.9, x: 1440, y: 825 }, { s: 1.95, x: 1444, y: 826 }); callout($('c10b'), t, sw10 + 0.05); cap($('cap10'), t, bar(10) + 0.05);
+    // 11 settings: chain chosen
+    kb($('z11'), t, bar(11), bar(12), { s: 1.8, x: 520, y: 800 }, { s: 1.9, x: 520, y: 805 }); callout($('c11'), t, bar(11) + BEAT); cap($('cap11'), t, bar(11) + 0.05);
+    // 12 launch review: what you pay
+    kb($('z12'), t, bar(12), bar(13), { s: 1.65, x: 1252, y: 560 }, { s: 1.75, x: 1252, y: 540 }); callout($('c12'), t, bar(12) + BEAT); cap($('cap12'), t, bar(12) + 0.05);
+    // 13 breakdown: pipeline words, the real progress bar with a sweeping highlight, two stats
+    words($('k13'), t, bar(13) + 0.05, 0.22, 0.5, 60);
+    fadeUp($('f13'), t, bar(13) + BEAT * 2, 0.6, 50); view($('z13'), 1.46, 960, 419, 1680, 190);
+    const step = Math.min(4, Math.floor((t - (bar(13) + BEAT * 3)) / (BEAT * 1.5))); $('c13').style.opacity = step >= 0 ? 1 : 0; $('c13').style.transform = `translateX(${Math.max(0, step) * 229.6}px)`;
+    fadeUp($('st13'), t, bar(15), 0.5); fadeUp($('st13b'), t, bar(15) + BEAT, 0.5);
+    // 14 riser: "Then it's live." over the hook page rushing in
+    kb($('z14'), t, bar(16), bar(17), { s: 0.62, x: 960, y: 540 }, { s: 0.98, x: 960, y: 540 }, inCubic); $('veil14').style.opacity = 0.75 - 0.6 * inCubic(prog(t, bar(16), BAR));
+    words($('k14'), t, bar(16) + 0.02, BEAT * 0.6, 0.4, 60);
+    // 15 drop 2: hook page, LIVE pill
+    kb($('z15'), t, bar(17), bar(18), { s: 1.16, x: 960, y: 520 }, { s: 1.0, x: 960, y: 540 }, outExpo); callout($('c15'), t, bar(17) + BEAT); cap($('cap15'), t, bar(17) + 0.05);
+    // 16 addresses
+    kb($('z16'), t, bar(18), bar(19), { s: 1.5, x: 703, y: 330 }, { s: 1.6, x: 703, y: 310 }); callout($('c16'), t, bar(18) + BEAT); cap($('cap16'), t, bar(18) + 0.05);
+    // 17 owner controls
+    kb($('z17'), t, bar(19), bar(20), { s: 1.4, x: 960, y: 350 }, { s: 1.5, x: 900, y: 330 }); callout($('c17'), t, bar(19) + BEAT); cap($('cap17'), t, bar(19) + 0.05);
+    // 18 open the pool
+    kb($('z18'), t, bar(20), bar(21), { s: 1.3, x: 960, y: 560 }, { s: 1.38, x: 960, y: 600 }); cap($('cap18'), t, bar(20) + 0.05);
+    // 19 my hooks
+    kb($('z19'), t, bar(21), bar(22), { s: 1.3, x: 960, y: 705 }, { s: 1.36, x: 960, y: 700 }); callout($('c19'), t, bar(21) + BEAT); cap($('cap19'), t, bar(21) + 0.05);
+    // 20 promotions: type the deposit, cursor to Promote
+    kb($('z20'), t, bar(22), bar(23), { s: 1.6, x: 960, y: 775 }, { s: 1.7, x: 900, y: 790 });
+    typeInto($('ty20'), '0.5', t, bar(22) + 0.2, 0.5); const click20 = bar(22) + 3 * BEAT; cursorTo($('cur20'), t, bar(22) + BEAT, click20 - 0.05, { x: 300, y: -140 }, { x: 0, y: 0 }, click20); callout($('c20'), t, click20); cap($('cap20'), t, bar(22) + 0.05);
+    // 21 featured band
+    kb($('z21'), t, bar(23), bar(24), { s: 1.5, x: 960, y: 380 }, { s: 1.6, x: 900, y: 390 }); callout($('c21'), t, bar(23) + BEAT); cap($('cap21'), t, bar(23) + 0.05);
+    // 22 catalog with proven pills
+    kb($('z22'), t, bar(24), bar(25), { s: 1.3, x: 1084, y: 430 }, { s: 1.4, x: 1084, y: 400 }); [['c22a', 0], ['c22b', 1], ['c22c', 2]].forEach(([id, i]) => callout($(id), t, bar(24) + BEAT * (0.5 + i * 0.5))); cap($('cap22'), t, bar(24) + 0.05);
+    // 23 close
+    const s7 = prog(t, bar(25), 1.4); $('comet7').style.transform = `translateX(${s7 * 2300}px) translateY(${Math.sin(s7 * Math.PI) * -220}px)`; $('comet7').style.opacity = s7 > 0 && s7 < 1 ? 1 : 0;
+    $('hook7').style.transform = `translateY(${Math.sin(t * 1.4) * 6}px)`; fadeUp($('wm7'), t, bar(25) + 0.1, 0.5); words($('k7'), t, bar(25) + 0.15, 0.14, 0.6, 70); fadeUp($('url7'), t, bar(25) + 1.0, 0.6);
+    const base = RENDER ? 1 : box.clientWidth / 1920; stage.style.transform = `scale(${base * (1 + 0.03 * punch)})`; stage.style.transformOrigin = RENDER ? '960px 540px' : '0 0';
+  }
+  let t = 0, playing = false, last = 0;
+  function tick(now) { if (!playing) return; const dt = Math.min(0.1, (now - last) / 1000); last = now; t += dt; if (t >= DUR) { t = DUR; playing = false; $('play').textContent = 'Play'; } render(t); sync(); if (playing) requestAnimationFrame(tick); }
+  function sync() { $('scrub').value = t.toFixed(2); $('clock').textContent = t.toFixed(1) + ' / ' + DUR.toFixed(1) + ' s'; }
+  $('play').addEventListener('click', () => { if (t >= DUR) t = 0; playing = !playing; $('play').textContent = playing ? 'Pause' : 'Play'; if (playing) { last = performance.now(); requestAnimationFrame(tick); } });
+  $('replay').addEventListener('click', () => { t = 0; playing = true; $('play').textContent = 'Pause'; last = performance.now(); requestAnimationFrame(tick); });
+  $('scrub').addEventListener('input', e => { t = parseFloat(e.target.value); render(t); sync(); });
+  window.addEventListener('resize', () => render(t)); render(0); sync();
+  window.__setTime = s => { t = s; render(t); }; window.__ready = true;
+})();
+</script>
