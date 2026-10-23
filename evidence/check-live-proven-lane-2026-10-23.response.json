@@ -1,0 +1,1 @@
+{"action":"launch.open","kind":"hook","plan":[],"facts":[],"judged":true,"blockers":[{"code":"audit_required","detail":"a launch from your own repository starts with an audit of it as it arrived: add an audit-imported-code step before it is adapted"}],"suggestions":[]}
